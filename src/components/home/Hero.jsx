@@ -1,3 +1,6 @@
+import Image from 'next/image'
+
+
 export default function Hero() {
   return (
     <section className="bg-slate-900 text-white py-28">
@@ -12,6 +15,16 @@ export default function Hero() {
           con funciones catastrales de los países
           iberoamericanos desde el año 2006.
         </p>
+
+
+       
+
+        
+      </div>
+         <div className="max-w-6xl mx-auto px-6 text-center">
+        
+
+        
       </div>
     </section>
   );

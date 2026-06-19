@@ -57,15 +57,12 @@ export default function Objectives() {
           </h2>
 
           <p className="mt-6 text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            El Comité Permanente sobre el Catastro en Iberoamérica promueve la
-            cooperación, el intercambio de conocimiento y la modernización de
-            los sistemas catastrales para contribuir al desarrollo territorial
-            sostenible de la región.
+           Transformar datos crudos de bases espaciales en herramientas de decisión estratégica.
           </p>
         </div>
 
         {/* Tarjetas */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-2">
           {objectives.map((objective) => (
             <div
               key={objective.title}
