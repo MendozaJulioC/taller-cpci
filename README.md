@@ -63,34 +63,129 @@ Desarrollar una plataforma web moderna para la gestión y difusión de informaci
 # Estructura del Proyecto
 
 ```text
-taller-cpci/
+# Estructura del Proyecto
+
+```text
+tallercpci/
 │
-├── client/
-│   ├── public/
-│   └── src/
-│       ├── app/
-│       ├── components/
-│       ├── context/
-│       ├── hooks/
-│       ├── services/
-│       ├── styles/
-│       └── utils/
+├── public/
+│   ├── images/
+│   ├── icons/
+│   └── logo/
 │
-├── server/
-│   └── src/
-│       ├── config/
-│       ├── controllers/
-│       ├── middlewares/
-│       ├── models/
-│       ├── routes/
-│       ├── services/
-│       └── utils/
+├── src/
+│   │
+│   ├── app/
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.js
+│   │   └── page.js
+│   │
+│   ├── assets/
+│   │
+│   ├── components/
+│   │   ├── home/
+│   │   └── layout/
+│   │
+│   ├── contexts/
+│   │
+│   ├── hooks/
+│   │
+│   ├── services/
+│   │
+│   └── utils/
 │
-├── docs/
-│
+├── .gitignore
+├── AGENTS.md
+├── CLAUDE.md
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── package-lock.json
 └── README.md
 ```
 
+## Descripción de Directorios
+
+### public/
+
+Contiene los recursos estáticos de la aplicación:
+
+* Imágenes
+* Iconos
+* Logos institucionales
+* Archivos descargables
+
+### src/app/
+
+Contiene la configuración principal de Next.js utilizando App Router:
+
+* `layout.js`: Layout principal de la aplicación.
+* `page.js`: Página de inicio.
+* `globals.css`: Estilos globales.
+* `favicon.ico`: Ícono de la aplicación.
+
+### src/assets/
+
+Recursos utilizados por los componentes:
+
+* Imágenes
+* SVG
+* Recursos gráficos
+
+### src/components/
+
+Componentes reutilizables de la aplicación.
+
+#### home/
+
+Componentes específicos de la página principal:
+
+* Hero
+* About
+* Objectives
+* History
+* Countries
+
+#### layout/
+
+Componentes estructurales:
+
+* Header
+* Footer
+* Navbar
+
+### src/contexts/
+
+Contextos globales de React para compartir estados entre componentes.
+
+### src/hooks/
+
+Hooks personalizados de React.
+
+### src/services/
+
+Servicios para comunicación con APIs externas o internas.
+
+### src/utils/
+
+Funciones auxiliares reutilizables.
+
+## Arquitectura
+
+La aplicación está desarrollada utilizando:
+
+* React
+* Next.js (App Router)
+* JavaScript
+* Tailwind CSS
+* Axios
+* Zustand
+* React Icons
+* Ant Design
+
+Actualmente el proyecto funciona únicamente con Next.js y está preparado para desplegarse directamente en Vercel.
 ---
 
 # Instalación
