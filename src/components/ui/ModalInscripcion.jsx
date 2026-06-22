@@ -21,17 +21,17 @@ export default function ModalInscripcion({ isOpen, onClose }) {
       <div className="bg-gradient-to-b from-slate-50 to-white rounded-2xl border border-slate-200/60 shadow-2xl w-full max-w-3xl overflow-hidden">
         
         {/* Header compacto */}
-        <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700">
+        <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-blue-400 to-blue-700">
           <Image
             src="/Img/logocpci.png"
             alt="Logo CPCI"
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="rounded-lg object-contain bg-white/10 p-0.5"
           />
           <div>
-            <h2 className="text-sm font-semibold text-white leading-tight">Inscripción al taller</h2>
-            <p className="text-[11px] text-blue-100 leading-tight">Taller CPCI · Visualización Avanzada con Power BI</p>
+            <h2 className="text-sm font-bold text-gray leading-tight">Inscripción al taller</h2>
+            <p className="text-[11px] font-bold text-gray leading-tight">Taller CPCI · Visualización Avanzada con Power BI</p>
           </div>
           <button
             onClick={onClose}
