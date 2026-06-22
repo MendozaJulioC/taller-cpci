@@ -5,6 +5,8 @@ import {
   FaHandshake,
   FaExchangeAlt,
   FaChartLine,
+  FaLinkedinIn, 
+  FaGithub
 } from "react-icons/fa";
 
 export default function About() {
@@ -148,8 +150,36 @@ export default function About() {
         <p className="text-sm text-gray-600 mt-1">Máster UPC. Docente en UPB, UdeA y EIA, y conferencista internacional en ciudades inteligentes.</p>
       </div>
     </div>
-  </div>
+<div className="flex flex-row items-center gap-6 mt-8">
+  <a 
+    href="https://www.linkedin.com/in/jordi-guerrero-55b84015/" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-2 text-slate-600 hover:text-blue-700 transition-colors duration-200 group"
+  >
+    <div className="p-1.5 bg-slate-100 rounded-md group-hover:bg-blue-50 transition-colors">
+      <FaLinkedinIn className="size-4 text-slate-600 group-hover:text-blue-700" />
+    </div>
+    <span className="text-sm font-medium">LinkedIn</span>
+  </a>
+
+  <a 
+    href="https://github.com/jgeograf" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-2 text-slate-600 hover:text-gray-900 transition-colors duration-200 group"
+  >
+    <div className="p-1.5 bg-slate-100 rounded-md group-hover:bg-gray-200 transition-colors">
+      <FaGithub className="size-4 text-slate-600 group-hover:text-gray-900" />
+    </div>
+    <span className="text-sm font-medium">GitHub</span>
+  </a>
 </div>
+
+  </div>
+  
+</div>
+
       </div>
 
     </section>
