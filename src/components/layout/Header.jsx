@@ -40,14 +40,8 @@ export default function Header() {
           <Link href="/" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
             Home
           </Link>
-          <Link href="/#about" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
-            About
-          </Link>
           <Link href="/countries" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
             Countries
-          </Link>
-          <Link href="/#objectives" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
-            Objectives
           </Link>
           <Link href="/#catastro" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
             Catastro
@@ -83,9 +77,7 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden border-t border-slate-100 bg-white px-6 py-5 flex flex-col gap-4 shadow-lg animate-fadeIn">
           <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Home</Link>
-          <Link href="/#about" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">About</Link>
           <Link href="/#countries" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Countries</Link>
-          <Link href="/#objectives" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Objectives</Link>
           <Link href="/#catastro" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Catastro</Link>
           <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Talleres</Link>
           <Link 
