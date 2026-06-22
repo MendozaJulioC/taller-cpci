@@ -21,7 +21,7 @@ export default function ModalInscripcion({ isOpen, onClose }) {
       <div className="bg-gradient-to-b from-slate-50 to-white rounded-2xl border border-slate-200/60 shadow-2xl w-full max-w-[95vw] sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl overflow-hidden">
         
         {/* Header compacto - responsive */}
-        <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-blue-700 to-blue-400">
+        <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-blue-800 to-blue-400">
           <Image
             src="/Img/logocpci.png"
             alt="Logo CPCI"
