@@ -1,13 +1,22 @@
-"use client";
-import Image from "next/image";
-import React, { useState } from "react";
+'use client'
+import Image from 'next/image';
+
+
+
+
+
+
+import React, { useState } from 'react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="bg-slate-900 border-b border-slate-800/50 sticky top-0 z-50 backdrop-blur-md bg-slate-900/90">
+    <header className="bg-slate-50 border-b border-slate-200 sticky top-0 z-50 backdrop-blur-md bg-slate-50/90">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
         <div>
+      
+
           <p className="text-sm text-slate-500">
             <Image
               src="/Img/logocpci.png"
@@ -17,7 +26,9 @@ export default function Header() {
             />
           </p>
         </div>
+        
 
+        
         {/* Logo / Identificación institucional */}
         <div className="flex flex-col justify-center">
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -29,62 +40,45 @@ export default function Header() {
           </p>
         </div>
 
-        {/* Navegación para escritorio */}
+        {/* Navegación para escritorio usando <Link /> de Next.js */}
         <nav className="hidden md:flex items-center gap-8">
-          <a
-            href="#about"
-            className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-          >
+          <a href="#about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
             About
           </a>
-          <a
-            href="#countries"
-            className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-          >
+          <a href="#countries" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
             Countries
           </a>
-          <a
-            href="#history"
-            className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-          >
+          <a href="#history" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
             History
           </a>
-          <a
-            href="#objectives"
-            className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-          >
+          <a href="#objectives" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
             Objectives
           </a>
-
-          <a
-            href="#taller"
-            className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-          >
+          <a href="#catastro" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
+            Catastro
+          </a>
+          <a href="#taller" className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200">
             Taller
           </a>
-          <a
-            href="#contacto"
+          <a 
+            href="#contacto" 
             className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-blue-500/20 shadow-blue-500/10"
           >
             Contacto
-          </a>
+          </Link>
         </nav>
 
         {/* Botón de menú hamburguesa para móviles */}
+   
 
-        <div>
-          <p className="py-24 text-sm text-slate-500">
-            <Image
-              src="/Img/logo_nav_footer.png"
-              alt="Picture of the author"
-              width={180}
-              height={180}
-            />
-          </p>
-        </div>
       </div>
 
-
+      {/* Menú desplegable para móviles */}
+ 
     </header>
   );
 }
+
+
+
+ 

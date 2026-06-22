@@ -15,10 +15,6 @@ export default function Hero() {
           con funciones catastrales de los países
           iberoamericanos desde el año 2006.
         </p>
-
-
-       
-
         
       </div>
          <div className="max-w-6xl mx-auto px-6 text-center">
