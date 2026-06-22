@@ -7,11 +7,9 @@ import Footer from "@/components/layout/Footer";
 export default function HomePage() {
   return (
     <>
-      <Header />
       <Hero />
       <About />
       <Objectives />
-      <Footer />
     </>
   );
 }
