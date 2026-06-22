@@ -56,7 +56,7 @@ export default function Header() {
             Catastro
           </Link>
           <Link href="/taller" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
-            Taller
+            Talleres
           </Link>
           <Link 
             href="/#contacto" 
@@ -91,7 +91,7 @@ export default function Header() {
           <Link href="/#history" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">History</Link>
           <Link href="/#objectives" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Objectives</Link>
           <Link href="/#catastro" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Catastro</Link>
-          <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Taller</Link>
+          <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Talleres</Link>
           <Link 
             href="/#contacto" 
             onClick={() => setIsOpen(false)}
