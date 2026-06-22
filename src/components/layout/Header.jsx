@@ -18,13 +18,17 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <div>
               <p className="text-sm text-slate-500">
-                <Image
-                  src="/Img/logocpci.png"
-                  alt="Logo CPCI"
-                  width={100}
-                  height={100}
-                  priority
-                />
+             <Image
+                src="/Img/logocpci.png"
+                alt="Logo CPCI"
+                width={100}      // Valor base
+                height={100}     // Valor base
+                style={{ 
+                  width: 'auto', 
+                  height: 'auto' 
+                }}
+                className="object-contain" // Asegura que no se deforme
+              />
               </p>
             </div>
             

@@ -36,21 +36,45 @@ export default function About() {
   ];
 
   return (
-    <section className="py-24 bg-slate-50/50">
+    <section className="py-2 bg-slate-50/50">
 
       {/* Encabezado superior */}
-      <div className="max-w-6xl mx-auto px-6 mb-16 text-center">
-        <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-blue-50 border border-blue-100 text-blue-700 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-          CPCI
-        </span>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Taller 1: Visualización Avanzada
-        </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
-          Transforma datos crudos de bases espaciales en herramientas de decisión estratégica con Power BI y ArcGIS.
-        </p>
-      </div>
+  <section className="relative w-full py-10 bg-slate-50 border-b border-slate-200">
+  <div className="max-w-5xl mx-auto px-6 text-center">
+    
+    {/* Etiqueta de evento */}
+    <span className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
+      <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+      Evento Oficial CPCI
+    </span>
+
+    {/* Título */}
+    <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+      Taller 1: Visualización Avanzada para Catastro
+    </h1>
+
+    {/* Subtítulo */}
+    <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
+      Lleva tus datos catastrales a tableros estratégicos con Power BI y ArcGIS.
+    </p>
+
+    {/* Contexto */}
+    <p className="text-base text-slate-500 mb-10 max-w-2xl mx-auto">
+      Dirigido a instituciones catastrales iberoamericanas, equipos GIS y analistas de datos territoriales.
+    </p>
+
+    {/* Botón */}
+    <div className="flex justify-center gap-4">
+      <a 
+        href="#inscripciones" 
+        className="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95"
+      >
+        Inscríbete ahora
+      </a>
+    </div>
+
+  </div>
+</section>
 
       {/* Sección de Actividades */}
       <div className="max-w-7xl mx-auto px-6">
