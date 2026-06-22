@@ -34,13 +34,12 @@ export default function About() {
        
       ];
   return (
-  
     <section className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-slate-900 mb-8 text-center">
           Taller 1: Visualización Avanzada con Power BI
         </h2>
-  <div className="text-center mb-16">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
             CPCI
           </span>
@@ -50,21 +49,17 @@ export default function About() {
           </h2>
 
           <p className="mt-6 text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-           Transformar datos crudos de bases espaciales en herramientas de decisión estratégica.
+            Transformar datos crudos de bases espaciales en herramientas de
+            decisión estratégica.
           </p>
         </div>
-     
       </div>
       <div className="max-w-7xl mx-auto px-6">
         {/* Encabezado */}
         <div className="text-center mb-16">
-     
-
           <h2 className="text-4xl md:text-4xl font-bold text-slate-900">
             Actividades
           </h2>
-
-       
         </div>
 
         {/* Tarjetas */}
@@ -85,28 +80,68 @@ export default function About() {
                 duration-300
               "
             >
-              <div className="mb-5">
-                {objective.icon}
-              </div>
-   
+              <div className="mb-5">{objective.icon}</div>
+
               <h3 className="text-xl font-semibold text-slate-900 mb-4">
-                
                 {objective.title}
               </h3>
 
               <p className="text-slate-600 leading-relaxed">
-                    <span className='font-bold'>Dinámica: </span> 
+                <span className="font-bold">Dinámica: </span>
                 {objective.description}
               </p>
-              <span className='font-bold'>Reto: </span> 
-                <p className="text-slate-600 leading-relaxed">
-                {objective.reto}
-              </p>
+              <span className="font-bold">Reto: </span>
+              <p className="text-slate-600 leading-relaxed">{objective.reto}</p>
             </div>
           ))}
         </div>
+
+   <div className="mt-20 flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm">
+  
+  {/* Imagen */}
+  <div className="flex-shrink-0">
+    <img
+      alt="Jordi Guerrero Martínez"
+      src="https://media.licdn.com/dms/image/v2/D4D03AQH25_FkQQx6JQ/profile-displayphoto-shrink_800_800/B4DZVSyuinHIAc-/0/1740850785102?e=1783555200&v=beta&t=Ws9U7TE4k8XLhq7BU4ORkECNWdemYgcHvDb54fCcOT4"
+      className="size-48 md:size-60 rounded-full object-cover border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400"
+    />
+  </div>
+
+  {/* Información */}
+  <div className="flex flex-col text-left">Nuesto facilitador..
+    <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
+      Jordi Guerrero Martínez
+    </h2>
+    <p className="text-lg font-semibold text-blue-600 mb-4">
+      Especialista en Infraestructura Geoespacial y Gemelos Digitales
+    </p>
+    
+    <p className="text-gray-700 leading-relaxed mb-6">
+      Líder estratégico con más de 20 años de experiencia transformando datos complejos en activos de decisión para los sectores público y privado. Pionero en la implementación del primer Gemelo Digital en Colombia y experto en transformación digital urbana mediante arquitecturas ArcGIS Enterprise, analítica avanzada y Python.
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <h4 className="font-bold text-slate-800">Gestión Pública y Urbana</h4>
+        <p className="text-sm text-gray-600 mt-1">Experto en consultoría estratégica para Smart Cities, interoperabilidad y contratación pública tecnológica.</p>
       </div>
-        
+      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <h4 className="font-bold text-slate-800">Experiencia Técnica</h4>
+        <p className="text-sm text-gray-600 mt-1">Especialista en BI (Power BI/Tableau), PostgreSQL/PostGIS y metodologías ágiles (SCRUM).</p>
+      </div>
+      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <h4 className="font-bold text-slate-800">Trayectoria Institucional</h4>
+        <p className="text-sm text-gray-600 mt-1">Liderazgo en la Alcaldía de Medellín, destacando la reingeniería de GeoMedellín y modelado 3D.</p>
+      </div>
+      <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <h4 className="font-bold text-slate-800">Formación y Docencia</h4>
+        <p className="text-sm text-gray-600 mt-1">Máster UPC. Docente en UPB, UdeA y EIA, y conferencista internacional en ciudades inteligentes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+  
     </section>
   );
 }
