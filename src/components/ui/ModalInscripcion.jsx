@@ -5,12 +5,66 @@ import Image from 'next/image';
 export default function ModalInscripcion({ isOpen, onClose }) {
   const [tableau, setTableau] = useState('');
   const [enviado, setEnviado] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    nombres: '',
+    apellidos: '',
+    correo_electronico: '',
+    telefono: '',
+    cargo: '',
+    pais: '',
+    organizacion: '',
+    tiene_power_bi: '',
+    usa_otro_bi: '',
+    otro_bi_nombre: '',
+    tiene_arcgis_online: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setEnviado(true);
+    console.log("FORMDATA:", formData);
+
+    try {
+      setLoading(true);
+
+      const response = await fetch('/api/inscripciones', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al registrar inscripción');
+      }
+
+      setEnviado(true);
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        error.message ||
+        'No fue posible completar la inscripción'
+      );
+
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -64,6 +118,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Nombres *</label>
                       <input
                         type="text"
+                        name="nombres"
+                        value={formData.nombres}
+                        onChange={handleChange}
                         required
                         placeholder="Ej. María"
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
@@ -73,6 +130,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Apellidos *</label>
                       <input
                         type="text"
+                        name="apellidos"
+                        value={formData.apellidos}
+                        onChange={handleChange}
                         required
                         placeholder="Ej. González"
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
@@ -85,6 +145,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Correo electrónico *</label>
                       <input
                         type="email"
+                        name="correo_electronico"
+                        value={formData.correo_electronico}
+                        onChange={handleChange}
                         required
                         placeholder="correo@org.com"
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
@@ -94,6 +157,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Teléfono</label>
                       <input
                         type="tel"
+                        name="telefono"
+                        value={formData.telefono}
+                        onChange={handleChange}
                         placeholder="+57 300 000 0000"
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
                       />
@@ -113,6 +179,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Cargo</label>
                       <input
                         type="text"
+                        name="cargo"
+                        value={formData.cargo}
+                        onChange={handleChange}
                         placeholder="Ej. Analista GIS"
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
                       />
@@ -120,6 +189,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                     <div className="flex flex-col gap-1">
                       <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">País *</label>
                       <select
+                        name="pais"
+                        value={formData.pais}
+                        onChange={handleChange}
                         required
                         className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
                       >
@@ -138,6 +210,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                     <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Organización</label>
                     <input
                       type="text"
+                      name="organizacion"
+                      value={formData.organizacion}
+                      onChange={handleChange}
                       placeholder="Nombre de tu institución u organización"
                       className="border border-slate-300 rounded-lg px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
                     />
@@ -150,43 +225,76 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                 <div className="space-y-2.5 sm:space-y-3">
                   <div className="flex items-center gap-1.5 mb-1">
                     <div className="w-1 h-2.5 sm:h-3 bg-purple-500 rounded-full"></div>
-                    <h3 className="text-[10px] sm:text-[11px] lg:text-xs font-semibold text-slate-600 uppercase tracking-wider">Herramientas Técnicas</h3>
+                    <h3 className="text-[10px] sm:text-[11px] lg:text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Herramientas Técnicas
+                    </h3>
                   </div>
 
                   {/* Power BI */}
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Cuentas con Power BI?</p>
-                    <div className="flex gap-2">
-                      {['Sí', 'No'].map(op => (
-                        <label key={op} className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center">
-                          <input type="radio" name="powerbi" value={op} className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                          {op}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
+                      ¿Cuentas con Power BI?
+                    </p>
 
-                  {/* Tableau / Otro BI */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Usas otro software BI?</p>
-                    <div className="flex gap-2 mb-2">
-                      {['Sí', 'No'].map(op => (
-                        <label key={op} className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center">
+                    <div className="flex gap-2">
+                      {["Sí", "No"].map((op) => (
+                        <label
+                          key={op}
+                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                        >
                           <input
                             type="radio"
-                            name="tableau"
-                            value={op}
+                            name="tiene_power_bi"
+                            value={op === "Sí"}
+                            checked={
+                              formData.tiene_power_bi === String(op === "Sí")
+                            }
+                            onChange={handleChange}
                             className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
-                            onChange={() => setTableau(op)}
                           />
                           {op}
                         </label>
                       ))}
                     </div>
-                    {tableau === 'Sí' && (
+                  </div>
+
+                  {/* Otro Software BI */}
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
+                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
+                      ¿Usas otro software BI?
+                    </p>
+
+                    <div className="flex gap-2 mb-2">
+                      {["Sí", "No"].map((op) => (
+                        <label
+                          key={op}
+                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                        >
+                          <input
+                            type="radio"
+                            name="usa_otro_bi"
+                            value={op === "Sí"}
+                            checked={
+                              formData.usa_otro_bi === String(op === "Sí")
+                            }
+                            onChange={(e) => {
+                              handleChange(e);
+                              setTableau(op);
+                            }}
+                            className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
+                          />
+                          {op}
+                        </label>
+                      ))}
+                    </div>
+
+                    {tableau === "Sí" && (
                       <div className="animate-fadeIn">
                         <input
                           type="text"
+                          name="otro_bi_nombre"
+                          value={formData.otro_bi_nombre}
+                          onChange={handleChange}
                           placeholder="¿Cuál software usas?"
                           className="w-full border border-blue-200 rounded-md px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
                         />
@@ -196,11 +304,26 @@ export default function ModalInscripcion({ isOpen, onClose }) {
 
                   {/* ArcGIS */}
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Tienes cuenta de ArcGIS Online?</p>
+                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
+                      ¿Tienes cuenta de ArcGIS Online?
+                    </p>
+
                     <div className="flex gap-2">
-                      {['Sí', 'No'].map(op => (
-                        <label key={op} className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center">
-                          <input type="radio" name="arcgis" value={op} className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      {["Sí", "No"].map((op) => (
+                        <label
+                          key={op}
+                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                        >
+                          <input
+                            type="radio"
+                            name="tiene_arcgis_online"
+                            value={op === "Sí"}
+                            checked={
+                              formData.tiene_arcgis_online === String(op === "Sí")
+                            }
+                            onChange={handleChange}
+                            className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
+                          />
                           {op}
                         </label>
                       ))}
@@ -211,7 +334,10 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                   <div className="bg-amber-50/80 border border-amber-200/60 rounded-lg p-2 sm:p-2.5">
                     <p className="text-[10px] sm:text-[11px] lg:text-xs text-amber-800 flex items-start gap-1.5 leading-relaxed">
                       <span className="text-amber-500 mt-0.5 text-xs">💡</span>
-                      <span>No necesitas tener todas las herramientas. El taller se adapta a tu nivel.</span>
+                      <span>
+                        No necesitas tener todas las herramientas. El taller se adapta a tu
+                        nivel.
+                      </span>
                     </p>
                   </div>
                 </div>
