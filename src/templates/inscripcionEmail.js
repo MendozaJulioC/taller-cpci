@@ -1,12 +1,13 @@
 export const inscripcionTemplate = ({
   nombres,
   apellidos,
+  username,
   evento = "Taller CPCI: Visualización Avanzada con herramientas BI",
-  fechaRegistro = new Date().toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
+  fechaRegistro = new Date().toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
 }) => `
   <!DOCTYPE html>
   <html>
@@ -50,9 +51,15 @@ export const inscripcionTemplate = ({
                   ¡Inscripción exitosa, ${nombres} ${apellidos || ''}!
                 </h2>
 
-                <p style="color: #4a5568; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-                  Nos complace informarle que su inscripción al <strong>${evento}</strong> 
-                  ha sido recibida y procesada correctamente.
+                <p style="color:#4a5568;font-size:16px;line-height:1.7;margin-bottom:20px;">
+                  Nos complace informarle que su inscripción al
+                  <strong>${evento}</strong>
+                  ha sido registrada correctamente.
+                </p>
+
+                <p style="color:#4a5568;font-size:16px;line-height:1.7;">
+                  Desde este momento ya dispone de una cuenta para acceder a la
+                  plataforma de formación del CPCI.
                 </p>
 
                 <div style="background-color: #f8faff; border-left: 4px solid #2a5f8a; padding: 20px 25px; margin: 25px 0; border-radius: 4px;">
@@ -62,16 +69,83 @@ export const inscripcionTemplate = ({
                   </p>
                 </div>
 
-                <p style="color: #4a5568; font-size: 16px; line-height: 1.6; margin-bottom: 15px;">
-                  En los próximos días hábiles recibirá información detallada sobre:
-                </p>
+                <div
+                  style="
+                    background:#f8faff;
+                    border:2px solid #dbeafe;
+                    border-radius:10px;
+                    padding:24px;
+                    margin:30px 0;
+                  "
+                >
 
-                <ul style="color: #4a5568; font-size: 15px; line-height: 1.8; padding-left: 20px; margin-bottom: 25px;">
-                  <li>Acceso a la plataforma virtual</li>
-                  <li>Agenda completa del taller</li>
-                  <li>Materiales de trabajo y recursos adicionales</li>
-                  <li>Instrucciones técnicas para la participación</li>
-                </ul>
+                  <h3
+                    style="
+                      margin-top:0;
+                      color:#1a3a5c;
+                      font-size:18px;
+                    "
+                  >
+                    Datos de acceso a la plataforma
+                  </h3>
+
+                  <p style="margin:10px 0;font-size:15px;color:#2d3748;">
+                    <strong>Usuario:</strong>
+                    <span
+                      style="
+                        background:#eaf2ff;
+                        padding:6px 10px;
+                        border-radius:6px;
+                        font-family:monospace;
+                        font-size:16px;
+                      "
+                    >
+                      ${username}
+                    </span>
+                  </p>
+
+                  <p style="margin:15px 0;color:#2d3748;">
+                    <strong>Contraseña:</strong>
+                    Es la misma contraseña que registró durante su inscripción.
+                  </p>
+
+                </div>
+
+                <div style="text-align:center;margin:35px 0;">
+                  <a
+                    href="https://taller-cpci.vercel.app/"
+                    style="
+                      display:inline-block;
+                      background:#2563eb;
+                      color:white;
+                      text-decoration:none;
+                      padding:16px 34px;
+                      border-radius:8px;
+                      font-size:16px;
+                      font-weight:bold;
+                    "
+                  >
+                    Ingresar a la plataforma
+                  </a>
+                </div>
+
+                <p style="color:#4a5568;font-size:16px;line-height:1.7;">
+                  Al ingresar a la plataforma podrá:
+                  </p>
+
+                  <ul
+                    style="
+                      color:#4a5568;
+                      line-height:1.8;
+                      font-size:15px;
+                    "
+                  >
+                    <li>Acceder a los talleres disponibles.</li>
+                    <li>Consultar el material de estudio.</li>
+                    <li>Descargar recursos complementarios.</li>
+                    <li>Visualizar los videos y ejercicios prácticos.</li>
+                    <li>Realizar las actividades propuestas durante el taller.</li>
+                  </ul>
 
                 <div style="background-color: #f0f7ff; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
                   <p style="margin: 0; color: #1a3a5c; font-size: 14px;">
@@ -83,6 +157,26 @@ export const inscripcionTemplate = ({
                 </div>
               </td>
             </tr>
+
+            <div
+              style="
+                background:#fff8e1;
+                border-left:5px solid #f59e0b;
+                padding:18px;
+                border-radius:6px;
+                margin-top:30px;
+              "
+            >
+
+            <p style="margin:0;color:#7c5700;font-size:14px;line-height:1.7;">
+            <strong>Recomendación de seguridad:</strong><br><br>
+
+            Conserve este correo, ya que contiene su nombre de usuario de acceso.
+            Por motivos de seguridad, la contraseña no se envía por correo electrónico.
+            Utilice la misma contraseña que registró durante el proceso de inscripción.
+            </p>
+
+            </div>
 
             <!-- FOOTER -->
             <tr>

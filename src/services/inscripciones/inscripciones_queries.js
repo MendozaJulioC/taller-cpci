@@ -13,9 +13,24 @@ export const getInscripcionByEmail = async (correo) => {
   return result.rows[0];
 };
 
+export const getUsername = async (username) => {
+  const query = `
+    SELECT id
+    FROM taller_cpci.inscripciones
+    WHERE username = $1
+    LIMIT 1
+  `;
+
+  const result = await dblocal.query(query, [username]);
+
+  return result.rows[0];
+};
+
 export const createInscripcion = async (data) => {
   const query = `
     INSERT INTO taller_cpci.inscripciones (
+        username,
+        password_hash,
         nombres,
         apellidos,
         correo_electronico,
@@ -30,12 +45,14 @@ export const createInscripcion = async (data) => {
         session_id
     )
     VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14
     )
     RETURNING *;
   `;
 
   const values = [
+    data.username,
+    data.password_hash,
     data.nombres,
     data.apellidos,
     data.correo_electronico,

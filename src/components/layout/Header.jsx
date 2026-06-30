@@ -1,16 +1,23 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
+import ModalLogin from "@/components/login/ModalLogin";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [menuUsuario, setMenuUsuario] = useState(false);
+
+  const { usuario, logout } = useAuth();
 
   return (
     <>
       <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
       <header className="bg-slate-50 border-b border-slate-200 sticky top-0 z-40 backdrop-blur-md bg-slate-50/90">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           
@@ -56,27 +63,80 @@ export default function Header() {
               Talleres
             </Link>
             {/* Botón Inscripciones — reemplaza donde lo tengas */}
-            <button
-              onClick={() => setModalOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-            >
-              Inscripciones
-            </button>
           </nav>
           {/* Botón de menú hamburguesa para móviles */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-slate-700 hover:text-blue-600 focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+          <div className="flex items-center gap-3 relative">
+            <button
+                onClick={() => setModalOpen(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+            >
+                Inscripciones
+            </button>
+
+            {!usuario ? (
+
+                <button
+                    onClick={() => setLoginOpen(true)}
+                    className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold transition"
+                >
+                    Iniciar sesión
+                </button>
+
+            ) : (
+
+                <div className="relative">
+                    <button
+                        onClick={() =>
+                            setMenuUsuario(!menuUsuario)
+                        }
+                        className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-slate-100"
+                    >
+                        Hola, {usuario.nombres}
+
+                        <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </button>
+
+                    {menuUsuario && (
+
+                        <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border">
+                            <button
+                                className="w-full text-left px-4 py-3 hover:bg-slate-50"
+                            >
+                                👤 Mi perfil
+                            </button>
+
+                            <button
+                                className="w-full text-left px-4 py-3 hover:bg-slate-50"
+                            >
+                                📚 Mis talleres
+                            </button>
+                            <hr />
+                            <button
+                                onClick={() => {
+                                    logout();
+                                    setMenuUsuario(false);
+                                }}
+                                className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
+                            >
+                                🚪 Cerrar sesión
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
         </div>
 
         {/* Menú desplegable para móviles */}

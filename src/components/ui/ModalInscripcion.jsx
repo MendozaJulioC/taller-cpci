@@ -8,6 +8,8 @@ export default function ModalInscripcion({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
+    password: '',
+    confirmPassword: '',
     nombres: '',
     apellidos: '',
     correo_electronico: '',
@@ -33,35 +35,81 @@ export default function ModalInscripcion({ isOpen, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("FORMDATA:", formData);
+
+    // Validar que las contraseñas coincidan de forma estricta
+    if (formData.password !== formData.confirmPassword) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+
+    if (!passwordRegex.test(formData.password)) {
+      alert(
+        "La contraseña debe tener mínimo 8 caracteres, una letra y un número."
+      );
+      return;
+    }
+
+    console.log({
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+    });
+
+    const { confirmPassword, ...rest } = formData;
+
+    const dataToSend = {
+      ...rest,
+      tiene_power_bi: formData.tiene_power_bi === "Sí",
+      usa_otro_bi: formData.usa_otro_bi === "Sí",
+      tiene_arcgis_online: formData.tiene_arcgis_online === "Sí",
+    };
 
     try {
       setLoading(true);
 
-      const response = await fetch('/api/inscripciones', {
-        method: 'POST',
+      const response = await fetch("/api/inscripciones", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Error al registrar inscripción');
+        throw new Error(
+          data.message || "Error al registrar inscripción"
+        );
       }
 
       setEnviado(true);
 
+      // Limpiar el formulario
+      setFormData({
+        password: "",
+        confirmPassword: "",
+        nombres: "",
+        apellidos: "",
+        correo_electronico: "",
+        telefono: "",
+        cargo: "",
+        pais: "",
+        organizacion: "",
+        tiene_power_bi: "",
+        usa_otro_bi: "",
+        otro_bi_nombre: "",
+        tiene_arcgis_online: "",
+      });
+
+      setTableau("");
+
     } catch (error) {
       console.error(error);
-
       alert(
-        error.message ||
-        'No fue posible completar la inscripción'
+        error.message || "No fue posible completar la inscripción"
       );
-
     } finally {
       setLoading(false);
     }
@@ -101,9 +149,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
         {!enviado ? (
           <form onSubmit={handleSubmit}>
             {/* Layout responsive: mobile=stack, tablet+=2 columnas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 max-h-[75vh] overflow-y-auto md:max-h-none">
               
-              {/* Columna Izquierda: Datos Personales y Profesionales */}
+              {/* Columna Izquierda: Datos Personales, Credenciales y Profesionales */}
               <div className="p-3 sm:p-5 space-y-3 sm:space-y-4 bg-gradient-to-b from-white to-slate-50/30">
                 
                 {/* Sección: Datos Personales */}
@@ -167,6 +215,46 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                   </div>
                 </div>
 
+                {/* Sección: Credenciales */}
+                <div className="space-y-2.5 sm:space-y-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1 h-2.5 sm:h-3 bg-indigo-500 rounded-full"></div>
+                    <h3 className="text-[10px] sm:text-[11px] lg:text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                      Credenciales de acceso
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Contraseña *</label>
+                      <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        minLength={8}
+                        placeholder="Mínimo 8 caracteres"
+                        className="border border-slate-300 rounded-lg px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[10px] sm:text-[11px] lg:text-xs font-medium text-slate-500">Confirmar contraseña *</label>
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                        minLength={8}
+                        placeholder="Repite la contraseña"
+                        className="border border-slate-300 rounded-lg px-2.5 py-1.5 sm:py-2 text-xs sm:text-[13px] lg:text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 {/* Sección: Información Profesional */}
                 <div className="space-y-2.5 sm:space-y-3">
                   <div className="flex items-center gap-1.5">
@@ -221,143 +309,133 @@ export default function ModalInscripcion({ isOpen, onClose }) {
               </div>
 
               {/* Columna Derecha: Herramientas Técnicas */}
-              <div className="p-3 sm:p-5 bg-gradient-to-b from-slate-50/50 to-white">
-                <div className="space-y-2.5 sm:space-y-3">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <div className="w-1 h-2.5 sm:h-3 bg-purple-500 rounded-full"></div>
-                    <h3 className="text-[10px] sm:text-[11px] lg:text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Herramientas Técnicas
-                    </h3>
-                  </div>
+              <div className="p-3 sm:p-5 bg-gradient-to-b from-slate-50/50 to-white space-y-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <div className="w-1 h-2.5 sm:h-3 bg-purple-500 rounded-full"></div>
+                  <h3 className="text-[10px] sm:text-[11px] lg:text-xs font-semibold text-slate-600 uppercase tracking-wider">Herramientas Técnicas</h3>
+                </div>
 
-                  {/* Power BI */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
-                      ¿Cuentas con Power BI?
-                    </p>
-
-                    <div className="flex gap-2">
-                      {["Sí", "No"].map((op) => (
-                        <label
-                          key={op}
-                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
-                        >
-                          <input
-                            type="radio"
-                            name="tiene_power_bi"
-                            value={op === "Sí"}
-                            checked={
-                              formData.tiene_power_bi === String(op === "Sí")
-                            }
-                            onChange={handleChange}
-                            className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
-                          />
-                          {op}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Otro Software BI */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
-                      ¿Usas otro software BI?
-                    </p>
-
-                    <div className="flex gap-2 mb-2">
-                      {["Sí", "No"].map((op) => (
-                        <label
-                          key={op}
-                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
-                        >
-                          <input
-                            type="radio"
-                            name="usa_otro_bi"
-                            value={op === "Sí"}
-                            checked={
-                              formData.usa_otro_bi === String(op === "Sí")
-                            }
-                            onChange={(e) => {
-                              handleChange(e);
-                              setTableau(op);
-                            }}
-                            className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
-                          />
-                          {op}
-                        </label>
-                      ))}
-                    </div>
-
-                    {tableau === "Sí" && (
-                      <div className="animate-fadeIn">
+                {/* Power BI */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
+                  <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Cuentas con Power BI?</p>
+                  <div className="flex gap-2">
+                    {["Sí", "No"].map((op) => (
+                      <label
+                        key={op}
+                        className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                      >
                         <input
-                          type="text"
-                          name="otro_bi_nombre"
-                          value={formData.otro_bi_nombre}
+                          type="radio"
+                          name="tiene_power_bi"
+                          value={op}
+                          checked={formData.tiene_power_bi === op}
                           onChange={handleChange}
-                          placeholder="¿Cuál software usas?"
-                          className="w-full border border-blue-200 rounded-md px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
+                          className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
                         />
-                      </div>
-                    )}
+                        {op}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Otro Software BI */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
+                  <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Usas otro software BI?</p>
+                  <div className="flex gap-2 mb-2">
+                    {["Sí", "No"].map((op) => (
+                      <label
+                        key={op}
+                        className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                      >
+                        <input
+                          type="radio"
+                          name="usa_otro_bi"
+                          value={op}
+                          checked={formData.usa_otro_bi === op}
+                          onChange={(e) => {
+                            handleChange(e);
+                            setTableau(op);
+                          }}
+                          className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
+                        />
+                        {op}
+                      </label>
+                    ))}
                   </div>
 
-                  {/* ArcGIS */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
-                    <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">
-                      ¿Tienes cuenta de ArcGIS Online?
-                    </p>
-
-                    <div className="flex gap-2">
-                      {["Sí", "No"].map((op) => (
-                        <label
-                          key={op}
-                          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
-                        >
-                          <input
-                            type="radio"
-                            name="tiene_arcgis_online"
-                            value={op === "Sí"}
-                            checked={
-                              formData.tiene_arcgis_online === String(op === "Sí")
-                            }
-                            onChange={handleChange}
-                            className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
-                          />
-                          {op}
-                        </label>
-                      ))}
+                  {tableau === "Sí" && (
+                    <div className="animate-fadeIn">
+                      <input
+                        type="text"
+                        name="otro_bi_nombre"
+                        value={formData.otro_bi_nombre}
+                        onChange={handleChange}
+                        placeholder="¿Cuál software usas?"
+                        className="w-full border border-blue-200 rounded-md px-2.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] lg:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all"
+                      />
                     </div>
-                  </div>
+                  )}
+                </div>
 
-                  {/* Nota informativa */}
-                  <div className="bg-amber-50/80 border border-amber-200/60 rounded-lg p-2 sm:p-2.5">
-                    <p className="text-[10px] sm:text-[11px] lg:text-xs text-amber-800 flex items-start gap-1.5 leading-relaxed">
-                      <span className="text-amber-500 mt-0.5 text-xs">💡</span>
-                      <span>
-                        No necesitas tener todas las herramientas. El taller se adapta a tu
-                        nivel.
-                      </span>
-                    </p>
+                {/* ArcGIS */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2.5 sm:p-3 lg:p-4 border border-blue-100/50">
+                  <p className="text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-700 mb-2">¿Tienes cuenta de ArcGIS Online?</p>
+                  <div className="flex gap-2">
+                    {["Sí", "No"].map((op) => (
+                      <label
+                        key={op}
+                        className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md bg-white border border-slate-200 text-[11px] sm:text-[12px] lg:text-sm text-slate-600 cursor-pointer hover:border-blue-300 hover:bg-blue-50 transition-all flex-1 justify-center"
+                      >
+                        <input
+                          type="radio"
+                          name="tiene_arcgis_online"
+                          value={op}
+                          checked={formData.tiene_arcgis_online === op}
+                          onChange={handleChange}
+                          className="accent-blue-600 w-3 h-3 sm:w-3.5 sm:h-3.5"
+                        />
+                        {op}
+                      </label>
+                    ))}
                   </div>
+                </div>
+
+                {/* Nota informativa */}
+                <div className="bg-amber-50/80 border border-amber-200/60 rounded-lg p-2 sm:p-2.5">
+                  <p className="text-[10px] sm:text-[11px] lg:text-xs text-amber-800 flex items-start gap-1.5 leading-relaxed">
+                    <span className="text-amber-500 mt-0.5 text-xs">💡</span>
+                    <span>No necesitas tener todas las herramientas. El taller se adapta a tu nivel.</span>
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Footer compacto - responsive */}
+            {/* Footer compacto - responsive con spiner de carga */}
             <div className="flex gap-2 sm:gap-2.5 px-3 sm:px-5 py-2.5 sm:py-3 lg:py-4 bg-gradient-to-r from-slate-50 to-white border-t border-slate-200">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 py-1.5 sm:py-2 lg:py-2.5 text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-100 transition-all"
+                disabled={loading}
+                className="flex-1 py-1.5 sm:py-2 lg:py-2.5 text-[11px] sm:text-[12px] lg:text-sm font-medium text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-100 transition-all disabled:opacity-50"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="flex-[2] py-1.5 sm:py-2 lg:py-2.5 text-[11px] sm:text-[12px] lg:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-md shadow-blue-500/20 hover:shadow-blue-500/30"
+                disabled={loading}
+                className="flex-[2] py-1.5 sm:py-2 lg:py-2.5 text-[11px] sm:text-[12px] lg:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-md shadow-blue-500/20 hover:shadow-blue-500/30 disabled:opacity-70 flex items-center justify-center gap-2"
               >
-                Enviar inscripción
+                {loading ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Enviando...
+                  </>
+                ) : (
+                  "Enviar inscripción"
+                )}
               </button>
             </div>
           </form>
