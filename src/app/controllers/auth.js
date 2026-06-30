@@ -19,7 +19,7 @@ export async function login(body) {
 
   if (!usuario) {
     throw new Error(
-      "Usuario o contraseña incorrectos."
+      "Usuario o contraseña incorrectos o no existe la cuenta del usuario."
     );
   }
 
