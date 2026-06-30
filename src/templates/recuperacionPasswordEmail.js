@@ -187,13 +187,13 @@ export const recuperacionPasswordTemplate = ({
                       <table cellpadding="0" cellspacing="0" border="0">
                         <tr>
                           <td style="padding: 0 5px;">
-                            <a href="#" style="color: #64748b; text-decoration: none; font-size: 11px;">🌐 Website</a>
+                            <a href="#" style="color: #64748b; text-decoration: none; font-size: 11px;">🌐 https://taller-cpci.vercel.app/</a>
                           </td>
                           <td style="padding: 0 5px;">
                             <span style="color: #cbd5e1;">|</span>
                           </td>
                           <td style="padding: 0 5px;">
-                            <a href="#" style="color: #64748b; text-decoration: none; font-size: 11px;">📧 contacto@cpci.org</a>
+                            <a href="#" style="color: #64748b; text-decoration: none; font-size: 11px;">📧  equipocatastroapp@gmail.com</a>
                           </td>
                           <td style="padding: 0 5px;">
                             <span style="color: #cbd5e1;">|</span>
