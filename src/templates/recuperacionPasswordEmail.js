@@ -127,7 +127,7 @@ export const recuperacionPasswordTemplate = ({
                   <table cellpadding="0" cellspacing="0" border="0" align="center">
                     <tr>
                       <td style="background: linear-gradient(135deg, #1a4a7a 0%, #2a6ba0 100%); border-radius: 10px; padding: 0; box-shadow: 0 4px 16px rgba(26, 74, 122, 0.25);">
-                        <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}" 
+                        <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/reset-password?token=${token}" 
                            style="display: inline-block; padding: 12px 36px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px; letter-spacing: 0.3px; border-radius: 10px;">
                           🔑 Restablecer contraseña
                         </a>
@@ -146,7 +146,7 @@ export const recuperacionPasswordTemplate = ({
                   </p>
                   <p style="margin: 0; color: #1a4a7a; font-size: 11px; word-break: break-all; background: white; padding: 4px 8px; border-radius: 4px; border: 1px solid #fde68a;">
                     <span style="font-family: 'Courier New', monospace; font-size: 10px; color: #0f2b4a;">
-                      ${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}
+                      ${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'}/reset-password?token=${token}
                     </span>
                   </p>
                 </div>
