@@ -5,11 +5,13 @@ import React, { useState } from "react";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
 import { useAuth } from "@/contexts/AuthContext";
+import ModalRecuperarPassword from "@/components/login/ModalRecuperarPassword";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [recoveryOpen, setRecoveryOpen] = useState(false);
   const [menuUsuario, setMenuUsuario] = useState(false);
 
   const { usuario, logout } = useAuth();
@@ -17,7 +19,8 @@ export default function Header() {
   return (
     <>
       <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-      <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
+      <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} onOpenRecovery={() => { setLoginOpen(false); setRecoveryOpen(true); }} />
+      <ModalRecuperarPassword isOpen={recoveryOpen} onClose={() => setRecoveryOpen(false)} onBackToLogin={() => { setRecoveryOpen(false); setLoginOpen(true); }} />
       <header className="bg-slate-50 border-b border-slate-200 sticky top-3 z-40 backdrop-blur-md bg-slate-50/90">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           
