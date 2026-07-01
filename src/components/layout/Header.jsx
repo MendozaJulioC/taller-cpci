@@ -21,7 +21,7 @@ export default function Header() {
       <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} onOpenRecovery={() => { setLoginOpen(false); setRecoveryOpen(true); }} />
       <ModalRecuperarPassword isOpen={recoveryOpen} onClose={() => setRecoveryOpen(false)} onBackToLogin={() => { setRecoveryOpen(false); setLoginOpen(true); }} />
-      <header className="bg-slate-50 border-b border-slate-200 sticky top-3 z-40 backdrop-blur-md bg-slate-50/90">
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           
           {/* Logo / Identificación institucional */}
@@ -31,8 +31,8 @@ export default function Header() {
              <Image
                 src="/Img/logocpci.png"
                 alt="Logo CPCI"
-                width={100}      // Valor base
-                height={100}     // Valor base
+                width={90}      // Valor base
+                height={90}     // Valor base
                 style={{ 
                   width: 'auto', 
                   height: 'auto' 
