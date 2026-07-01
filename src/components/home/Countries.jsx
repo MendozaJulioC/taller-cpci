@@ -26,18 +26,67 @@ export default function Countries() {
   ];
 
   const institutionalRepresentations = [
-    { country: 'Argentina', entities: 'Dirección General del Catastro y Agencia de Recaudación Fueguina.' },
-    { country: 'Brasil', entities: 'Receita Federal del Brasil.' },
-    { country: 'Colombia', entities: 'Instituto Geográfico Agustín Codazzi (IGAC), junto a otras autoridades catastrales regionales.' },
-    { country: 'Chile', entities: 'Representada a través de sus servicios nacionales.' },
-    { country: 'El Salvador', entities: 'Centro Nacional de Registros (CNR) e Instituto Geográfico y del Catastro Nacional.' },
-    { country: 'España', entities: 'Dirección General del Catastro.' },
-    { country: 'México', entities: 'Representaciones estatales (como la Dirección General del Instituto Geográfico y Catastral del Estado de Quintana Roo).' },
-    { country: 'Panamá', entities: 'Autoridad Nacional de Administración de Tierras (ANATI).' },
-    { country: 'Paraguay', entities: 'Instituto Nacional de Desarrollo Rural y de la Tierra (INDERT).' },
-    { country: 'Perú', entities: 'Consejo Nacional de Catastro y el Sistema Nacional Integrado de Información Catastral Predial (SNCP).' },
-    { country: 'República Dominicana', entities: 'Dirección General del Catastro Nacional.' },
-    { country: 'Uruguay', entities: 'Dirección Nacional de Catastro.' },
+    { 
+      country: 'Argentina', 
+      url: 'https://www.aref.gob.ar/gerencia-de-catastro-provincial/',
+      entities: 
+        'Dirección General del Catastro y Agencia de Recaudación Fueguina.' 
+    },
+    { 
+      country: 'Brasil', 
+      url: 'https://www.gov.br/receitafederal/pt-br',
+      entities: 
+        'Receita Federal del Brasil.' },
+    { 
+      country: 'Colombia', 
+      url: 'https://www.igac.gov.co/',
+      entities: 
+        'Instituto Geográfico Agustín Codazzi (IGAC), junto a otras autoridades catastrales regionales.' },
+    { 
+      country: 'Chile', 
+      url: 'https://www.bienesnacionales.cl/catastro-de-la-propiedad/',
+      entities: 
+        'Representada a través de sus servicios nacionales.' },
+    { 
+      country: 'El Salvador', 
+      url: 'https://www.cnr.gob.sv/',
+      entities: 
+        'Centro Nacional de Registros (CNR) e Instituto Geográfico y del Catastro Nacional.' },
+    { 
+      country: 'España', 
+      url: 'https://www.sedecatastro.gob.es/',
+      entities: 
+        'Dirección General del Catastro.' },
+    { 
+      country: 'México', 
+      url: 'https://igece.qroo.gob.mx/',
+      entities: 
+        'Representaciones estatales (como la Dirección General del Instituto Geográfico y Catastral del Estado de Quintana Roo).' },
+    { 
+      country: 'Panamá', 
+      url: 'https://sinia.gob.pa/autoridad-nacional-de-administracion-tierras-anati/',
+      entities: 
+        'Autoridad Nacional de Administración de Tierras (ANATI).' },
+    { 
+      country: 'Paraguay', 
+      url: 'https://www.indert.gov.py/indert/index.php',
+      entities: 
+        'Instituto Nacional de Desarrollo Rural y de la Tierra (INDERT).' },
+    { 
+      country: 'Perú', 
+      url: 'https://sncp.gob.pe/',
+      entities: 
+        'Consejo Nacional de Catastro y el Sistema Nacional Integrado de Información Catastral Predial (SNCP).' },
+    { 
+      country: 'República Dominicana',
+      url: 'https://www.catastro.gob.do/', 
+      entities: 
+        'Dirección General del Catastro Nacional.' },
+    { 
+      country: 'Uruguay', 
+      url: 'https://www.gub.uy/ministerio-economia-finanzas/direccion-nacional-catastro',
+      entities: 
+        'Dirección Nacional de Catastro.' },
   ];
 
   const observersAndAllies = [
@@ -124,7 +173,22 @@ export default function Countries() {
                     />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">{item.country}</h4>
+                    <h4 className="text-sm font-bold">
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          text-blue-700
+                          hover:text-blue-900
+                          hover:underline
+                          transition-colors
+                          duration-200
+                        "
+                      >
+                        {item.country}
+                      </a>
+                    </h4>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">{item.entities}</p>
                   </div>
                 </div>
