@@ -149,6 +149,21 @@ export default function ActividadesTallerDos() {
 
   return (
     <div className="space-y-8">
+        {/* Título del Taller Dos */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-slate-200"></div>
+        <div className="flex items-center gap-3 px-4 py-2 bg-blue-50/80 rounded-full border border-blue-200/50">
+          <span className="text-lg">📊</span>
+          <span className="text-sm font-bold text-blue-700 uppercase tracking-wider">
+            Taller Dos
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+          <span className="text-xs font-medium text-blue-600">
+            Historias de Datos Espaciales
+          </span>
+        </div>
+        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-slate-200"></div>
+      </div>
       {/* Encabezado del Taller */}
       <div className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
