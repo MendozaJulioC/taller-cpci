@@ -24,7 +24,8 @@ import {
   Map,
   PenTool,
   Book,
-  Share2
+  Share2,
+  FileCode
 } from 'lucide-react';
 
 export default function ActividadesTallerDos() {
@@ -144,7 +145,8 @@ export default function ActividadesTallerDos() {
   // Enlaces importantes
   const enlaces = {
     geomedellin: 'https://www.medellin.gov.co/geomedellin',
-    catastrobogota: 'https://www.catastrobogota.gov.co/'
+    catastrobogota: 'https://www.catastrobogota.gov.co/',
+    geojsonio: 'https://geojson.io/'
   };
 
   return (
@@ -259,6 +261,16 @@ export default function ActividadesTallerDos() {
             Catastro Bogotá
             <ArrowRight className="w-3 h-3" />
           </a>
+          <a
+            href={enlaces.geojsonio}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-purple-200 rounded-lg text-sm text-green-700 hover:bg-purple-50 hover:border-purple-300 transition-all"
+            >
+            <FileCode className="w-4 h-4" />
+            GeoJson Maps
+            <ArrowRight className="w-3 h-3" />
+            </a>
         </div>
       </div>
 
