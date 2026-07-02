@@ -37,6 +37,10 @@ export default function ProtectedRoute({ children }) {
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+
+          <div className="absolute -top-80 -right-80 w-90 h-90 bg-blue-700/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-80 -left-80 w-90 h-90 bg-purple-700/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
           
           {/* Círculos medianos flotantes */}
           <div className="absolute top-20 left-10 w-20 h-20 bg-blue-800/20 rounded-full blur-2xl animate-float"></div>
