@@ -60,6 +60,16 @@ export default function ProtectedRoute({ children }) {
               <polygon points="20,0 39,10 39,30 20,40 1,30 1,10" fill="none" stroke="#8B5CF6" strokeWidth="1" />
             </svg>
           </div>
+          <div className="absolute top-40 right-40 opacity-20">
+            <svg width="70" height="70" viewBox="0 0 60 60">
+              <polygon points="30,0 58,15 58,45 30,60 2,45 2,15" fill="none" stroke="#3B82F6" strokeWidth="1" />
+            </svg>
+          </div>
+          <div className="absolute bottom-40 left-40 opacity-20">
+            <svg width="50" height="50" viewBox="0 0 40 40">
+              <polygon points="20,0 39,10 39,30 20,40 1,30 1,10" fill="none" stroke="#8B5CF6" strokeWidth="1" />
+            </svg>
+          </div>
         </div>
 
         {/* Contenido principal - Card responsiva */}
