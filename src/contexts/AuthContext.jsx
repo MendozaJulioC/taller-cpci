@@ -48,6 +48,7 @@ export function AuthProvider({ children }) {
       value={{
         usuario,
         token,
+        isAuthenticated: !!token,
         loading,
         login,
         logout,

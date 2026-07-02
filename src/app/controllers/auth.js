@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+//import jwt from "jsonwebtoken";
+import { generarToken } from "@/utils/jwt";
 
 import { getUserByUsername } from "@/services/auth/auth_queries";
 
@@ -43,17 +44,19 @@ export async function login(body) {
   }
 
   // Crear JWT
-  const token = jwt.sign(
-    {
-      id: usuario.id,
-      username: usuario.username,
-      nombres: usuario.nombres,
-    },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: "7d",
-    }
-  );
+  // const token = jwt.sign(
+  //   {
+  //     id: usuario.id,
+  //   },
+  //   process.env.JWT_SECRET,
+  //   {
+  //     expiresIn: "7d",
+  //   }
+  // );
+
+  const token = generarToken({
+    id: usuario.id,
+  });
 
   // Respuesta
   return {

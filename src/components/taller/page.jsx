@@ -1,5 +1,6 @@
 'use client'
 
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import ActividadesTallerUno from './tallerUno/Actividades';
 import ActividadesTallerDos from './tallerDos/Actividades';
 import CapasDatos from './CapasDatos';
@@ -80,7 +81,8 @@ export default function TallerPage() {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50/60 px-4 py-12 md:py-16 antialiased">
+   <ProtectedRoute>
+       <section className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50/60 px-4 py-12 md:py-16 antialiased">
       <div className="max-w-6xl mx-auto">
 
         {/* Hero Section - Con layout de 2 columnas */}
@@ -216,5 +218,6 @@ export default function TallerPage() {
         </div>
       </div>
     </section>
+   </ProtectedRoute>
   );
 }
