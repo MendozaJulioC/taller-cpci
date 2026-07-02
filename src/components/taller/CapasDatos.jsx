@@ -1,7 +1,7 @@
 // src/components/taller/CapasDatos.jsx
 'use client'
 
-import { Database, FileSpreadsheet, Map, FileJson, HardDrive } from 'lucide-react';
+import { Database, FileSpreadsheet, Map, FileJson, HardDrive, Download } from 'lucide-react';
 
 export default function CapasDatos() {
   const capasData = [
@@ -10,28 +10,40 @@ export default function CapasDatos() {
       shp: true, 
       geojson: true, 
       csv: true, 
-      peso: '-'
+      peso: '-',
+      archivos: {
+        geojson: '/data/ComunasMED.geojson'
+      }
     },
     { 
       nombre: 'TallerBarrios', 
       shp: true, 
       geojson: true, 
       csv: true, 
-      peso: '-'
+      peso: '-',
+      archivos: {
+        geojson: '/data/BarriosMED.geojson'
+      }
     },
     { 
-      nombre: 'TallerPredios', 
+      nombre: 'TallerLotesPredios', 
       shp: true, 
       geojson: true, 
       csv: true, 
-      peso: '-'
+      peso: '-',
+      archivos: {
+        geojson: '/data/LotesPredioMDE.geojson'
+      }
     },
     { 
       nombre: 'TallerConstruccion', 
       shp: true, 
       geojson: true, 
       csv: true, 
-      peso: '-'
+      peso: '-',
+      archivos: {
+        geojson: '/data/ConstruccionMDE.geojson'
+      }
     },
     { 
       nombre: 'LímiteCatastralComunaCorregimiento', 
@@ -76,6 +88,22 @@ export default function CapasDatos() {
     { formato: 'GeoJSON', peso: '94.3 MB', icono: <FileJson className="w-3 h-3" /> },
     { formato: 'CSV', peso: '61.7 MB', icono: <FileSpreadsheet className="w-3 h-3" /> },
   ];
+
+   // Función para descargar archivo
+  const handleDownload = (url, nombreArchivo) => {
+    // Crear un enlace temporal
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = nombreArchivo;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Función para obtener el nombre del archivo desde la URL
+  const getFileName = (url) => {
+    return url.split('/').pop();
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200/60 shadow-lg shadow-slate-200/30 overflow-hidden">
@@ -129,6 +157,7 @@ export default function CapasDatos() {
           <tbody>
             {capasData.map((capa, index) => {
               const esLímiteCatastral = capa.nombre === 'LímiteCatastralComunaCorregimiento';
+              const tieneDescarga = capa.archivos?.geojson;
               
               return (
                 <tr 
@@ -151,6 +180,16 @@ export default function CapasDatos() {
                         <span className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[8px] font-bold uppercase tracking-wider">
                           Disponible
                         </span>
+                      )}
+                      {tieneDescarga && (
+                        <button
+                          onClick={() => handleDownload(capa.archivos.geojson, getFileName(capa.archivos.geojson))}
+                          className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors text-[8px] font-bold uppercase tracking-wider"
+                          title="Descargar archivo"
+                        >
+                          <Download className="w-2.5 h-2.5" />
+                          Descargar
+                        </button>
                       )}
                     </div>
                   </td>
