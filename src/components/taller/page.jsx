@@ -73,10 +73,10 @@ export default function TallerPage() {
 
   // Herramientas BI con logos - posiciones fijas sin animación para evitar errores de hidratación
   const herramientasBI = [
-    { nombre: 'Power BI', icono: '/img/powerbi.png', rotacion: '-8deg', tamaño: 'w-25 h-25', top: '2%', left: '5%' },
-    { nombre: 'Tableau', icono: '/img/tableau.png', rotacion: '12deg', tamaño: 'w-21 h-21', top: '60%', left: '15%' },
-    { nombre: 'Qlik', icono: '/img/qlik.png', rotacion: '-12deg', tamaño: 'w-19 h-19', top: '-12%', left: '55%' },
-    { nombre: 'Excel', icono: '/img/excel.png', rotacion: '15deg', tamaño: 'w-23 h-23', top: '55%', left: '60%' },
+    { nombre: 'Power BI', icono: '/Img/powerbi.png', rotacion: '-8deg', tamaño: 'w-25 h-25', top: '2%', left: '5%' },
+    { nombre: 'Tableau', icono: '/Img/tableau.png', rotacion: '12deg', tamaño: 'w-21 h-21', top: '60%', left: '15%' },
+    { nombre: 'Qlik', icono: '/Img/qlik.png', rotacion: '-12deg', tamaño: 'w-19 h-19', top: '-12%', left: '55%' },
+    { nombre: 'Excel', icono: '/Img/excel.png', rotacion: '15deg', tamaño: 'w-23 h-23', top: '55%', left: '60%' },
   ];
 
   return (
