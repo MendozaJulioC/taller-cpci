@@ -1,5 +1,9 @@
 'use client'
 
+import ActividadesTallerUno from './tallerUno/Actividades';
+import ActividadesTallerDos from './tallerDos/Actividades';
+import CapasDatos from './CapasDatos';
+
 export default function TallerPage() {
   const actividades = [
     {
@@ -176,100 +180,29 @@ export default function TallerPage() {
         </div>
 
         {/* Actividades - Rediseñado */}
-        <div>
-          <div className="flex items-center gap-3 mb-8">
+        <div className="mb-16">
+          <ActividadesTallerUno />
+        </div>
+
+        <div className="mb-16">
+          <ActividadesTallerDos />
+        </div>
+
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
             <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
-              <span className="text-base">📋</span>
-              Actividades
+              <span className="text-base">🗺️</span>
+              Información de Interés
             </h2>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
           </div>
           
-          <div className="space-y-8">
-            {actividades.map((a) => {
-              const colors = colorMap[a.color];
-              return (
-                <div 
-                  key={a.num} 
-                  className="group bg-white border border-slate-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 hover:border-slate-300"
-                >
-                  {/* Cabecera de Actividad - Mejorada */}
-                  <div className={`relative bg-gradient-to-r ${colors.gradient} px-6 md:px-8 py-6 border-b border-slate-200/60`}>
-                    <div className="flex items-start gap-5">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-xl font-bold shrink-0 shadow-lg ${colors.num}`}>
-                        {a.num}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
-                            {a.titulo}
-                          </h3>
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border ${colors.border} shadow-sm`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${colors.dot}`}></span>
-                            Actividad {a.num}
-                          </span>
-                        </div>
-                        <p className="text-sm font-medium text-slate-500 mt-1">
-                          {a.subtitulo}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Contenido - Mejorado */}
-                  <div className="p-6 md:p-8">
-                    <div className="grid md:grid-cols-3 gap-5">
-                      {/* Dinámica */}
-                      <div className="bg-slate-50/80 border border-slate-200/60 rounded-xl p-5 transition-all duration-200 hover:bg-slate-50 hover:border-slate-300">
-                        <div className="flex items-center gap-2.5 mb-3">
-                          <div className="w-8 h-8 rounded-lg bg-slate-200/50 flex items-center justify-center text-sm">
-                            ⚡
-                          </div>
-                          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">
-                            Dinámica
-                          </p>
-                        </div>
-                        <p className="text-sm text-slate-700 leading-relaxed">
-                          {a.dinamica}
-                        </p>
-                      </div>
-
-                      {/* Reto */}
-                      <div className={`border rounded-xl p-5 transition-all duration-200 ${colors.border} ${colors.bg} hover:shadow-md`}>
-                        <div className="flex items-center gap-2.5 mb-3">
-                          <div className={`w-8 h-8 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center text-sm`}>
-                            🎯
-                          </div>
-                          <p className={`text-[10px] font-bold ${a.color === 'blue' ? 'text-blue-600' : a.color === 'green' ? 'text-emerald-600' : 'text-amber-600'} uppercase tracking-[0.15em]`}>
-                            Reto
-                          </p>
-                        </div>
-                        <p className="text-sm text-slate-700 leading-relaxed">
-                          {a.reto}
-                        </p>
-                      </div>
-
-                      {/* Resultados */}
-                      <div className={`border rounded-xl p-5 transition-all duration-200 ${colors.border} ${colors.bg} hover:shadow-md`}>
-                        <div className="flex items-center gap-2.5 mb-3">
-                          <div className={`w-8 h-8 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center text-sm`}>
-                            📈
-                          </div>
-                          <p className={`text-[10px] font-bold ${a.color === 'blue' ? 'text-blue-600' : a.color === 'green' ? 'text-emerald-600' : 'text-amber-600'} uppercase tracking-[0.15em]`}>
-                            Resultados
-                          </p>
-                        </div>
-                        <p className="text-sm text-slate-700 leading-relaxed">
-                          {a.resultados}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <CapasDatos />
+          
+          <p className="text-center text-xs text-slate-400 mt-3">
+            Las capas marcadas como <span className="text-blue-600 font-medium">"Disponible"</span> están listas para su descarga en el repositorio del taller
+          </p>
         </div>
 
         {/* Footer - Nuevo */}
