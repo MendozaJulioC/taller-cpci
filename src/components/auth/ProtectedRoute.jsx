@@ -40,7 +40,7 @@ export default function ProtectedRoute({ children }) {
 
           <div className="absolute -top-80 -right-80 w-90 h-90 bg-blue-700/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute -bottom-80 -left-80 w-90 h-90 bg-purple-700/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-700/10 rounded-full blur-3xl"></div>
           
           {/* Círculos medianos flotantes */}
           <div className="absolute top-20 left-10 w-20 h-20 bg-blue-800/20 rounded-full blur-2xl animate-float"></div>
@@ -52,6 +52,16 @@ export default function ProtectedRoute({ children }) {
           <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-blue-500/30 rounded-full animate-ping"></div>
           <div className="absolute bottom-1/3 right-1/3 w-2 h-2 bg-purple-500/30 rounded-full animate-ping delay-500"></div>
           <div className="absolute top-2/3 left-1/2 w-1.5 h-1.5 bg-emerald-500/30 rounded-full animate-ping delay-1000"></div>
+
+          <div className="absolute top-1/4 right-1/4 w-2.5 h-2.5 bg-amber-500/30 rounded-full animate-ping delay-200"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-rose-500/30 rounded-full animate-ping delay-700"></div>
+          <div className="absolute top-1/2 left-1/4 w-1.5 h-1.5 bg-cyan-500/30 rounded-full animate-ping delay-300"></div>
+          <div className="absolute bottom-2/3 right-1/4 w-2 h-2 bg-indigo-500/30 rounded-full animate-ping delay-900"></div>
+
+          <div className="absolute top-1/3 right-1/5 w-1.5 h-1.5 bg-pink-500/25 rounded-full animate-pulse delay-400"></div>
+          <div className="absolute bottom-1/3 left-1/5 w-1.5 h-1.5 bg-teal-500/25 rounded-full animate-pulse delay-800"></div>
+          <div className="absolute top-3/4 left-2/3 w-1 h-1 bg-blue-400/25 rounded-full animate-pulse delay-600"></div>
+          <div className="absolute top-1/5 right-2/3 w-1 h-1 bg-purple-400/25 rounded-full animate-pulse delay-1100"></div>
           
           {/* Hexágonos decorativos */}
           <div className="absolute top-10 right-20 opacity-20">
