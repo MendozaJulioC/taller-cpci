@@ -59,7 +59,7 @@ export default function ProtectedRoute({ children }) {
           <div className="absolute bottom-2/3 right-1/4 w-2 h-2 bg-indigo-500/30 rounded-full animate-pulse delay-900"></div>
 
           <div className="absolute top-1/3 right-1/5 w-1.5 h-1.5 bg-pink-500/25 rounded-full animate-pulse delay-400"></div>
-          <div className="absolute bottom-1/3 left-1/5 w-1.5 h-1.5 bg-teal-500/25 rounded-full animate-pulse delay-800"></div>
+          <div className="absolute bottom-1/3 left-1/5 w-1.5 h-1.5 bg-teal-500/25 rounded-full animate-ping delay-800"></div>
           <div className="absolute top-3/4 left-2/3 w-1 h-1 bg-blue-400/25 rounded-full animate-ping delay-600"></div>
           <div className="absolute top-1/5 right-2/3 w-1 h-1 bg-purple-400/25 rounded-full animate-pulse delay-1100"></div>
           
