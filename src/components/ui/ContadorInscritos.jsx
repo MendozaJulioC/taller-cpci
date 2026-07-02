@@ -20,15 +20,20 @@ export default function ContadorInscritos() {
         const data = await res.json();
         
         // Calcular cambio desde la última carga
-        if (total > 0) {
-          setCambio(data.total - total);
-        }
+        setTotal((anterior) => {
+          if (anterior > 0) {
+              setCambio(data.total - anterior);
+          }
+          return data.total;
+      });
         
-        setTotal(data.total);
         setAnimado(true);
         
         // Remover animación después de 2 segundos
-        setTimeout(() => setAnimado(false), 2000);
+        setAnimado(true);
+        setTimeout(() => {
+          setAnimado(false);
+        }, 2000);
       } catch (error) {
         console.error("Error cargando contador:", error);
       }
@@ -38,10 +43,10 @@ export default function ContadorInscritos() {
     cargar();
 
     // Actualizar cada 30 segundos
-    const interval = setInterval(cargar, 30000);
+    const interval = setInterval(cargar, 10000);
 
     return () => clearInterval(interval);
-  }, [total]);
+  }, []);
 
   // Formatear número con separadores de miles
   const formatearNumero = (num) => {
