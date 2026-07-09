@@ -71,12 +71,14 @@ export default function Header() {
           </nav>
           {/* Botón de menú hamburguesa para móviles */}
           <div className="flex items-center gap-3 relative">
-            <button
-                onClick={() => setModalOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-            >
-                Inscripciones
-            </button>
+            {!usuario && (
+                <button
+                    onClick={() => setModalOpen(true)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                >
+                    Inscripciones
+                </button>
+            )}
 
             {!usuario ? (
 
@@ -154,12 +156,14 @@ export default function Header() {
             <Link href="/#objectives" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Objectives</Link>
             <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Talleres</Link>
             {/* Botón Inscripciones — reemplaza donde lo tengas */}
-            <button
-              onClick={() => setModalOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-            >
-              Inscripciones
-            </button>
+            {!usuario && (
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                >
+                  Inscripciones
+                </button>
+            )}
           </div>
         )}
       </header>
