@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
@@ -15,6 +16,7 @@ export default function Header() {
   const [menuUsuario, setMenuUsuario] = useState(false);
 
   const { usuario, logout } = useAuth();
+  const router = useRouter();
 
   return (
     <>
@@ -130,6 +132,7 @@ export default function Header() {
                                 onClick={() => {
                                     logout();
                                     setMenuUsuario(false);
+                                    router.push("/"); // 👈 redirige al Home
                                 }}
                                 className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
                             >
