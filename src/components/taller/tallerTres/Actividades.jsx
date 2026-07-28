@@ -25,74 +25,73 @@ import {
   PenTool,
   Book,
   Share2,
-  FileCode
+  FileCode,
+  Storybook
 } from 'lucide-react';
 
-export default function ActividadesTallerDos() {
+export default function ActividadesTallerTres() {
   const [actividadActiva, setActividadActiva] = useState(1);
 
   const actividades = [
     {
       id: 1,
       titulo: 'Aspectos Generales del Taller',
-      duracion: '30-40 minutos',
+      duracion: '30 minutos',
       icono: <BookOpen className="w-5 h-5" />,
       color: 'blue',
       dinamica: [
-        'Presentación de los objetivos del taller y las actividades a realizar para la obtención del certificado.',
-        'Explicación de los datos del ejercicio y dónde acceder a ellos (repositorio). En este se encontrarán los datos (en varios formatos) y sus respectivos diccionarios de datos.',
-        'Explicación breve de la plataforma GeoMedellín y el visor Mapas Medellín enfocado a visualización y descarga de datos (tablero estadísticas). Esta presentación se dispondrá también en el repositorio.',
-        'En caso que para los ejercicios se requiera de información espacial de apoyo, los participantes podrán descargar la información desde GeoMedellín.'
+        'Presentación de los objetivos del taller y las actividades a realizar.',
+        'Repaso de las herramientas de ArcGIS Online para la creación de historias de datos: Story Maps, Instant Apps y Dashboards.',
+        'Explicación del documento de pautas para la generación de datos espaciales (disponible en el repositorio).',
+        'Los participantes podrán descargar información espacial de apoyo desde GeoMedellín.',
+        'Ejercicio comparado: los participantes deben disponer de las mismas capas catastrales de sus países (plan B: descargar información de Catastro Bogotá).'
       ],
-      reto: 'Los participantes recibirán información de 3 comunas de Medellín (Comuna 1: Popular, Comuna 7: Robledo y Comuna 14: El Poblado). El objetivo es caracterizar elementos comunes y diferenciales, mostrando la información en formato resumen ejecutivo para tomadores de decisiones.',
-      resultados: 'Comprensión del alcance del taller y familiarización con las herramientas y datos a utilizar.'
+      reto: 'Realizar una historia de datos espaciales con análisis comparativo entre los datos de Medellín (trabajados en el Taller 1) y los países de cada asistente.',
+      resultados: 'Comprensión del alcance del taller y familiarización con las herramientas de storytelling espacial.'
     },
     {
       id: 2,
-      titulo: 'Health Check de la Base Espacial (Conexión y limpieza)',
+      titulo: 'Del Dato al Guión (Storyboarding)',
       duracion: '45 minutos',
-      icono: <Database className="w-5 h-5" />,
+      icono: <PenTool className="w-5 h-5" />,
       color: 'emerald',
       dinamica: [
-        'Conexión de datos a Power BI mediante carga de archivo (o en caso de que se disponga) conexión a URL.',
-        'Exploración de los datos y realización de procesos básicos de ETL (Extracción, Transformación y Carga).',
-        'Identificación de inconsistencias comunes en bases de datos espaciales.'
+        'Estructuración de una narrativa utilizando la técnica del "Viaje del Héroe".',
+        'Aplicación de la técnica para comparar los datos y resultados del Taller 1 con los entornos geográficos de los participantes.',
+        'Definición del esquema de la historia en tres partes.'
       ],
-      reto: 'Identificar y corregir inconsistencias comunes como predios con área cero y registros duplicados antes de cargar los datos al modelo.',
-      resultados: [
-        'Procesos realizados para la limpieza de los datos.',
-        'Modelo de datos utilizado para la realización del ejercicio.'
-      ]
+      reto: 'Definir el esquema de la historia: a) Introducción, b) Desarrollo de los temas, c) Resultados y conclusiones.',
+      resultados: 'Un boceto (storyboard) con el flujo de la historia que se desarrollará en la Actividad 3.'
     },
     {
       id: 3,
-      titulo: 'Visualización de Información Geográfica',
+      titulo: 'Curaduría de Mapas Narrativos',
       duracion: '45 minutos',
-      icono: <Layers className="w-5 h-5" />,
+      icono: <Map className="w-5 h-5" />,
       color: 'purple',
       dinamica: [
-        'Exploración de las diferentes opciones para visualizar información geográfica: capas de puntos y capas poligonales.',
-        'Mostrar las diferencias entre ArcGIS for Power BI para usuarios públicos vs cuentas organizacionales.',
-        'Creación de visualizaciones con la información disponible o mediante nuevas medidas.'
+        'Uso de ArcGIS StoryMaps para integrar mapas dinámicos con contenido multimedia.',
+        'Configuración del proyecto utilizando las opciones más óptimas para explicar el contenido.',
+        'Selección y organización de los elementos visuales y narrativos.'
       ],
-      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediante uso de nuevas medidas y generar la medida "Relación IBI" (valor comercial vs avalúo catastral).',
-      resultados: 'Objetos visuales geográficos que permitan analizar la distribución territorial de los indicadores clave.'
+      reto: 'Configurar el proyecto en ArcGIS StoryMaps utilizando las opciones más adecuadas para explicar la historia de datos.',
+      resultados: 'Índice y estructura del proyecto a implementar.'
     },
     {
       id: 4,
-      titulo: 'Simulación para Tomadores de Decisión (Roleplay)',
-      duracion: '30 minutos',
-      icono: <Presentation className="w-5 h-5" />,
+      titulo: 'El Test de la "Abuela" (Simplificación Técnica)',
+      duracion: '45 minutos',
+      icono: <Share2 className="w-5 h-5" />,
       color: 'amber',
       dinamica: [
         'Trabajo por equipos representando entidades catastrales.',
-        'Presentación de resúmenes ejecutivos de cada equipo (3-5 minutos por equipo).',
+        'Exposición de historias de datos (3-5 minutos por equipo).',
         'Retroalimentación y comentarios entre equipos sobre los trabajos mostrados.',
-        'Evaluación de los proyectos presentados por todos los participantes del taller.'
+        'Evaluación de los proyectos presentados por todos los participantes.'
       ],
-      reto: 'Elaborar un proyecto en Power BI utilizando los objetos visuales que consideren importantes que muestren la información más estratégica para ayudar a directivos y tomadores de decisiones a comprender la situación territorial.',
+      reto: 'Elaborar una historia de datos manteniendo la precisión del dato espacial y poniendo énfasis en claridad, uso de lenguaje común vs técnico, y visualizaciones autoexplicativas.',
       resultados: [
-        'Versión final del tablero con información clara y estratégica.',
+        'Versión final de la historia de datos con lenguaje claro y visualizaciones que se explican por sí solas.',
         'El proyecto con mejor valoración se publicará en el portal GeoMedellín.'
       ]
     }
@@ -139,12 +138,12 @@ export default function ActividadesTallerDos() {
 
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
-    fecha: '2 de septiembre (tentativo)',
+    fecha: '5 de septiembre (tentativo)',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual con presentación en equipos'
   };
 
-  // Enlaces importantes - MANTENGO TODOS LOS ENLACES ORIGINALES
+  // Enlaces importantes
   const enlaces = {
     geomedellin: 'https://www.medellin.gov.co/geomedellin',
     catastrobogota: 'https://www.catastrobogota.gov.co/',
@@ -153,28 +152,28 @@ export default function ActividadesTallerDos() {
 
   return (
     <div className="space-y-8">
-        {/* Título del Taller Dos */}
+        {/* Título del Taller Tres */}
       <div className="flex items-center gap-4">
         <div className="flex-1 h-px bg-gradient-to-r from-transparent to-slate-200"></div>
         <div className="flex items-center gap-3 px-4 py-2 bg-blue-50/80 rounded-full border border-blue-200/50">
-          <span className="text-lg">📊</span>
+          <span className="text-lg">📖</span>
           <span className="text-sm font-bold text-blue-700 uppercase tracking-wider">
-            Taller Dos
+            Taller Tres
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
           <span className="text-xs font-medium text-blue-600">
-            Visualización de Datos
+            Historias de Datos Espaciales
           </span>
         </div>
         <div className="flex-1 h-px bg-gradient-to-l from-transparent to-slate-200"></div>
       </div>
       {/* Encabezado del Taller */}
-      <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
+      <div className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="bg-white/20 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Taller 2
+                Taller 3
               </span>
               <span className="bg-yellow-400/20 backdrop-blur-sm text-yellow-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
                 <Clock className="w-3 h-3" />
@@ -182,20 +181,20 @@ export default function ActividadesTallerDos() {
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold">
-              Visualización de Datos
+              Historias de Datos Espaciales
             </h2>
-            <p className="text-blue-100 text-sm md:text-base mt-1 max-w-2xl">
-              Transformar datos crudos de bases espaciales en herramientas de decisión estratégica
-              a partir de herramientas de inteligencia de negocio
+            <p className="text-indigo-100 text-sm md:text-base mt-1 max-w-2xl">
+              Análisis comparado de aspectos catastrales entre países y explicación de sus características
+              mediante el uso de historias de datos espaciales (Spatial Storytelling)
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
-              <Calendar className="w-4 h-4 text-blue-200" />
+              <Calendar className="w-4 h-4 text-indigo-200" />
               <span className="text-xs font-medium">{infoGeneral.fecha}</span>
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
-              <Users className="w-4 h-4 text-blue-200" />
+              <Users className="w-4 h-4 text-indigo-200" />
               <span className="text-xs font-medium">{infoGeneral.participantes}</span>
             </div>
           </div>
@@ -204,12 +203,12 @@ export default function ActividadesTallerDos() {
         {/* Objetivo del Taller */}
         <div className="mt-4 pt-4 border-t border-white/10">
           <div className="flex items-start gap-3">
-            <Target className="w-5 h-5 text-blue-300 flex-shrink-0 mt-0.5" />
+            <Target className="w-5 h-5 text-indigo-300 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs font-semibold text-blue-200 uppercase tracking-wider">Objetivo</p>
-              <p className="text-sm text-blue-50">
-                Transformar datos crudos de bases espaciales en herramientas de decisión estratégica
-                a partir de herramientas de inteligencia de negocio.
+              <p className="text-xs font-semibold text-indigo-200 uppercase tracking-wider">Objetivo</p>
+              <p className="text-sm text-indigo-50">
+                Realizar un análisis comparado de aspectos catastrales entre países y explicar sus
+                características mediante el uso de historias de datos espaciales.
               </p>
             </div>
           </div>
@@ -224,6 +223,7 @@ export default function ActividadesTallerDos() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
+            'Documento de apoyo "DE-GINF-Pautas para la generación de historias de datos espaciales"',
             'Cuentas organizacionales ArcGIS Online para articuladores',
             'Carpeta en ArcGIS Online para organizar y depositar elementos',
             'Cuentas organizacionales ArcGIS Online para participantes',
@@ -238,7 +238,7 @@ export default function ActividadesTallerDos() {
         </div>
       </div>
 
-      {/* Enlaces importantes - MANTENGO TODOS LOS ENLACES ORIGINALES */}
+      {/* Enlaces importantes */}
       <div className="bg-gradient-to-br from-blue-50/50 to-indigo-50/50 border border-blue-200/50 rounded-xl p-4 md:p-6">
         <div className="flex flex-wrap items-center gap-4">
           <span className="text-sm font-semibold text-slate-700">Recursos de apoyo:</span>
@@ -345,7 +345,7 @@ export default function ActividadesTallerDos() {
                   </h5>
                   <ul className="space-y-2">
                     {act.dinamica.map((item, index) => {
-                      // Detectar enlaces en el texto - MANTENGO AMBOS ENLACES
+                      // Detectar enlaces en el texto
                       const textoConEnlaces = item
                         .replace(/GeoMedellín/g, (match) => 
                           `<a href="${enlaces.geomedellin}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">${match}</a>`
@@ -394,19 +394,19 @@ export default function ActividadesTallerDos() {
 
                 {/* Evaluación */}
                 {act.id === 4 && (
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/50 rounded-xl p-4">
+                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200/50 rounded-xl p-4">
                     <div className="flex items-start gap-3">
-                      <Award className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <Award className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
                       <div>
-                        <h5 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Evaluación</h5>
+                        <h5 className="text-xs font-bold text-indigo-700 uppercase tracking-wider">Evaluación</h5>
                         <p className="text-sm text-slate-700 mt-1">
                           Los participantes evaluarán los trabajos presentados. El proyecto con mejor
                           valoración se publicará en el portal <strong>GeoMedellín</strong>.
                         </p>
-                        <div className="mt-2 bg-white/60 rounded-lg p-2 border border-blue-100/50">
+                        <div className="mt-2 bg-white/60 rounded-lg p-2 border border-indigo-100/50">
                           <p className="text-xs text-slate-600 flex items-center gap-2">
-                            <FileText className="w-3 h-3 text-blue-500" />
-                            <span>Entregable: *.pbix / *.pbip con resultados de actividades 2, 3 y 4</span>
+                            <FileText className="w-3 h-3 text-indigo-500" />
+                            <span>Entregable: *.url con resultados de actividades 2, 3 y 4</span>
                           </p>
                         </div>
                       </div>
@@ -436,9 +436,9 @@ export default function ActividadesTallerDos() {
               <div
                 className={`h-2 rounded-full flex-1 transition-all duration-300 ${
                   index < actividadActiva
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600'
+                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600'
                     : index === actividadActiva - 1
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 animate-pulse'
+                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 animate-pulse'
                     : 'bg-slate-200'
                 }`}
               />

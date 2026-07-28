@@ -3,45 +3,71 @@
 import {
   createContext,
   useContext,
-  useEffect,
-  useState,
+  useCallback,
+  useSyncExternalStore,
 } from "react";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("token");
-  });
+// Evento interno para avisar a los suscriptores cuando login/logout
+// cambian localStorage en la misma pestaña (el evento "storage" nativo
+// del navegador solo se dispara en OTRAS pestañas, no en la actual).
+const AUTH_EVENT = "auth-changed";
 
-  const [usuario, setUsuario] = useState(() => {
-    if (typeof window === "undefined") return null;
-
-    const saved = localStorage.getItem("usuario");
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [loading] = useState(false);
-
-  const login = (token, usuario) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem(
-      "usuario",
-      JSON.stringify(usuario)
-    );
-
-    setToken(token);
-    setUsuario(usuario);
+function subscribe(callback) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(AUTH_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(AUTH_EVENT, callback);
   };
+}
 
-  const logout = () => {
+function getTokenSnapshot() {
+  return localStorage.getItem("token");
+}
+
+function getUsuarioSnapshot() {
+  return localStorage.getItem("usuario");
+}
+
+// Snapshot que se usa en el servidor (y en el primer render del cliente,
+// antes de hidratar). Siempre null => servidor y cliente arrancan iguales.
+function getServerSnapshot() {
+  return null;
+}
+
+export function AuthProvider({ children }) {
+  // useSyncExternalStore se encarga de:
+  // 1) Devolver getServerSnapshot() durante el render en servidor y en el
+  //    primer render del cliente (evita el hydration mismatch).
+  // 2) Justo después de hidratar, comparar contra el valor real del cliente
+  //    y, si difiere, forzar un re-render ANTES de que el navegador pinte
+  //    (evita el parpadeo login -> usuario logueado).
+  // 3) Re-renderizar automáticamente cuando se dispare AUTH_EVENT o "storage".
+  const token = useSyncExternalStore(subscribe, getTokenSnapshot, getServerSnapshot);
+  const usuarioRaw = useSyncExternalStore(subscribe, getUsuarioSnapshot, getServerSnapshot);
+
+  let usuario = null;
+  if (usuarioRaw) {
+    try {
+      usuario = JSON.parse(usuarioRaw);
+    } catch {
+      usuario = null;
+    }
+  }
+
+  const login = useCallback((newToken, newUsuario) => {
+    localStorage.setItem("token", newToken);
+    localStorage.setItem("usuario", JSON.stringify(newUsuario));
+    window.dispatchEvent(new Event(AUTH_EVENT));
+  }, []);
+
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-
-    setToken(null);
-    setUsuario(null);
-  };
+    window.dispatchEvent(new Event(AUTH_EVENT));
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -49,7 +75,9 @@ export function AuthProvider({ children }) {
         usuario,
         token,
         isAuthenticated: !!token,
-        loading,
+        // Con useSyncExternalStore el valor real ya está resuelto antes
+        // de pintar, así que no hay una fase de "cargando" que exponer.
+        loading: false,
         login,
         logout,
       }}

@@ -3,6 +3,7 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import ActividadesTallerUno from './tallerUno/Actividades';
 import ActividadesTallerDos from './tallerDos/Actividades';
+import ActividadesTallerTres from './tallerTres/Actividades';
 import CapasDatos from './CapasDatos';
 import ContadorInscritos from "@/components/ui/ContadorInscritos";
 
@@ -191,6 +192,10 @@ export default function TallerPage() {
 
           <div className="mb-16">
             <ActividadesTallerDos />
+          </div>
+
+          <div className="mb-16">
+            <ActividadesTallerTres />
           </div>
 
           <div className="mb-16">

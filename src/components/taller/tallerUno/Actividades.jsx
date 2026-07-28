@@ -1,4 +1,4 @@
-    'use client'
+'use client'
 
 import { useState } from 'react';
 import { 
@@ -20,7 +20,8 @@ import {
   GitBranch,
   BookOpen,
   Monitor,
-  Smartphone
+  Smartphone,
+  Map
 } from 'lucide-react';
 
 export default function ActividadesTallerUno() {
@@ -30,66 +31,64 @@ export default function ActividadesTallerUno() {
     {
       id: 1,
       titulo: 'Aspectos Generales del Taller',
-      duracion: '30-40 minutos',
+      duracion: '40-50 minutos',
       icono: <BookOpen className="w-5 h-5" />,
       color: 'blue',
       dinamica: [
         'Presentación de los objetivos del taller y las actividades a realizar para la obtención del certificado.',
-        'Explicación de los datos del ejercicio (tipos y estructura), y acceso al repositorio (datos en varios formatos y sus respectivos diccionarios de datos).',
-        'Presentación de la plataforma GeoMedellín y el visor Mapas Medellín enfocado a visualización y descarga de datos (tablero estadísticas). La presentación también se tendrá dispuesta en el repositorio.',
-        'Información sobre descarga de datos espaciales de apoyo desde GeoMedellín en caso de que para los ejercicios, se requiera de información espacial de apoyo (ej. capas de barrios, comunas, corregimientos, etc.).'
+        'Explicación de los datos del ejercicio y dónde acceder a ellos (repositorio). En este se encontrarán los datos (en varios formatos) y sus respectivos diccionarios de datos.',
+        'Explicación de la plataforma geográfica de Medellín desde una parte generalista.',
+        'Explicación de las herramientas/aplicaciones de Subsecretaría de Catastro (GICAT, avance del modelo catastro multipropósito, LADM_COL).'
       ],
-      reto: 'Los participantes recibirán información de 3 comunas de Medellín (Comuna 1: Popular, Comuna 7: Robledo y Comuna 14: El Poblado). El objetivo es caracterizar elementos comunes y diferenciales, mostrando la información en formato resumen ejecutivo para tomadores de decisiones.',
+      reto: 'Familiarización con los conceptos generales del taller y las herramientas que se utilizarán durante la jornada.',
       resultados: 'Comprensión del alcance del taller y familiarización con las herramientas y datos a utilizar.'
     },
     {
       id: 2,
-      titulo: 'Health Check de la Base Espacial (Conexión y limpieza).',
+      titulo: 'Funcionalidades GeoMedellín',
       duracion: '45 minutos',
-      icono: <Database className="w-5 h-5" />,
+      icono: <Globe className="w-5 h-5" />,
       color: 'emerald',
       dinamica: [
-        'Conexión de datos a Power BI mediante carga de archivo (o en caso de que se disponga) conexión a URL.',
-        'Exploración de los datos y realización de procesos básicos de ETL (Extracción, Transformación y Carga).',
-        'Identificación de inconsistencias comunes en bases de datos espaciales.'
+        'Los participantes ingresan al portal GeoMedellín.',
+        'Recorrido guiado con el facilitador por las diferentes secciones del portal.',
+        'Exploración interactiva de las funcionalidades y herramientas disponibles.',
+        'Ejercicios prácticos de usabilidad en el Catálogo Geográfico y descarga de datos abiertos.'
       ],
-      reto: 'Identificar y corregir inconsistencias comunes como predios con área cero y registros duplicados antes de cargar los datos al modelo.',
-      resultados: [
-        'Procesos realizados para la limpieza de los datos.',
-        'Modelo de datos utilizado para la realización del ejercicio.'
-      ]
+      reto: 'Realizar ejercicios de usabilidad de las herramientas para la calidad de los datos (Catálogo Geográfico) y descarga de datos abiertos analizando las diferentes opciones que existen.',
+      resultados: ['Entregar respuestas al enunciado de la actividad 2.'],
+      // Añadimos el enlace como metadata para la actividad
+      enlaceTexto: 'GeoMedellín',
+      enlaceUrl: 'https://www.medellin.gov.co/geomedellin'
     },
     {
       id: 3,
-      titulo: 'Visualización de Información Geográfica',
-      duracion: '45 minutos',
-      icono: <Layers className="w-5 h-5" />,
+      titulo: 'Funcionalidades Mapas Medellín',
+      duracion: '60 minutos',
+      icono: <Map className="w-5 h-5" />,
       color: 'purple',
       dinamica: [
-        'Exploración de las diferentes opciones para visualizar información geográfica: capas de puntos y capas poligonales.',
-        'Mostrar las diferencias entre ArcGIS for Power BI para usuarios públicos vs cuentas organizacionales.',
-        'Creación de visualizaciones con la información disponible o mediante nuevas medidas.'
+        'Los participantes ingresan al visor Mapas Medellín.',
+        'Recorrido guiado con el facilitador por las diferentes secciones del visor.',
+        'Exploración interactiva de las herramientas de visualización y análisis.',
+        'Ejercicio práctico de creación de mapas con información catastral.'
       ],
-      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediantye uso de nuevas medidas y generar la medida "Relación IBI" (valor comercial vs avalúo catastral).',
-      resultados: 'Objetos visuales geográficos que permitan analizar la distribución territorial de los indicadores clave.'
+      reto: 'Crear un mapa con información catastral usando las herramientas mostradas durante el recorrido guiado.',
+      resultados: ['Entregar mapa realizado en la actividad 3.']
     },
     {
       id: 4,
-      titulo: 'Simulación para Tomadores de Decisión (Roleplay)',
-      duracion: '30 minutos',
-      icono: <Presentation className="w-5 h-5" />,
+      titulo: 'Ejercicio con Plataforma Catastro',
+      duracion: 'Pendiente de validación',
+      icono: <Database className="w-5 h-5" />,
       color: 'amber',
       dinamica: [
-        'Trabajo por equipos representando entidades catastrales.',
-        'Presentación de resúmenes ejecutivos de cada equipo (3-5 minutos por equipo).',
-        'Retroalimentación y comentarios entre cada equipos sobre los trabajos mostrados.',
-        'Evaluación de los proyectos presentados por todos los participantes del taller.'
+        'Ejercicio práctico con la plataforma de catastro.',
+        'Aplicación de los conocimientos adquiridos durante el taller.',
+        'Uso de las herramientas de la Subsecretaría de Catastro.'
       ],
-      reto: 'Elaborar un proyecto en Power BI utilizando los objetos visuales que consideren importantes que muestren la información más estratégica para ayudar a directivos y tomadores de decisiones a comprender la situación territorial.',
-      resultados: [
-        'Versión final del tablero con información clara y estratégica.',
-        'El proyecto con mejor valoración se publicará en el portal GeoMedellín.'
-      ]
+      reto: 'Desarrollar el ejercicio propuesto con la plataforma de catastro, aplicando las herramientas y funcionalidades aprendidas.',
+      resultados: ['Entregar ejercicio realizado con la plataforma de catastro.']
     }
   ];
 
@@ -134,9 +133,39 @@ export default function ActividadesTallerUno() {
 
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
-    fecha: '16 ó 23 de septiembre (tentativo)',
+    fecha: '31 de agosto (tentativo)',
     modalidad: 'Presencial / Virtual',
-    participantes: 'Individual con presentación en equipos'
+    participantes: 'Individual'
+  };
+
+  // Función para renderizar dinámica con enlaces
+  const renderDinamica = (item, index, enlaceTexto, enlaceUrl) => {
+    if (enlaceTexto && item.includes(enlaceTexto)) {
+      const parts = item.split(enlaceTexto);
+      return (
+        <li key={index} className="flex items-start gap-3 text-sm text-slate-700">
+          <span className="text-blue-500 font-bold mt-0.5">▸</span>
+          <span>
+            {parts[0]}
+            <a 
+              href={enlaceUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline font-medium hover:bg-blue-50 px-1 rounded transition-colors"
+            >
+              {enlaceTexto}
+            </a>
+            {parts[1]}
+          </span>
+        </li>
+      );
+    }
+    return (
+      <li key={index} className="flex items-start gap-3 text-sm text-slate-700">
+        <span className="text-blue-500 font-bold mt-0.5">▸</span>
+        <span>{item}</span>
+      </li>
+    );
   };
 
   return (
@@ -145,13 +174,13 @@ export default function ActividadesTallerUno() {
       <div className="flex items-center gap-4">
         <div className="flex-1 h-px bg-gradient-to-r from-transparent to-slate-200"></div>
         <div className="flex items-center gap-3 px-4 py-2 bg-blue-50/80 rounded-full border border-blue-200/50">
-          <span className="text-lg">📊</span>
+          <span className="text-lg">🗺️</span>
           <span className="text-sm font-bold text-blue-700 uppercase tracking-wider">
             Taller Uno
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
           <span className="text-xs font-medium text-blue-600">
-            Visualización de Datos
+            Plataforma Geográfica
           </span>
         </div>
         <div className="flex-1 h-px bg-gradient-to-l from-transparent to-slate-200"></div>
@@ -170,11 +199,11 @@ export default function ActividadesTallerUno() {
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold">
-              Visualización de Datos
+              Plataforma Geográfica del Distrito de Medellín
             </h2>
             <p className="text-blue-100 text-sm md:text-base mt-1 max-w-2xl">
-              Transformar datos crudos de bases espaciales en herramientas de decisión estratégica
-              utilizando herramientas de inteligencia de negocio
+              Familiarización con las herramientas geográficas del Distrito de Medellín 
+              y realización de ejercicios básicos con información catastral
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -196,8 +225,8 @@ export default function ActividadesTallerUno() {
             <div>
               <p className="text-xs font-semibold text-blue-200 uppercase tracking-wider">Objetivo</p>
               <p className="text-sm text-blue-50">
-                Transformar datos crudos de bases espaciales en herramientas de decisión estratégica
-                a partir de herramientas de inteligencia de negocio.
+                Familiarizar a los asistentes del taller con las herramientas geográficas que 
+                dispone el Distrito de Medellín y realización de ejercicios básicos con información catastral.
               </p>
             </div>
           </div>
@@ -212,11 +241,11 @@ export default function ActividadesTallerUno() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
-            'Cuentas organizacionales ArcGIS Online para articuladores',
-            'Carpeta en ArcGIS Online para organizar y depositar elementos',
-            'Cuentas organizacionales ArcGIS Online para participantes',
-            'Usuario publicador en Power BI para tableros abiertos',
-            'Ejercicios individuales con presentación en equipos'
+            'Disponer de usuario para acceder a sección privada de GeoMedellín/Mapas Medellín',
+            'Acceso a la plataforma GeoMedellín',
+            'Conexión a internet estable para navegación',
+            'Repositorio con datos del ejercicio y diccionarios de datos',
+            'Ejercicios individuales'
           ].map((item, index) => (
             <div key={index} className="flex items-start gap-2 text-sm text-slate-600">
               <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
@@ -295,12 +324,9 @@ export default function ActividadesTallerUno() {
                     Dinámica
                   </h5>
                   <ul className="space-y-2">
-                    {act.dinamica.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3 text-sm text-slate-700">
-                        <span className="text-blue-500 font-bold mt-0.5">▸</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
+                    {act.dinamica.map((item, index) => 
+                      renderDinamica(item, index, act.enlaceTexto, act.enlaceUrl)
+                    )}
                   </ul>
                 </div>
 
@@ -333,21 +359,26 @@ export default function ActividadesTallerUno() {
                   )}
                 </div>
 
-                {/* Evaluación */}
-                {act.id === 4 && (
+                {/* Evaluación - Solo para actividades 2, 3 y 4 */}
+                {(act.id === 2 || act.id === 3 || act.id === 4) && (
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/50 rounded-xl p-4">
                     <div className="flex items-start gap-3">
                       <Award className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                       <div>
                         <h5 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Evaluación</h5>
                         <p className="text-sm text-slate-700 mt-1">
-                          Los participantes evaluarán los trabajos presentados. El proyecto con mejor
-                          valoración se publicará en el portal <strong>GeoMedellín</strong>.
+                          {act.id === 2 && 'Los participantes deberán entregar las respuestas al enunciado de la actividad 2.'}
+                          {act.id === 3 && 'Los participantes deberán entregar el mapa creado durante la actividad 3.'}
+                          {act.id === 4 && 'Los participantes deberán entregar el ejercicio realizado con la plataforma de catastro.'}
                         </p>
                         <div className="mt-2 bg-white/60 rounded-lg p-2 border border-blue-100/50">
                           <p className="text-xs text-slate-600 flex items-center gap-2">
                             <FileText className="w-3 h-3 text-blue-500" />
-                            <span>Entregable: *.pbix / *.pbip con resultados de actividades 2, 3 y 4</span>
+                            <span>
+                              {act.id === 2 && 'Entregable: Respuestas actividad 2'}
+                              {act.id === 3 && 'Entregable: Mapa creado actividad 3'}
+                              {act.id === 4 && 'Entregable: Ejercicio plataforma catastro'}
+                            </span>
                           </p>
                         </div>
                       </div>
