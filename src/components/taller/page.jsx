@@ -6,6 +6,7 @@ import ActividadesTallerDos from './tallerDos/Actividades';
 import ActividadesTallerTres from './tallerTres/Actividades';
 import CapasDatos from './CapasDatos';
 import ContadorInscritos from "@/components/ui/ContadorInscritos";
+import EjercicioGeoMedellin from './ejerciciosGeoMedellin/EjercicioGeoMedellin';
 
 export default function TallerPage() {
   const actividades = [
@@ -196,6 +197,23 @@ export default function TallerPage() {
 
           <div className="mb-16">
             <ActividadesTallerTres />
+          </div>
+
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
+              <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
+                <span className="text-base">📄</span>
+                Ejercicio Práctico
+              </h2>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
+            </div>
+            
+            <EjercicioGeoMedellin />
+            
+            <p className="text-center text-xs text-slate-400 mt-3">
+              Descarga el archivo con el enunciado completo del ejercicio
+            </p>
           </div>
 
           <div className="mb-16">
