@@ -31,7 +31,7 @@ export default function EjercicioGeoMedellin() {
             </div>
             <div>
               <h3 className="font-bold text-slate-800 text-sm">
-                Ejercicio 01 - GeoMedellín
+                Ejercicios Prácticos - GeoMedellín
               </h3>
               <p className="text-xs text-slate-500">
                 Catálogo geográfico y datos abiertos
