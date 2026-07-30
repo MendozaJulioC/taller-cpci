@@ -8,13 +8,7 @@ import {
   FaExchangeAlt,
   FaChartLine,
   FaLinkedinIn, 
-  FaGithub,
-  FaBook,
-  FaDatabase,
-  FaGlobe,
-  FaMap,
-  FaPenTool,
-  FaShareAlt
+  FaGithub
 } from "react-icons/fa";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
 
@@ -23,43 +17,25 @@ export default function About() {
   
   const objectives = [
     {
-      title: 'Taller 1: Plataforma Geográfica del Distrito de Medellín',
-      subtitle: 'Día 1 - Lunes 31 de agosto',
-      icon: <FaGlobe className="text-3xl text-blue-600" />,
-      description: 'Familiarización con las herramientas geográficas del Distrito de Medellín y realización de ejercicios básicos con información catastral.',
-      actividades: [
-        'Actividad 1: Aspectos Generales (40-50 min)',
-        'Actividad 2: Funcionalidades GeoMedellín (45 min)',
-        'Actividad 3: Funcionalidades Mapas Medellín (60 min)',
-        'Actividad 4: Ejercicio con Plataforma Catastro (Pendiente)'
-      ],
-      reto: 'Familiarizar a los asistentes con las herramientas geográficas que dispone el Distrito de Medellín y realizar ejercicios básicos con información catastral.',
+      title: 'Actividad 1: Health Check de la Base Espacial',
+      subtitle: 'Conexión y limpieza de datos',
+      icon: <FaHandshake className="text-3xl text-blue-600" />,
+      description: 'Los participantes deben conectar Power BI a una base de datos (PostGIS o similar) y realizar un proceso de ETL orientado a lo territorial.',
+      reto: 'Identificar y corregir inconsistencias comunes, como predios con área cero, registros duplicados o errores de tipología en el uso del suelo, antes de cargar los datos al modelo.',
     },
     {
-      title: 'Taller 2: Visualización de Datos',
-      subtitle: 'Día 2 - Miércoles 2 de septiembre',
-      icon: <FaDatabase className="text-3xl text-green-600" />,
-      description: 'Transformar datos crudos de bases espaciales en herramientas de decisión estratégica a partir de herramientas de inteligencia de negocio.',
-      actividades: [
-        'Actividad 1: Aspectos Generales (30-40 min)',
-        'Actividad 2: Health Check (45 min)',
-        'Actividad 3: Visualización Geográfica (45 min)',
-        'Actividad 4: Simulación para Tomadores de Decisión (30 min)'
-      ],
-      reto: 'Caracterizar elementos comunes y diferenciales de 3 comunas de Medellín, mostrando la información en formato resumen ejecutivo para tomadores de decisiones.',
+      title: 'Actividad 2: Diseño de Mapas Coropléticos',
+      subtitle: 'Integración ArcGIS for Power BI',
+      icon: <FaExchangeAlt className="text-3xl text-green-600" />,
+      description: "Configuración de visualizaciones espaciales avanzadas utilizando el objeto visual de ArcGIS o Mapbox dentro de Power BI.",
+      reto: 'Crear un mapa coroplético que muestre la distribución de un indicador clave (densidad poblacional, acceso a servicios, etc.) a nivel de distrito o comuna, utilizando datos reales.',
     },
     {
-      title: 'Taller 3: Historias de Datos Espaciales',
-      subtitle: 'Día 3 - Viernes 5 de septiembre',
-      icon: <FaBook className="text-3xl text-orange-600" />,
-      description: 'Realizar un análisis comparado de aspectos catastrales entre países y explicar sus características mediante el uso de historias de datos espaciales (Spatial Storytelling).',
-      actividades: [
-        'Actividad 1: Aspectos Generales (30 min)',
-        'Actividad 2: Del Dato al Guión (45 min)',
-        'Actividad 3: Curaduría de Mapas Narrativos (45 min)',
-        'Actividad 4: El Test de la "Abuela" (45 min)'
-      ],
-      reto: 'Realizar una historia de datos espaciales con análisis comparativo entre los datos de Medellín (trabajados en el Taller 1) y los países de cada asistente.',
+      title: "Actividad 3: Simulación para Tomadores de Decisión",
+      subtitle: 'Roleplay estratégico',
+      icon: <FaChartLine className="text-3xl text-orange-600" />,
+      description: 'En grupos, los analistas deben diseñar un tablero de "Control de Metas" para un Secretario o Director de área.',
+      reto: 'Simular una reunión de toma de decisiones donde los participantes presenten su tablero a un "Director" (interpretado por un instructor) y respondan preguntas críticas sobre interpretación de datos.',
     }
   ];
 
@@ -106,7 +82,20 @@ export default function About() {
     </section>
 
           {/* Sección de Actividades */}
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            {/* Título principal de la sección */}
+            <div className="mb-12 text-center">
+              <span className="inline-block text-xs font-bold text-blue-600 uppercase tracking-[0.2em] bg-blue-50 px-4 py-1.5 rounded-full mb-4">
+                Programa del Evento
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
+                Actividades Relacionadas del Taller
+              </h2>
+              <p className="text-base text-slate-500 max-w-2xl mx-auto">
+                Conoce los tres talleres diseñados para potenciar tus habilidades en visualización y análisis de datos catastrales
+              </p>
+            </div>
+
             <div className="mb-10 flex items-center gap-4">
               <h3 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
                 Talleres del Evento
@@ -128,30 +117,18 @@ export default function About() {
                       <h4 className="text-lg font-bold text-slate-900 leading-snug">
                         {objective.title}
                       </h4>
-                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-5">
                         {objective.subtitle}
                       </p>
 
-                      {/* Descripción */}
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                        {objective.description}
-                      </p>
-
-                      {/* Lista de actividades */}
-                      <div className="space-y-1.5 mb-4">
-                        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Actividades:</p>
-                        {objective.actividades.map((act, idx) => (
-                          <p key={idx} className="text-xs text-slate-600 pl-3 flex items-start gap-1.5">
-                            <span className="text-blue-500 font-bold">•</span>
-                            {act}
-                          </p>
-                        ))}
-                      </div>
-
-                      {/* Reto */}
-                      <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-                        <p className="text-xs text-slate-700 leading-relaxed">
-                          <span className="font-bold text-blue-700">🎯 Reto: </span>
+                      {/* Textos descriptivos */}
+                      <div className="space-y-4 mb-6">
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          <span className="font-bold text-slate-700">Dinámica: </span>
+                          {objective.description}
+                        </p>
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          <span className="font-bold text-blue-600">Reto: </span>
                           {objective.reto}
                         </p>
                       </div>
