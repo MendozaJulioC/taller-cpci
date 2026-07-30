@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'media.licdn.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdnwordpresstest-f0ekdgevcngegudb.z01.azurefd.net',
+      },
     ],
   },
 };
