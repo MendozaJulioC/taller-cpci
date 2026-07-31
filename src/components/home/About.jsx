@@ -193,7 +193,7 @@ export default function About() {
         </div>
 
         {/* Sección de Organizadores y Facilitadores */}
-        <div className="max-w-7xl mx-auto px-6 pb-12 space-y-8">
+        <div className="max-w-7xl mx-auto px-6 pb-12">
           
           {/* Subtítulo de la sección */}
           <div className="flex items-center gap-4 mb-6">
@@ -205,8 +205,8 @@ export default function About() {
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
           </div>
 
-          {/* Facilitador 1: Jordi Guerrero */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm">
+          {/* Facilitador 1: Jordi Guerrero - Ocupa todo el ancho */}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm mb-8">
             
             {/* Imagen */}
             <div className="flex-shrink-0 relative size-48 md:size-60 rounded-full overflow-hidden border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400">
@@ -221,7 +221,7 @@ export default function About() {
             </div>
 
             {/* Información */}
-            <div className="flex flex-col text-left">
+            <div className="flex flex-col text-left flex-1">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Facilitador</span>
               <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
                 Jordi Guerrero Martínez
@@ -282,140 +282,144 @@ export default function About() {
             </div>
           </div>
 
-          {/* Facilitador 2: Jaime Alberto Berrío Marín */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm">
+          {/* Grid de 2 columnas para Jaime y Ricardo */}
+          <div className="grid md:grid-cols-2 gap-8">
             
-            {/* Imagen */}
-            <div className="flex-shrink-0 relative size-48 md:size-60 rounded-full overflow-hidden border-4 border-emerald-50 outline outline-2 -outline-offset-2 outline-emerald-400">
-              <Image
-                alt="Jaime Alberto Berrío Marín"
-                src="https://cdnwordpresstest-f0ekdgevcngegudb.z01.azurefd.net/es/wp-content/uploads/2024/10/Jaime-Berrio-Subsecretario-de-Catastro_1-1024x681.jpg"
-                fill
-                sizes="(max-width: 768px) 192px, 240px"
-                priority
-                className="object-cover"
-                onError={(e) => {
-                  e.target.src = '/Img/placeholder-person.jpg';
-                }}
-              />
-            </div>
-
-            {/* Información */}
-            <div className="flex flex-col text-left">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Coordinador del Grupo de Trabajo en Temas Tecnológicos</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
-                Jaime Alberto Berrío Marín
-              </h2>
-              <p className="text-lg font-semibold text-emerald-600 mb-4">
-                Subsecretario de Catastro
-              </p>
+            {/* Facilitador 2: Jaime Alberto Berrío Marín */}
+            <div className="flex flex-col items-center md:items-start gap-6 p-6 bg-white rounded-2xl border border-gray-200 shadow-sm h-full">
               
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Abogado y Especialista en Derecho Comercial UPB. Especialista en Derecho Urbano Universidad Externado. 
-                Diplomado en Derecho Notarial y Registral del Colegio Mayor de Nuestra Señora del Rosario. Conjuez del 
-                Tribunal Administrativo de Antioquia 2001 a 2010. Coordinador del Componente Jurídico en diferentes 
-                Planes de Legalización y Regularización Urbanística de la Alcaldía de Medellín (2002 a 2009). Con más 
-                de 15 años de experiencia en Gestión Catastral.
-              </p>
+              {/* Imagen */}
+              <div className="flex-shrink-0 relative size-40 md:size-48 rounded-full overflow-hidden border-4 border-emerald-50 outline outline-2 -outline-offset-2 outline-emerald-400">
+                <Image
+                  alt="Jaime Alberto Berrío Marín"
+                  src="https://cdnwordpresstest-f0ekdgevcngegudb.z01.azurefd.net/es/wp-content/uploads/2024/10/Jaime-Berrio-Subsecretario-de-Catastro_1-1024x681.jpg"
+                  fill
+                  sizes="(max-width: 768px) 160px, 192px"
+                  priority
+                  className="object-cover"
+                  onError={(e) => {
+                    e.target.src = '/Img/placeholder-person.jpg';
+                  }}
+                />
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaBuilding className="text-emerald-600" />
-                    Gestión Catastral
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Más de 15 años de experiencia en gestión catastral y regularización urbanística.</p>
-                </div>
-                <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaGraduationCap className="text-emerald-600" />
-                    Formación Académica
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Especialista en Derecho Urbano y Comercial. Diplomado en Derecho Notarial y Registral.</p>
-                </div>
-                <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaAward className="text-emerald-600" />
-                    Trayectoria Judicial
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Conjuez del Tribunal Administrativo de Antioquia (2001-2010).</p>
-                </div>
-                <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaUsers className="text-emerald-600" />
-                    Rol en el Taller
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Coordinador del Grupo de Trabajo en Temas Tecnológicos.</p>
+              {/* Información */}
+              <div className="flex flex-col text-center md:text-left flex-1">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Coordinador del Grupo de Trabajo en Temas Tecnológicos</span>
+                <h2 className="text-2xl font-extrabold text-slate-900 mb-1">
+                  Jaime Alberto Berrío Marín
+                </h2>
+                <p className="text-base font-semibold text-emerald-600 mb-3">
+                  Subsecretario de Catastro
+                </p>
+                
+                <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                  Abogado y Especialista en Derecho Comercial UPB. Especialista en Derecho Urbano Universidad Externado. 
+                  Diplomado en Derecho Notarial y Registral del Colegio Mayor de Nuestra Señora del Rosario. Conjuez del 
+                  Tribunal Administrativo de Antioquia 2001 a 2010. Coordinador del Componente Jurídico en diferentes 
+                  Planes de Legalización y Regularización Urbanística de la Alcaldía de Medellín (2002 a 2009). Con más 
+                  de 15 años de experiencia en Gestión Catastral.
+                </p>
+
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaBuilding className="text-emerald-600" />
+                      Gestión Catastral
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Más de 15 años de experiencia en gestión catastral y regularización urbanística.</p>
+                  </div>
+                  <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaGraduationCap className="text-emerald-600" />
+                      Formación Académica
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Especialista en Derecho Urbano y Comercial. Diplomado en Derecho Notarial y Registral.</p>
+                  </div>
+                  <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaAward className="text-emerald-600" />
+                      Trayectoria Judicial
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Conjuez del Tribunal Administrativo de Antioquia (2001-2010).</p>
+                  </div>
+                  <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaUsers className="text-emerald-600" />
+                      Rol en el Taller
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Coordinador del Grupo de Trabajo en Temas Tecnológicos.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Facilitador 3: Ricardo López Rivera */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm">
-            
-            {/* Imagen */}
-            <div className="flex-shrink-0 relative size-48 md:size-60 rounded-full overflow-hidden border-4 border-purple-50 outline outline-2 -outline-offset-2 outline-purple-400">
-              <Image
-                alt="Ricardo López Rivera"
-                src="/Img/ricardo_lopez.png"
-                fill
-                sizes="(max-width: 768px) 192px, 240px"
-                priority
-                className="object-cover"
-              />
-            </div>
-
-            {/* Información */}
-            <div className="flex flex-col text-left">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Presidente del Consejo</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
-                Ricardo López Rivera
-              </h2>
-              <p className="text-lg font-semibold text-purple-600 mb-4">
-                Presidente del Comité Permanente sobre el Catastro en Iberoamérica
-              </p>
+            {/* Facilitador 3: Ricardo López Rivera */}
+            <div className="flex flex-col items-center md:items-start gap-6 p-6 bg-white rounded-2xl border border-gray-200 shadow-sm h-full">
               
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Líder del Comité Permanente sobre el Catastro en Iberoamérica (CPCI), organismo que promueve la 
-                cooperación técnica, el intercambio de experiencias y la modernización de los sistemas catastrales 
-                en la región iberoamericana. Su gestión ha sido fundamental para impulsar la transformación digital 
-                y la interoperabilidad de los datos catastrales en los países miembros.
-              </p>
+              {/* Imagen */}
+              <div className="flex-shrink-0 relative size-40 md:size-48 rounded-full overflow-hidden border-4 border-purple-50 outline outline-2 -outline-offset-2 outline-purple-400">
+                <Image
+                  alt="Ricardo López Rivera"
+                  src="/Img/ricardo_lopez.png"
+                  fill
+                  sizes="(max-width: 768px) 160px, 192px"
+                  priority
+                  className="object-cover"
+                />
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaGlobe className="text-purple-600" />
-                    Liderazgo Internacional
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Presidente del CPCI, promoviendo la cooperación catastral en Iberoamérica.</p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaBuilding className="text-purple-600" />
-                    Visión Institucional
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Impulsor de la modernización y transformación digital de los sistemas catastrales.</p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaUsers className="text-purple-600" />
-                    Cooperación Técnica
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Fomenta el intercambio de experiencias y buenas prácticas entre países miembros.</p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <FaAward className="text-purple-600" />
-                    Rol en el Taller
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1">Presidente del CPCI, liderando la iniciativa de formación y actualización catastral.</p>
+              {/* Información */}
+              <div className="flex flex-col text-center md:text-left flex-1">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Presidente del Consejo</span>
+                <h2 className="text-2xl font-extrabold text-slate-900 mb-1">
+                  Ricardo López Rivera
+                </h2>
+                <p className="text-base font-semibold text-purple-600 mb-3">
+                  Presidente del Comité Permanente sobre el Catastro en Iberoamérica
+                </p>
+                
+                <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                  Líder del Comité Permanente sobre el Catastro en Iberoamérica (CPCI), organismo que promueve la 
+                  cooperación técnica, el intercambio de experiencias y la modernización de los sistemas catastrales 
+                  en la región iberoamericana. Su gestión ha sido fundamental para impulsar la transformación digital 
+                  y la interoperabilidad de los datos catastrales en los países miembros.
+                </p>
+
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaGlobe className="text-purple-600" />
+                      Liderazgo Internacional
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Presidente del CPCI, promoviendo la cooperación catastral en Iberoamérica.</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaBuilding className="text-purple-600" />
+                      Visión Institucional
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Impulsor de la modernización y transformación digital de los sistemas catastrales.</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaUsers className="text-purple-600" />
+                      Cooperación Técnica
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Fomenta el intercambio de experiencias y buenas prácticas entre países miembros.</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                      <FaAward className="text-purple-600" />
+                      Rol en el Taller
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-0.5">Presidente del CPCI, liderando la iniciativa de formación y actualización catastral.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
 
       </section>
