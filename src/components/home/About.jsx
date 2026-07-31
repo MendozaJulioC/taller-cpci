@@ -286,33 +286,37 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-8">
             
             {/* Facilitador 2: Jaime Alberto Berrío Marín */}
-            <div className="flex flex-col items-center md:items-start gap-6 p-6 bg-white rounded-2xl border border-gray-200 shadow-sm h-full">
-              
-              {/* Imagen */}
-              <div className="flex-shrink-0 relative size-40 md:size-48 rounded-full overflow-hidden border-4 border-emerald-50 outline outline-2 -outline-offset-2 outline-emerald-400">
-                <Image
-                  alt="Jaime Alberto Berrío Marín"
-                  src="https://cdnwordpresstest-f0ekdgevcngegudb.z01.azurefd.net/es/wp-content/uploads/2024/10/Jaime-Berrio-Subsecretario-de-Catastro_1-1024x681.jpg"
-                  fill
-                  sizes="(max-width: 768px) 160px, 192px"
-                  priority
-                  className="object-cover"
-                  onError={(e) => {
-                    e.target.src = '/Img/placeholder-person.jpg';
-                  }}
-                />
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              {/* Cabecera con foto + nombre + cargo */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-6 bg-gradient-to-r from-emerald-50/50 to-white border-b border-gray-100">
+                <div className="flex-shrink-0 relative size-24 md:size-32 rounded-full overflow-hidden border-4 border-emerald-50 outline outline-2 -outline-offset-2 outline-emerald-400">
+                  <Image
+                    alt="Jaime Alberto Berrío Marín"
+                    src="https://cdnwordpresstest-f0ekdgevcngegudb.z01.azurefd.net/es/wp-content/uploads/2024/10/Jaime-Berrio-Subsecretario-de-Catastro_1-1024x681.jpg"
+                    fill
+                    sizes="(max-width: 768px) 96px, 128px"
+                    priority
+                    className="object-cover"
+                    onError={(e) => {
+                      e.target.src = '/Img/placeholder-person.jpg';
+                    }}
+                  />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-[0.2em] block mb-0.5">
+                    Coordinador del Grupo de Trabajo en Temas Tecnológicos
+                  </span>
+                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
+                    Jaime Alberto Berrío Marín
+                  </h2>
+                  <p className="text-sm font-semibold text-emerald-600">
+                    Subsecretario de Catastro
+                  </p>
+                </div>
               </div>
 
-              {/* Información */}
-              <div className="flex flex-col text-center md:text-left flex-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Coordinador del Grupo de Trabajo en Temas Tecnológicos</span>
-                <h2 className="text-2xl font-extrabold text-slate-900 mb-1">
-                  Jaime Alberto Berrío Marín
-                </h2>
-                <p className="text-base font-semibold text-emerald-600 mb-3">
-                  Subsecretario de Catastro
-                </p>
-                
+              {/* Contenido - Descripción y tarjetas */}
+              <div className="p-6 pt-4">
                 <p className="text-sm text-gray-700 leading-relaxed mb-4">
                   Abogado y Especialista en Derecho Comercial UPB. Especialista en Derecho Urbano Universidad Externado. 
                   Diplomado en Derecho Notarial y Registral del Colegio Mayor de Nuestra Señora del Rosario. Conjuez del 
@@ -355,30 +359,34 @@ export default function About() {
             </div>
 
             {/* Facilitador 3: Ricardo López Rivera */}
-            <div className="flex flex-col items-center md:items-start gap-6 p-6 bg-white rounded-2xl border border-gray-200 shadow-sm h-full">
-              
-              {/* Imagen */}
-              <div className="flex-shrink-0 relative size-40 md:size-48 rounded-full overflow-hidden border-4 border-purple-50 outline outline-2 -outline-offset-2 outline-purple-400">
-                <Image
-                  alt="Ricardo López Rivera"
-                  src="/Img/ricardo_lopez.png"
-                  fill
-                  sizes="(max-width: 768px) 160px, 192px"
-                  priority
-                  className="object-cover"
-                />
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              {/* Cabecera con foto + nombre + cargo */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-6 bg-gradient-to-r from-purple-50/50 to-white border-b border-gray-100">
+                <div className="flex-shrink-0 relative size-24 md:size-32 rounded-full overflow-hidden border-4 border-purple-50 outline outline-2 -outline-offset-2 outline-purple-400">
+                  <Image
+                    alt="Ricardo López Rivera"
+                    src="/Img/ricardo_lopez.png"
+                    fill
+                    sizes="(max-width: 768px) 96px, 128px"
+                    priority
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <span className="text-[10px] font-bold text-purple-600 uppercase tracking-[0.2em] block mb-0.5">
+                    Presidente del Consejo
+                  </span>
+                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
+                    Ricardo López Rivera
+                  </h2>
+                  <p className="text-sm font-semibold text-purple-600">
+                    Presidente del Comité Permanente sobre el Catastro en Iberoamérica
+                  </p>
+                </div>
               </div>
 
-              {/* Información */}
-              <div className="flex flex-col text-center md:text-left flex-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Presidente del Consejo</span>
-                <h2 className="text-2xl font-extrabold text-slate-900 mb-1">
-                  Ricardo López Rivera
-                </h2>
-                <p className="text-base font-semibold text-purple-600 mb-3">
-                  Presidente del Comité Permanente sobre el Catastro en Iberoamérica
-                </p>
-                
+              {/* Contenido - Descripción y tarjetas */}
+              <div className="p-6 pt-4">
                 <p className="text-sm text-gray-700 leading-relaxed mb-4">
                   Líder del Comité Permanente sobre el Catastro en Iberoamérica (CPCI), organismo que promueve la 
                   cooperación técnica, el intercambio de experiencias y la modernización de los sistemas catastrales 
