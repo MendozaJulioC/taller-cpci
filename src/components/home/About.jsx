@@ -72,8 +72,8 @@ export default function About() {
       <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <section className="py-2 bg-slate-50/50">
         {/* Encabezado superior */}
-        <div className="relative w-full py-10 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-5xl mx-auto px-6 text-center">
+        <div className="relative w-full py-8 sm:py-10 bg-slate-50 border-b border-slate-200">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
             
             {/* Etiqueta de evento */}
             <span className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
@@ -82,17 +82,17 @@ export default function About() {
             </span>
 
             {/* Título */}
-            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
               Taller de Visualización Avanzada para Catastro
             </h1>
 
             {/* Subtítulo */}
-            <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
               Lleva tus datos catastrales a tableros estratégicos con Power BI y ArcGIS.
             </p>
 
             {/* Contexto */}
-            <p className="text-base text-slate-500 mb-10 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-500 mb-10 max-w-2xl mx-auto">
               Dirigido a instituciones catastrales iberoamericanas, equipos GIS y analistas de datos territoriales.
             </p>
 
@@ -100,7 +100,7 @@ export default function About() {
             <div className="flex justify-center gap-4">
               <button 
                 onClick={() => setModalOpen(true)}
-                className="px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95"
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95"
               >
                 Inscríbete ahora
               </button>
@@ -110,16 +110,16 @@ export default function About() {
         </div>
 
         {/* Sección de Actividades */}
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
           {/* Título principal de la sección */}
           <div className="mb-12 text-center">
             <span className="inline-block text-xs font-bold text-blue-600 uppercase tracking-[0.2em] bg-blue-50 px-4 py-1.5 rounded-full mb-4">
               Programa del Evento
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
               Actividades Relacionadas del Taller
             </h2>
-            <p className="text-base text-slate-500 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto">
               Conoce los tres talleres diseñados para potenciar tus habilidades en visualización y análisis de datos catastrales
             </p>
           </div>
@@ -131,10 +131,10 @@ export default function About() {
             <span className="h-px flex-1 bg-slate-200"></span>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
             {objectives.map((objective) => (
               <Link href="/taller" key={objective.title} className="h-full block group">
-                <div className="bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm h-full flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-slate-300 hover:shadow-slate-200/50">
+                <div className="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm h-full flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-slate-300 hover:shadow-slate-200/50">
                   <div>
                     {/* Icono */}
                     <div className="mb-5 p-3 bg-slate-50 w-fit rounded-xl border border-slate-100">
@@ -193,7 +193,7 @@ export default function About() {
         </div>
 
         {/* Sección de Organizadores y Facilitadores */}
-        <div className="max-w-7xl mx-auto px-6 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
           
           {/* Subtítulo de la sección */}
           <div className="flex items-center gap-4 mb-6">
@@ -206,10 +206,10 @@ export default function About() {
           </div>
 
           {/* Facilitador 1: Jordi Guerrero - Ocupa todo el ancho */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 bg-white rounded-2xl border border-gray-200 shadow-sm mb-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 p-5 sm:p-8 bg-white rounded-2xl border border-gray-200 shadow-sm mb-8">
             
             {/* Imagen */}
-            <div className="flex-shrink-0 relative size-48 md:size-60 rounded-full overflow-hidden border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400">
+            <div className="flex-shrink-0 relative size-36 sm:size-48 md:size-60 rounded-full overflow-hidden border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400">
               <Image
                     alt="Jordi Guerrero"
                     src="/Img/jordi_guerrero.jpg"
@@ -221,16 +221,16 @@ export default function About() {
             </div>
 
             {/* Información */}
-            <div className="flex flex-col text-left flex-1">
+            <div className="flex flex-col text-center md:text-left flex-1">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Facilitador</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
                 Jordi Guerrero Martínez
               </h2>
-              <p className="text-lg font-semibold text-blue-600 mb-4">
+              <p className="text-base sm:text-lg font-semibold text-blue-600 mb-4">
                 Especialista en Infraestructura Geoespacial y Gemelos Digitales
               </p>
               
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base">
                 Líder estratégico con más de 20 años de experiencia transformando datos complejos en activos de decisión para los sectores público y privado. Pionero en la implementación del primer Gemelo Digital en Colombia y experto en transformación digital urbana mediante arquitecturas ArcGIS Enterprise, analítica avanzada y Python.
               </p>
 
@@ -254,7 +254,7 @@ export default function About() {
               </div>
 
               {/* Enlaces a redes */}
-              <div className="flex flex-row items-center gap-6 mt-8">
+              <div className="flex flex-row items-center justify-center md:justify-start flex-wrap gap-6 mt-8">
                 <a 
                   href="https://www.linkedin.com/in/jordi-guerrero-55b84015/" 
                   target="_blank" 
@@ -283,12 +283,12 @@ export default function About() {
           </div>
 
           {/* Grid de 2 columnas para Jaime y Ricardo */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             
             {/* Facilitador 2: Jaime Alberto Berrío Marín */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
               {/* Cabecera con foto + nombre + cargo */}
-              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-6 bg-gradient-to-r from-emerald-50/50 to-white border-b border-gray-100">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-5 sm:p-6 bg-gradient-to-r from-emerald-50/50 to-white border-b border-gray-100">
                 <div className="flex-shrink-0 relative size-24 md:size-32 rounded-full overflow-hidden border-4 border-emerald-50 outline outline-2 -outline-offset-2 outline-emerald-400">
                   <Image
                     alt="Jaime Alberto Berrío Marín"
@@ -306,7 +306,7 @@ export default function About() {
                   <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-[0.2em] block mb-0.5">
                     Coordinador del Grupo de Trabajo en Temas Tecnológicos
                   </span>
-                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
                     Jaime Alberto Berrío Marín
                   </h2>
                   <p className="text-sm font-semibold text-emerald-600">
@@ -316,7 +316,7 @@ export default function About() {
               </div>
 
               {/* Contenido - Descripción y tarjetas */}
-              <div className="p-6 pt-4">
+              <div className="p-5 sm:p-6 pt-4">
                 <p className="text-sm text-gray-700 leading-relaxed mb-4">
                   Abogado y Especialista en Derecho Comercial UPB. Especialista en Derecho Urbano Universidad Externado. 
                   Diplomado en Derecho Notarial y Registral del Colegio Mayor de Nuestra Señora del Rosario. Conjuez del 
@@ -361,7 +361,7 @@ export default function About() {
             {/* Facilitador 3: Ricardo López Rivera */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
               {/* Cabecera con foto + nombre + cargo */}
-              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-6 bg-gradient-to-r from-purple-50/50 to-white border-b border-gray-100">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 p-5 sm:p-6 bg-gradient-to-r from-purple-50/50 to-white border-b border-gray-100">
                 <div className="flex-shrink-0 relative size-24 md:size-32 rounded-full overflow-hidden border-4 border-purple-50 outline outline-2 -outline-offset-2 outline-purple-400">
                   <Image
                     alt="Ricardo López Rivera"
@@ -376,7 +376,7 @@ export default function About() {
                   <span className="text-[10px] font-bold text-purple-600 uppercase tracking-[0.2em] block mb-0.5">
                     Presidente del Consejo
                   </span>
-                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
                     Ricardo López Rivera
                   </h2>
                   <p className="text-sm font-semibold text-purple-600">
@@ -386,7 +386,7 @@ export default function About() {
               </div>
 
               {/* Contenido - Descripción y tarjetas */}
-              <div className="p-6 pt-4">
+              <div className="p-5 sm:p-6 pt-4">
                 <p className="text-sm text-gray-700 leading-relaxed mb-4">
                   Líder del Comité Permanente sobre el Catastro en Iberoamérica (CPCI), organismo que promueve la 
                   cooperación técnica, el intercambio de experiencias y la modernización de los sistemas catastrales 

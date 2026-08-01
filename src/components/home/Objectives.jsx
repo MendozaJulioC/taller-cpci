@@ -43,33 +43,34 @@ export default function Objectives() {
   return (
     <section
       id="objetivos"
-      className="bg-slate-50 py-24"
+      className="bg-slate-50 py-16 sm:py-20 md:py-24"
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Encabezado */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
             CPCI
           </span>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900">
             Objetivos Estratégicos
           </h2>
 
-          <p className="mt-6 text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-6 text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
            Transformar datos crudos de bases espaciales en herramientas de decisión estratégica.
           </p>
         </div>
 
         {/* Tarjetas */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-2">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
           {objectives.map((objective) => (
             <div
               key={objective.title}
               className="
                 bg-white
                 rounded-2xl
-                p-8
+                p-6
+                sm:p-8
                 border
                 border-slate-200
                 shadow-sm

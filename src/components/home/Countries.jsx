@@ -97,40 +97,40 @@ export default function Countries() {
   ];
 
   return (
-    <section id="countries" className="py-24 bg-slate-50/60">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="countries" className="py-16 sm:py-20 md:py-24 bg-slate-50/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Encabezado de Sección */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-blue-50 border border-blue-100 text-blue-700 rounded-full text-xs font-bold tracking-[0.15em] uppercase mb-5">
             <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse"></span>
             Países y Miembros
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
             Red Iberoamericana de Catastro
           </h2>
-          <p className="text-lg text-slate-600 leading-relaxed font-medium">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
             El Comité Permanente sobre el Catastro en Iberoamérica (CPCI) es una red internacional que agrupa a más de 20 instituciones catastrales. Su objetivo es promover la cooperación técnica, el intercambio de buenas prácticas y la modernización tecnológica.
           </p>
         </div>
 
         {/* Grid de Países Miembros y banderas */}
-        <div className="mb-24">
-          <div className="flex items-center gap-4 mb-10">
+        <div className="mb-14 sm:mb-24">
+          <div className="flex items-center gap-4 mb-6 sm:mb-10">
             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-[0.2em]">
               Países Miembros (Total: 68 entidades)
             </h3>
             <span className="h-px flex-1 bg-slate-200"></span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
             {members.map((member) => (
               <div 
                 key={member.name} 
-                className="bg-white border border-slate-200/80 rounded-2xl p-5 flex flex-col items-center justify-between text-center shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="bg-white border border-slate-200/80 rounded-2xl p-3 sm:p-4 md:p-5 flex flex-col items-center justify-between text-center shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 {/* Bandera simulada usando banderas de la web (CDN estático de banderas) */}
-                <div className="w-14 h-10 relative mb-4 rounded-lg overflow-hidden border border-slate-100 shadow-sm bg-slate-100 flex items-center justify-center">
+                <div className="w-12 h-8 sm:w-14 sm:h-10 relative mb-3 sm:mb-4 rounded-lg overflow-hidden border border-slate-100 shadow-sm bg-slate-100 flex items-center justify-center">
                   <img 
                     src={`https://flagcdn.com/w40/${member.code}.png`} 
                     alt={`Bandera de ${member.name}`} 
@@ -138,10 +138,10 @@ export default function Countries() {
                   />
                 </div>
                 
-                <h4 className="text-sm font-bold text-slate-800 mb-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-800 mb-1">
                   {member.name}
                 </h4>
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-xs font-semibold text-slate-600">
+                <span className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[10px] sm:text-xs font-semibold text-slate-600">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
                   {member.count} {member.count === 1 ? 'entidad' : 'entidades'}
                 </span>
@@ -151,10 +151,10 @@ export default function Countries() {
         </div>
 
         {/* Instituciones Oficiales Representativas */}
-        <div className="grid md:grid-cols-2 gap-16 mb-20">
+        <div className="grid md:grid-cols-2 gap-10 sm:gap-16 mb-12 sm:mb-20">
           <div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
                 Instituciones representativas
               </h3>
               <p className="text-sm text-slate-500 font-medium">
@@ -164,7 +164,7 @@ export default function Countries() {
 
             <div className="space-y-4">
               {institutionalRepresentations.map((item) => (
-                <div key={item.country} className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm flex items-start gap-4">
+                <div key={item.country} className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/60 shadow-sm flex items-start gap-4">
                   <div className="w-6 h-4 mt-0.5 flex-shrink-0 rounded overflow-hidden border border-slate-200">
                     <img 
                       src={`https://flagcdn.com/w40/${members.find(m => m.name === item.country)?.code || 'un'}.png`} 
@@ -198,8 +198,8 @@ export default function Countries() {
 
           {/* Aliados estratégicos y observadores */}
           <div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
                 Aliados estratégicos y observadores
               </h3>
               <p className="text-sm text-slate-500 font-medium">
@@ -209,7 +209,7 @@ export default function Countries() {
 
             <div className="space-y-4">
               {observersAndAllies.map((ally) => (
-                <div key={ally.name} className="bg-white p-5 rounded-xl border border-slate-200/60 shadow-sm">
+                <div key={ally.name} className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/60 shadow-sm">
                   <h4 className="text-sm font-bold text-blue-600 flex items-center gap-2">
                     {ally.desc ? '🏛️' : '🌐'} {ally.name}
                   </h4>

@@ -24,32 +24,30 @@ export default function Header() {
       <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} onOpenRecovery={() => { setLoginOpen(false); setRecoveryOpen(true); }} />
       <ModalRecuperarPassword isOpen={recoveryOpen} onClose={() => setRecoveryOpen(false)} onBackToLogin={() => { setRecoveryOpen(false); setLoginOpen(true); }} />
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
+
           {/* Logo / Identificación institucional */}
-          <div className="flex items-center gap-4">
-            <div>
-              <p className="text-sm text-slate-500">
-             <Image
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <div className="shrink-0">
+              <Image
                 src="/Img/logocpci.png"
                 alt="Logo CPCI"
-                width={90}      // Valor base
-                height={90}     // Valor base
-                style={{ 
-                  width: 'auto', 
-                  height: 'auto' 
+                width={90}
+                height={90}
+                style={{
+                  width: 'auto',
+                  height: 'auto'
                 }}
-                className="object-contain" // Asegura que no se deforme
+                className="object-contain w-10 h-10 sm:w-16 sm:h-16 md:w-[90px] md:h-[90px]"
               />
-              </p>
             </div>
-            
-            <div className="flex flex-col justify-center">
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-blue-600 animate-pulse"></span>
-                Taller CPCI
+
+            <div className="flex flex-col justify-center min-w-0">
+              <h1 className="text-base sm:text-xl md:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2 truncate">
+                <span className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-blue-600 animate-pulse shrink-0"></span>
+                <span className="truncate">Taller CPCI</span>
               </h1>
-              <p className="text-xs font-medium text-slate-600 mt-0.5 tracking-wide uppercase">
+              <p className="hidden sm:block text-[10px] md:text-xs font-medium text-slate-600 mt-0.5 tracking-wide uppercase truncate">
                 Comité Permanente sobre el Catastro en Iberoamérica
               </p>
             </div>
@@ -60,109 +58,140 @@ export default function Header() {
             <Link href="/" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
               Home
             </Link>
-            {/* AQUÍ ESTÁ EL CAMBIO: Redirección a la página /countries */}
             <Link href="/countries" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
               Countries
             </Link>
             <Link href="/taller" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
               Talleres
             </Link>
-            {/* Botón Inscripciones — reemplaza donde lo tengas */}
           </nav>
-          {/* Botón de menú hamburguesa para móviles */}
-          <div className="flex items-center gap-3 relative">
+
+          {/* Botones de escritorio (Inscripciones / Login / Usuario) */}
+          <div className="hidden md:flex items-center gap-3 relative">
             {!usuario && (
-                <button
-                    onClick={() => setModalOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-                >
-                    Inscripciones
-                </button>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+              >
+                Inscripciones
+              </button>
             )}
 
             {!usuario ? (
-
+              <button
+                onClick={() => setLoginOpen(true)}
+                className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold transition"
+              >
+                Iniciar sesión
+              </button>
+            ) : (
+              <div className="relative">
                 <button
-                    onClick={() => setLoginOpen(true)}
-                    className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold transition"
+                  onClick={() => setMenuUsuario(!menuUsuario)}
+                  className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-slate-100"
                 >
-                    Iniciar sesión
+                  Hola, {usuario.nombres}
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </button>
 
-            ) : (
-
-                <div className="relative">
-                    <button
-                        onClick={() =>
-                            setMenuUsuario(!menuUsuario)
-                        }
-                        className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-slate-100"
-                    >
-                        Hola, {usuario.nombres}
-
-                        <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M19 9l-7 7-7-7"
-                            />
-                        </svg>
+                {menuUsuario && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border">
+                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50">
+                      👤 Mi perfil
                     </button>
-
-                    {menuUsuario && (
-
-                        <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border">
-                            <button
-                                className="w-full text-left px-4 py-3 hover:bg-slate-50"
-                            >
-                                👤 Mi perfil
-                            </button>
-
-                            <button
-                                className="w-full text-left px-4 py-3 hover:bg-slate-50"
-                            >
-                                📚 Mis talleres
-                            </button>
-                            <hr />
-                            <button
-                                onClick={() => {
-                                    logout();
-                                    setMenuUsuario(false);
-                                    router.push("/"); // 👈 redirige al Home
-                                }}
-                                className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
-                            >
-                                🚪 Cerrar sesión
-                            </button>
-                        </div>
-                    )}
-                </div>
+                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50">
+                      📚 Mis talleres
+                    </button>
+                    <hr />
+                    <button
+                      onClick={() => {
+                        logout();
+                        setMenuUsuario(false);
+                        router.push("/");
+                      }}
+                      className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50"
+                    >
+                      🚪 Cerrar sesión
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
-        </div>
+          </div>
+
+          {/* Botón hamburguesa (solo móvil) */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
+            aria-label="Abrir menú"
+            aria-expanded={isOpen}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
 
         {/* Menú desplegable para móviles */}
         {isOpen && (
           <div className="md:hidden border-t border-slate-100 bg-white px-6 py-5 flex flex-col gap-4 shadow-lg animate-fadeIn">
             <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Home</Link>
-            {/* AQUÍ TAMBIÉN: Menú responsive apuntando a /countries */}
             <Link href="/countries" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Countries</Link>
             <Link href="/#objectives" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Objectives</Link>
             <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Talleres</Link>
-            {/* Botón Inscripciones — reemplaza donde lo tengas */}
+
             {!usuario && (
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-                >
-                  Inscripciones
+              <button
+                onClick={() => { setModalOpen(true); setIsOpen(false); }}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+              >
+                Inscripciones
+              </button>
+            )}
+
+            {!usuario ? (
+              <button
+                onClick={() => { setLoginOpen(true); setIsOpen(false); }}
+                className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold transition"
+              >
+                Iniciar sesión
+              </button>
+            ) : (
+              <div className="border-t border-slate-100 pt-3 flex flex-col gap-1">
+                <p className="text-sm font-semibold text-slate-700 px-1 pb-1">Hola, {usuario.nombres}</p>
+                <button className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded">
+                  👤 Mi perfil
                 </button>
+                <button className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded">
+                  📚 Mis talleres
+                </button>
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsOpen(false);
+                    router.push("/");
+                  }}
+                  className="w-full text-left px-1 py-2 text-red-600 hover:bg-red-50 rounded"
+                >
+                  🚪 Cerrar sesión
+                </button>
+              </div>
             )}
           </div>
         )}
