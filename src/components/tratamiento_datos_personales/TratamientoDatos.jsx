@@ -97,7 +97,7 @@ export default function TratamientoDatos() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                  <span><strong>Ley Estatutaria 1581 de 2012</strong>, por la cual se dictan disposiciones generales para la protección de datos personales.</span>
+                  <span><strong>Ley Estatutaria 1581 de 2012</strong>, por la cual se dictan las disposiciones generales para la protección de datos personales.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
