@@ -211,13 +211,13 @@ export default function About() {
             {/* Imagen */}
             <div className="flex-shrink-0 relative size-48 md:size-60 rounded-full overflow-hidden border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400">
               <Image
-                alt="Jordi Guerrero Martínez"
-                src="https://media.licdn.com/dms/image/v2/D4D03AQH25_FkQQx6JQ/profile-displayphoto-shrink_800_800/B4DZVSyuinHIAc-/0/1740850785102?e=1783555200&v=beta&t=Ws9U7TE4k8XLhq7BU4ORkECNWdemYgcHvDb54fCcOT4"
-                fill
-                sizes="(max-width: 768px) 192px, 240px"
-                priority
-                className="object-cover"
-              />
+                    alt="Jordi Guerrero"
+                    src="/Img/jordi_guerrero.jpg"
+                    fill
+                    sizes="(max-width: 768px) 96px, 128px"
+                    priority
+                    className="object-cover"
+                  />
             </div>
 
             {/* Información */}
