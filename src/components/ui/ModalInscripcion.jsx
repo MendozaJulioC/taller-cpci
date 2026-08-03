@@ -202,7 +202,7 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                         value={formData.correo_electronico}
                         onChange={handleChange}
                         required
-                        placeholder="correo@org.com"
+                        placeholder="correo@gmail.com"
                         className="border border-slate-300 rounded-lg px-2 py-1.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all shadow-sm"
                       />
                     </div>
