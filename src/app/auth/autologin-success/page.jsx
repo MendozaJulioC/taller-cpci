@@ -11,7 +11,7 @@ export default function Page() {
           <div className="text-center">
             <div className="animate-spin h-10 w-10 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
             <p className="text-gray-600 font-medium">
-              Iniciando sesión automáticamente...
+              Iniciando sesión de usuario...
             </p>
           </div>
         </div>
