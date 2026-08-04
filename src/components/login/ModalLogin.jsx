@@ -8,7 +8,7 @@ import { Eye, EyeOff, Lock, User, X, Mail } from "lucide-react";
 export default function ModalLogin({
   isOpen,
   onClose,
-  onOpenRecovery, // 👈 Nueva prop para abrir modal de recuperación
+  onOpenRecovery,
 }) {
   const { login } = useAuth();
 
@@ -29,7 +29,6 @@ export default function ModalLogin({
       ...form,
       [name]: value,
     });
-    // Limpiar error del campo cuando el usuario escribe
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -74,10 +73,8 @@ export default function ModalLogin({
 
       login(data.token, data.usuario);
       onClose();
-      // Resetear formulario después del éxito
       setForm({ username: "", password: "" });
     } catch (error) {
-      // Mostrar error en un toast o alerta más amigable
       setErrors({
         ...errors,
         general: error.message,
@@ -87,7 +84,6 @@ export default function ModalLogin({
     }
   }
 
-  // Manejar tecla Escape para cerrar
   const handleKeyDown = (e) => {
     if (e.key === "Escape") {
       onClose();
@@ -97,28 +93,26 @@ export default function ModalLogin({
   return (
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-sm z-100 flex justify-center items-center p-4 animate-in fade-in duration-200"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
       onKeyDown={handleKeyDown}
     >
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative animate-in slide-in-from-bottom-4 duration-300">
         
-        {/* Botón cerrar */}
+        {/* Botón de cierre (X) optimizado */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10"
-          aria-label="Cerrar"
+          className="absolute top-4 right-4 z-20 text-white/80 hover:text-white bg-black/10 hover:bg-black/20 p-1.5 rounded-full transition-colors"
+          aria-label="Cerrar modal"
         >
-          <X size={24} />
+          <X size={20} />
         </button>
 
         {/* Header con logo */}
         <div className="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 p-6 text-center relative overflow-hidden">
-          {/* Decoración de fondo */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
           
           <div className="relative z-10">
-            {/* Logo */}
             <div className="flex justify-center mb-3">
               <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full shadow-lg">
                 <Image
@@ -143,7 +137,6 @@ export default function ModalLogin({
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {/* Error general */}
           {errors.general && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-start gap-2">
               <span className="text-red-500 text-lg">⚠️</span>
@@ -151,7 +144,6 @@ export default function ModalLogin({
             </div>
           )}
 
-          {/* Campo Usuario */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Usuario o correo electrónico
@@ -176,7 +168,6 @@ export default function ModalLogin({
             )}
           </div>
 
-          {/* Campo Contraseña */}
           <div>
             <div className="flex justify-between items-center mb-1.5">
               <label className="block text-sm font-medium text-gray-700">
@@ -185,7 +176,7 @@ export default function ModalLogin({
               <button
                 type="button"
                 onClick={() => onOpenRecovery?.()}
-                className="text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                className="text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors hover:underline"
               >
                 ¿Olvidaste tu contraseña?
               </button>
@@ -218,7 +209,6 @@ export default function ModalLogin({
             )}
           </div>
 
-          {/* Botones */}
           <div className="flex flex-col gap-3 pt-2">
             <button
               type="submit"
@@ -248,7 +238,19 @@ export default function ModalLogin({
             </button>
           </div>
 
-          {/* Footer adicional */}
+          {/* Logo 2022 - insignia inferior */}
+          <div className="flex justify-center pt-1">
+            <div className="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 rounded-xl px-4 py-2 border border-blue-100/60">
+              <Image
+                src="/Img/logo_2022.png"
+                alt="Logo 2022"
+                width={100}
+                height={50}
+                className="object-contain h-8 w-auto"
+              />
+            </div>
+          </div>
+
           <div className="text-center pt-2">
             <p className="text-xs text-gray-400">
               Al iniciar sesión aceptas nuestros términos y condiciones
