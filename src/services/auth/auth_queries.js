@@ -20,6 +20,27 @@ export const getUserByUsername = async (username) => {
   return result.rows[0];
 };
 
+export const getUserById = async (id) => {
+
+    const query = `
+        SELECT
+            id,
+            username,
+            nombres,
+            apellidos,
+            correo_electronico,
+            estado
+        FROM taller_cpci.inscripciones
+        WHERE id=$1
+        LIMIT 1
+    `;
+
+    const result = await dblocal.query(query,[id]);
+
+    return result.rows[0];
+
+}
+
 export const getUserByEmail = async (correo) => {
   const query = `
     SELECT

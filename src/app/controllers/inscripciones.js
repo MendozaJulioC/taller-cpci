@@ -8,6 +8,7 @@ import {
 import { sendEmail } from "@/utils/email";
 import { inscripcionTemplate } from "@/templates/inscripcionEmail";
 import path from "path";
+import { generarToken } from "@/utils/jwt";
 
 function generarUsername(nombres, apellidos) {
   const limpiar = (texto) =>
@@ -75,29 +76,38 @@ export async function registrarInscripcion(body) {
     session_id: sessionId,
   });
 
+  // Generamos el JWT que viajará en el correo
+  const tokenAutoLogin = generarToken({
+      id: inscripcion.id,
+  });
   try {
-    await sendEmail({
-      to: inscripcion.correo_electronico,
-      subject: "Confirmación de inscripción - Taller CPCI",
-      html: inscripcionTemplate(inscripcion),
-      attachments: [
-        {
-          filename: "logo_2022.png",
-          path: path.join(process.cwd(), "public/Img/logo_2022.png"),
-          cid: "logo_principal",
-        },
-        {
-          filename: "logocpci.png",
-          path: path.join(process.cwd(), "public/Img/logocpci.png"),
-          cid: "logo_secundario",
-        },
-      ],
-    });
+
+      const info = await sendEmail({
+          to: inscripcion.correo_electronico,
+          subject: "Confirmación de inscripción - Taller CPCI",
+          html: inscripcionTemplate({
+              ...inscripcion,
+              tokenAutoLogin,
+          }),
+          attachments: [
+              {
+                  filename: "logo_2022.png",
+                  path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+                  cid: "logo_principal",
+              },
+              {
+                  filename: "logocpci.png",
+                  path: path.join(process.cwd(), "public/Img/logocpci.png"),
+                  cid: "logo_secundario",
+              },
+          ],
+      });
+
+      console.log("Correo enviado:", info);
+
   } catch (error) {
-    console.error(
-      "Error enviando correo:",
-      error
-    );
+      console.error("ERROR SMTP");
+      console.error(error);
   }
 
   return inscripcion;

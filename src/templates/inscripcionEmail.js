@@ -2,6 +2,7 @@ export const inscripcionTemplate = ({
   nombres,
   apellidos,
   username,
+  tokenAutoLogin,
   evento = "Taller CPCI: Visualización Avanzada con herramientas BI",
   fechaRegistro = new Date().toLocaleDateString("es-ES", {
     year: "numeric",
@@ -113,7 +114,7 @@ export const inscripcionTemplate = ({
 
                 <div style="text-align:center;margin:35px 0;">
                   <a
-                    href="https://taller-cpci.vercel.app/"
+                    href="https://taller-cpci.vercel.app/api/auth/auto-login?token=${tokenAutoLogin}"
                     style="
                       display:inline-block;
                       background:#2563eb;
