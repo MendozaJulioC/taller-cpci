@@ -103,8 +103,6 @@ export async function registrarInscripcion(body) {
           ],
       });
 
-      console.log("Correo enviado:", info);
-
   } catch (error) {
       console.error("ERROR SMTP");
       console.error(error);

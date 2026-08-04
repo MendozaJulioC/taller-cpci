@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 
@@ -33,7 +35,10 @@ export default function Hero() {
 
     {/* Acciones opcionales */}
     <div className="mt-8 sm:mt-10 flex justify-center gap-4">
-      <button className="px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-200 transition-colors text-sm sm:text-base">
+      <button
+        onClick={() => window.open("http://www.catastrolatino.org/", "_blank")}
+        className="px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-200 transition-colors text-sm sm:text-base cursor-pointer"
+      >
         Conocer más
       </button>
     </div>
