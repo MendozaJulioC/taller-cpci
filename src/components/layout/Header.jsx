@@ -212,8 +212,18 @@ export default function Header() {
 
                 {menuUsuario && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 z-50 overflow-hidden">
-                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100">
-                      👤 Mi perfil
+                    <button 
+                      onClick={() => {
+                        setMenuUsuario(false);
+                        router.push("/perfil");
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 flex items-center gap-3"
+                    >
+                      <span className="text-xl">👤</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Mi perfil</p>
+                        <p className="text-xs text-slate-500">Gestiona tu información personal</p>
+                      </div>
                     </button>
                     <button 
                       onClick={() => {
@@ -304,9 +314,16 @@ export default function Header() {
             ) : (
               <div className="border-t border-slate-100 pt-3 flex flex-col gap-1">
                 <p className="text-sm font-semibold text-slate-700 px-1 pb-1">Hola, {usuario.nombres}</p>
-                <button className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded">
-                  👤 Mi perfil
-                </button>
+                <button 
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/perfil");
+                    }}
+                    className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded flex items-center gap-2"
+                  >
+                    <span className="text-lg">👤</span>
+                    Mi perfil
+                  </button>
                 <button 
                   onClick={() => {
                     setIsOpen(false);
