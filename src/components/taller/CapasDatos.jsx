@@ -19,9 +19,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '423 KB',
       archivos: {
-        shp: '/data/ComunasMED.shp',
-        geojson: '/data/ComunasMED.geojson',
-        csv: '/data/ComunasMED.csv'
+        shp: '/data/shp/ComunasMED.shp',
+        geojson: '/data/geojson/ComunasMED.geojson',
+        csv: '/data/csv/ComunasMED.csv'
       }
     },
     { 
@@ -31,9 +31,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '199 KB',
       archivos: {
-        shp: '/data/BarriosMED.shp',
-        geojson: '/data/BarriosMED.geojson',
-        csv: '/data/BarriosMED.csv'
+        shp: '/data/shp/BarriosMED.shp',
+        geojson: '/data/geojson/BarriosMED.geojson',
+        csv: '/data/csv/BarriosMED.csv'
       }
     },
     { 
@@ -43,9 +43,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '12.01 MB',
       archivos: {
-        shp: '/data/LotesPredioMDE.shp',
-        geojson: '/data/LotesPredioMDE.geojson',
-        csv: '/data/LotesPredioMDE.csv'
+        shp: '/data/shp/LotesPredioMDE.shp',
+        geojson: '/data/geojson/LotesPredioMDE.geojson',
+        csv: '/data/csv/LotesPredioMDE.csv'
       }
     },
     { 
@@ -55,9 +55,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '35 MB',
       archivos: {
-        shp: '/data/ConstruccionMDE.shp',
-        geojson: '/data/ConstruccionMDE.geojson',
-        csv: '/data/ConstruccionMDE.csv'
+        shp: '/data/shp/ConstruccionMDE.shp',
+        geojson: '/data/geojson/ConstruccionMDE.geojson',
+        csv: '/data/csv/ConstruccionMDE.csv'
       }
     },
     // CAPAS COMPLEMENTARIAS
@@ -68,9 +68,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '843.9 MB',
       archivos: {
-        shp: '/data/LimiteCatastralComunaCorregimiento.shp',
-        geojson: '/data/LimiteCatastralComunaCorregimiento.geojson',
-        csv: '/data/LimiteCatastralComunaCorregimiento.csv'
+        shp: '/data/shp/LimiteCatastralComunaCorregimiento.shp',
+        geojson: '/data/geojson/LimiteCatastralComunaCorregimiento.geojson',
+        csv: '/data/csv/LimiteCatastralComunaCorregimiento.csv'
       }
     },
     { 
@@ -80,9 +80,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '512.3 MB',
       archivos: {
-        shp: '/data/LimiteCatastralBarrioVereda.shp',
-        geojson: '/data/LimiteCatastralBarrioVereda.geojson',
-        csv: '/data/LimiteCatastralBarrioVereda.csv'
+        shp: '/data/shp/LimiteCatastralBarrioVereda.shp',
+        geojson: '/data/geojson/LimiteCatastralBarrioVereda.geojson',
+        csv: '/data/csv/LimiteCatastralBarrioVereda.csv'
       }
     },
     { 
@@ -92,9 +92,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '156.7 MB',
       archivos: {
-        shp: '/data/InventarioEquipamientos.shp',
-        geojson: '/data/InventarioEquipamientos.geojson',
-        csv: '/data/InventarioEquipamientos.csv'
+        shp: '/data/shp/InventarioEquipamientos.shp',
+        geojson: '/data/geojson/InventarioEquipamientos.geojson',
+        csv: '/data/csv/InventarioEquipamientos.csv'
       }
     },
     { 
@@ -104,9 +104,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '89.2 MB',
       archivos: {
-        shp: '/data/InventarioEspacioPublico.shp',
-        geojson: '/data/InventarioEspacioPublico.geojson',
-        csv: '/data/InventarioEspacioPublico.csv'
+        shp: '/data/shp/InventarioEspacioPublico.shp',
+        geojson: '/data/geojson/InventarioEspacioPublico.geojson',
+        csv: '/data/csv/InventarioEspacioPublico.csv'
       }
     },
     { 
@@ -116,9 +116,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '45.1 MB',
       archivos: {
-        shp: '/data/RioMedellin.shp',
-        geojson: '/data/RioMedellin.geojson',
-        csv: '/data/RioMedellin.csv'
+        shp: '/data/shp/RioMedellin.shp',
+        geojson: '/data/geojson/RioMedellin.geojson',
+        csv: '/data/csv/RioMedellin.csv'
       }
     },
   ];

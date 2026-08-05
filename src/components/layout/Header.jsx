@@ -1,8 +1,9 @@
+// src/components/layout/Header.jsx
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
 import { useAuth } from "@/contexts/AuthContext";
@@ -19,17 +20,46 @@ export default function Header() {
 
   const { usuario, logout } = useAuth();
   const router = useRouter();
+  
+  // 👇 REFERENCIA PARA EL MENÚ DE USUARIO
+  const menuRef = useRef(null);
+  // 👇 REFERENCIA PARA EL MENÚ DE INSCRIPCIONES
+  const inscripcionesRef = useRef(null);
 
-  // Cerrar el menú de inscripciones al hacer clic fuera
-  React.useEffect(() => {
+  // 👇 EFECTO PARA CERRAR MENÚ AL HACER CLIC FUERA
+  useEffect(() => {
     const handleClickOutside = (event) => {
-      if (showInscripcionesMenu && !event.target.closest('.inscripciones-dropdown')) {
+      // Cerrar menú de usuario si está abierto y el clic fue fuera
+      if (menuUsuario && menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuUsuario(false);
+      }
+      
+      // Cerrar menú de inscripciones si está abierto y el clic fue fuera
+      if (showInscripcionesMenu && inscripcionesRef.current && !inscripcionesRef.current.contains(event.target)) {
         setShowInscripcionesMenu(false);
       }
     };
+
+    // Agregar el evento
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showInscripcionesMenu]);
+    
+    // Limpiar el evento al desmontar
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuUsuario, showInscripcionesMenu]);
+
+  // También cerrar menú al presionar Escape
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === 'Escape') {
+        if (menuUsuario) setMenuUsuario(false);
+        if (showInscripcionesMenu) setShowInscripcionesMenu(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [menuUsuario, showInscripcionesMenu]);
 
   return (
     <>
@@ -88,7 +118,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Navegación para escritorio usando <Link /> de Next.js */}
+          {/* Navegación para escritorio */}
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
               Home
@@ -101,10 +131,10 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Botones de escritorio (Inscripciones / Login / Usuario) */}
+          {/* Botones de escritorio */}
           <div className="hidden md:flex items-center gap-3 relative">
             {!usuario && (
-              <div className="relative inscripciones-dropdown">
+              <div ref={inscripcionesRef} className="relative inscripciones-dropdown">
                 <button
                   onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm flex items-center gap-1"
@@ -158,7 +188,8 @@ export default function Header() {
                 Iniciar sesión
               </button>
             ) : (
-              <div className="relative">
+              // 👇 MENÚ DE USUARIO CON REFERENCIA
+              <div ref={menuRef} className="relative">
                 <button
                   onClick={() => setMenuUsuario(!menuUsuario)}
                   className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-slate-100"
@@ -277,15 +308,14 @@ export default function Header() {
                   👤 Mi perfil
                 </button>
                 <button 
-                    onClick={() => {
-                      setIsOpen(false);
-                      router.push("/mis-talleres");
-                    }}
-                    className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded flex items-center gap-2"
-                  >
-                    <span className="text-lg">📚</span>
-                    Mis talleres
-                  </button>
+                  onClick={() => {
+                    setIsOpen(false);
+                    router.push("/mis-talleres");
+                  }}
+                  className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded"
+                >
+                  📚 Mis talleres
+                </button>
                 <button
                   onClick={() => {
                     logout();
