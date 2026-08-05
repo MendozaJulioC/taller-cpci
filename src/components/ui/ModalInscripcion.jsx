@@ -66,7 +66,7 @@ export default function ModalInscripcion({ isOpen, onClose, rolInicial = 'partic
     setTableau('');
     setAceptaTerminos(false);
     setEnviado(false);
-    setRol(rolInicial);
+    setRol(rolInicial || 'participante');
   };
 
   const handleChange = (e) => {

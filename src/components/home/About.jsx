@@ -76,7 +76,7 @@ export default function About() {
 
   return (
     <>
-      <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} rolInicial={rolModal} />
+      <ModalInscripcion key={rolModal} isOpen={modalOpen} onClose={() => setModalOpen(false)} rolInicial={rolModal} />
       <section className="py-2 bg-slate-50/50">
         {/* Encabezado superior */}
         <div className="relative w-full py-8 sm:py-10 bg-slate-50 border-b border-slate-200">
