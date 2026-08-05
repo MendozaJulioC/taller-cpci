@@ -7,8 +7,14 @@ import ActividadesTallerTres from './tallerTres/Actividades';
 import CapasDatos from './CapasDatos';
 import ContadorInscritos from "@/components/ui/ContadorInscritos";
 import EjercicioGeoMedellin from './ejerciciosGeoMedellin/EjercicioGeoMedellin';
+import MisArchivos from '@/components/taller/MisArchivos';
+import PanelCalificaciones from '@/components/taller/PanelCalificaciones';
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function TallerPage() {
+  const { usuario } = useAuth();
+  const esFormador = usuario?.rol === 'formador';
+
   const actividades = [
     {
       num: 1,
@@ -186,36 +192,36 @@ export default function TallerPage() {
             </div>
           </div>
 
-          {/* Actividades - Rediseñado */}
-          <div className="mb-10 sm:mb-16">
-            <ActividadesTallerUno />
-          </div>
-
-          <div className="mb-10 sm:mb-16">
-            <ActividadesTallerDos />
-          </div>
-
-          <div className="mb-10 sm:mb-16">
-            <ActividadesTallerTres />
-          </div>
-
-          {/* <div className="mb-10 sm:mb-16">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
-              <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
-                <span className="text-base">📄</span>
-                Ejercicio Práctico
-              </h2>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
+          {/* SECCIÓN DE ARCHIVOS - Mis Archivos o Panel de Calificaciones según rol */}
+          {usuario && !esFormador && (
+            <div className="mb-10 sm:mb-16">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
+                <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
+                  <span className="text-base">📁</span>
+                  Mis Archivos
+                </h2>
+                <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
+              </div>
+              
+              <MisArchivos usuario={usuario} />
             </div>
-            
-            <EjercicioGeoMedellin />
-            
-            <p className="text-center text-xs text-slate-400 mt-3">
-              Descarga el archivo con el enunciado completo del ejercicio
-            </p>
-          </div> */}
+          )}
 
+          {/* Actividades - PASAR EL USUARIO */}
+          <div className="mb-10 sm:mb-16">
+            <ActividadesTallerUno usuario={usuario} />
+          </div>
+
+          <div className="mb-10 sm:mb-16">
+            <ActividadesTallerDos usuario={usuario} />
+          </div>
+
+          <div className="mb-10 sm:mb-16">
+            <ActividadesTallerTres usuario={usuario} />
+          </div>
+
+          {/* Información de Interés */}
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
@@ -233,7 +239,7 @@ export default function TallerPage() {
             </p>
           </div>
 
-          {/* Footer - Nuevo */}
+          {/* Footer */}
           <div className="mt-10 sm:mt-16 pt-8 border-t border-slate-200/60 text-center">
             <p className="text-sm text-slate-500">
               Comité Permanente sobre el Catastro en Iberoamérica · Taller de Visualización Avanzada

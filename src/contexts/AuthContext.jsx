@@ -58,6 +58,10 @@ export function AuthProvider({ children }) {
   }
 
   const login = useCallback((newToken, newUsuario) => {
+    console.log('🔐 AuthContext - Login - Token:', newToken);
+    console.log('🔐 AuthContext - Login - Usuario:', newUsuario);
+    console.log('🔐 AuthContext - Login - Rol del usuario:', newUsuario?.rol);
+    
     localStorage.setItem("token", newToken);
     localStorage.setItem("usuario", JSON.stringify(newUsuario));
     window.dispatchEvent(new Event(AUTH_EVENT));

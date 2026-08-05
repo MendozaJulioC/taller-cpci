@@ -28,7 +28,7 @@ import {
   X
 } from 'lucide-react';
 
-export default function ActividadesTallerUno() {
+export default function ActividadesTallerUno({ usuario }) {
   const [actividadActiva, setActividadActiva] = useState(1);
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
@@ -187,18 +187,18 @@ export default function ActividadesTallerUno() {
   };
 
   // Función para manejar la subida del archivo
+  // Dentro de cada componente de taller, actualiza la función handleSubirArchivo:
+
   const handleSubirArchivo = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Validar que sea PDF
     if (file.type !== 'application/pdf') {
       setMensajeSubida('⚠️ Solo se permiten archivos PDF');
       setTimeout(() => setMensajeSubida(''), 3000);
       return;
     }
 
-    // Validar tamaño máximo (20MB)
     if (file.size > 20 * 1024 * 1024) {
       setMensajeSubida('⚠️ El archivo no debe superar los 20MB');
       setTimeout(() => setMensajeSubida(''), 3000);
@@ -211,7 +211,8 @@ export default function ActividadesTallerUno() {
     try {
       const formData = new FormData();
       formData.append('archivo', file);
-      formData.append('taller', 'taller1');
+      formData.append('taller', 'taller1'); // Cambiar según el taller (taller1, taller2, taller3)
+      formData.append('email', usuario?.correo_electronico || ''); // 👈 AÑADIR EMAIL
 
       const response = await fetch('/api/upload-taller', {
         method: 'POST',
@@ -233,7 +234,6 @@ export default function ActividadesTallerUno() {
       setTimeout(() => setMensajeSubida(''), 3000);
     } finally {
       setCargandoArchivo(false);
-      // Resetear el input para permitir subir el mismo archivo nuevamente
       event.target.value = '';
     }
   };

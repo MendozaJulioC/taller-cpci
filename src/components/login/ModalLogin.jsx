@@ -71,7 +71,10 @@ export default function ModalLogin({
         throw new Error(data.message || "Error al iniciar sesión.");
       }
 
-      login(data.token, data.usuario);
+      console.log('🔐 Login response data:', data); // 👈 Log para verificar
+      console.log('🔐 Login - Rol del usuario:', data.usuario?.rol); // 👈 Log del rol
+
+      login(data.token, data.usuario); // 👈 El usuario debe tener el rol
       onClose();
       setForm({ username: "", password: "" });
     } catch (error) {

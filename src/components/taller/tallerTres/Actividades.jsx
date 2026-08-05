@@ -33,7 +33,7 @@ import {
   X
 } from 'lucide-react';
 
-export default function ActividadesTallerTres() {
+export default function ActividadesTallerTres({ usuario }) {
   const [actividadActiva, setActividadActiva] = useState(1);
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
@@ -169,6 +169,8 @@ export default function ActividadesTallerTres() {
   };
 
   // Función para manejar la subida del archivo del Taller 3
+  // Dentro de cada componente de taller, actualiza la función handleSubirArchivo:
+
   const handleSubirArchivo = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -191,7 +193,8 @@ export default function ActividadesTallerTres() {
     try {
       const formData = new FormData();
       formData.append('archivo', file);
-      formData.append('taller', 'taller3');
+      formData.append('taller', 'taller1'); // Cambiar según el taller (taller1, taller2, taller3)
+      formData.append('email', usuario?.correo_electronico || ''); // 👈 AÑADIR EMAIL
 
       const response = await fetch('/api/upload-taller', {
         method: 'POST',

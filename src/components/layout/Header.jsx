@@ -184,8 +184,18 @@ export default function Header() {
                     <button className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100">
                       👤 Mi perfil
                     </button>
-                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100">
-                      📚 Mis talleres
+                    <button 
+                      onClick={() => {
+                        setMenuUsuario(false);
+                        router.push("/mis-talleres");
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 flex items-center gap-3"
+                    >
+                      <span className="text-xl">📚</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Mis talleres</p>
+                        <p className="text-xs text-slate-500">Gestiona tus talleres y calificaciones</p>
+                      </div>
                     </button>
                     <hr />
                     <button
@@ -266,9 +276,16 @@ export default function Header() {
                 <button className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded">
                   👤 Mi perfil
                 </button>
-                <button className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded">
-                  📚 Mis talleres
-                </button>
+                <button 
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push("/mis-talleres");
+                    }}
+                    className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded flex items-center gap-2"
+                  >
+                    <span className="text-lg">📚</span>
+                    Mis talleres
+                  </button>
                 <button
                   onClick={() => {
                     logout();

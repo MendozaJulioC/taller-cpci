@@ -1,73 +1,59 @@
+// src/app/controllers/auth.js
 import bcrypt from "bcryptjs";
-//import jwt from "jsonwebtoken";
+import { getUserByUsernameOrEmail } from "@/services/auth/auth_queries";
 import { generarToken } from "@/utils/jwt";
 
-import { getUserByUsername } from "@/services/auth/auth_queries";
-
 export async function login(body) {
-
   const { username, password } = body;
 
-  // Validaciones básicas
   if (!username || !password) {
-    throw new Error(
-      "Usuario y contraseña son obligatorios."
-    );
+    throw new Error("Usuario y contraseña son requeridos");
   }
 
-  // Buscar usuario
-  const usuario = await getUserByUsername(username);
+  // Buscar usuario por username o email
+  const user = await getUserByUsernameOrEmail(username);
 
-  if (!usuario) {
-    throw new Error(
-      "Usuario o contraseña incorrectos o no existe la cuenta del usuario."
-    );
+  if (!user) {
+    throw new Error("Usuario no encontrado");
   }
 
-  // Validar estado del usuario
-  if (usuario.estado !== "PENDIENTE" && usuario.estado !== "ACTIVO") {
-    throw new Error(
-      "Su cuenta no tiene autorización para ingresar."
-    );
+  // Verificar contraseña
+  const passwordMatch = await bcrypt.compare(password, user.password_hash);
+  if (!passwordMatch) {
+    throw new Error("Contraseña incorrecta");
   }
 
-  // Comparar contraseña
-  const passwordValida = await bcrypt.compare(
-    password,
-    usuario.password_hash
-  );
-
-  if (!passwordValida) {
-    throw new Error(
-      "Usuario o contraseña incorrectos."
-    );
+  // Verificar estado del usuario (si existe la columna)
+  if (user.estado && user.estado !== "ACTIVO" && user.estado !== "PENDIENTE") {
+    throw new Error("Usuario no autorizado");
   }
 
-  // Crear JWT
-  // const token = jwt.sign(
-  //   {
-  //     id: usuario.id,
-  //   },
-  //   process.env.JWT_SECRET,
-  //   {
-  //     expiresIn: "7d",
-  //   }
-  // );
+  // 🔥 IMPORTANTE: Asegurarse de que el rol esté presente
+  const usuario = {
+    id: user.id,
+    username: user.username,
+    nombres: user.nombres,
+    apellidos: user.apellidos,
+    correo_electronico: user.correo_electronico,
+    telefono: user.telefono || '',
+    cargo: user.cargo || '',
+    pais: user.pais || '',
+    organizacion: user.organizacion || '',
+    rol: user.rol || 'participante',
+  };
 
+  console.log('🔐 Login - Usuario encontrado:', usuario);
+  console.log('🔐 Login - Rol del usuario:', usuario.rol);
+
+  // Generar token con el rol incluido
   const token = generarToken({
-    id: usuario.id,
+    id: user.id,
+    username: user.username,
+    rol: usuario.rol,
   });
 
-  // Respuesta
   return {
     token,
-    usuario: {
-      id: usuario.id,
-      username: usuario.username,
-      nombres: usuario.nombres,
-      apellidos: usuario.apellidos,
-      correo_electronico: usuario.correo_electronico,
-      estado: usuario.estado,
-    },
+    usuario,
   };
 }

@@ -1,5 +1,52 @@
 import { dblocal } from "@/services/database/db";
 
+export const getUserByUsernameOrEmail = async (usernameOrEmail) => {
+  const query = `
+    SELECT 
+      id, 
+      username, 
+      nombres, 
+      apellidos, 
+      correo_electronico,
+      telefono,
+      cargo,
+      pais,
+      organizacion,
+      password_hash,
+      estado,
+      rol
+    FROM taller_cpci.inscripciones
+    WHERE username = $1 OR correo_electronico = $1
+    LIMIT 1
+  `;
+
+  const result = await dblocal.query(query, [usernameOrEmail]);
+  return result.rows[0] || null;
+};
+
+// También necesitamos la función getUserById para el auto-login
+export const getUserById = async (id) => {
+  const query = `
+    SELECT 
+      id, 
+      username, 
+      nombres, 
+      apellidos, 
+      correo_electronico,
+      telefono,
+      cargo,
+      pais,
+      organizacion,
+      estado,
+      rol
+    FROM taller_cpci.inscripciones
+    WHERE id = $1
+  `;
+
+  const result = await dblocal.query(query, [id]);
+  return result.rows[0] || null;
+};
+
 export const getUserByUsername = async (username) => {
   const query = `
     SELECT
@@ -9,7 +56,8 @@ export const getUserByUsername = async (username) => {
       nombres,
       apellidos,
       correo_electronico,
-      estado
+      estado,
+      rol
     FROM taller_cpci.inscripciones
     WHERE username = $1
     LIMIT 1;
@@ -20,27 +68,6 @@ export const getUserByUsername = async (username) => {
   return result.rows[0];
 };
 
-export const getUserById = async (id) => {
-
-    const query = `
-        SELECT
-            id,
-            username,
-            nombres,
-            apellidos,
-            correo_electronico,
-            estado
-        FROM taller_cpci.inscripciones
-        WHERE id=$1
-        LIMIT 1
-    `;
-
-    const result = await dblocal.query(query,[id]);
-
-    return result.rows[0];
-
-}
-
 export const getUserByEmail = async (correo) => {
   const query = `
     SELECT
@@ -48,7 +75,8 @@ export const getUserByEmail = async (correo) => {
       username,
       nombres,
       apellidos,
-      correo_electronico
+      correo_electronico,
+      rol
     FROM taller_cpci.inscripciones
     WHERE correo_electronico = $1
     LIMIT 1;
