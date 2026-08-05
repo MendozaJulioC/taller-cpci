@@ -1,3 +1,4 @@
+// src/services/inscripciones/inscripciones_queries.js
 import { dblocal } from "@/services/database/db";
 
 export const getInscripcionByEmail = async (correo) => {
@@ -42,10 +43,13 @@ export const createInscripcion = async (data) => {
         usa_otro_bi,
         otro_bi,
         tiene_arcgis_online,
-        session_id
+        session_id,
+        rol,
+        experiencia_bi,
+        nivel_geografico
     )
     VALUES (
-        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17
     )
     RETURNING *;
   `;
@@ -65,9 +69,36 @@ export const createInscripcion = async (data) => {
     data.otro_bi_nombre,
     data.tiene_arcgis_online,
     data.session_id,
-    ];
+    data.rol || 'participante',
+    data.experiencia_bi || false,
+    data.nivel_geografico || 'basico'
+  ];
 
   const result = await dblocal.query(query, values);
 
   return result.rows[0];
+};
+
+// NUEVA: Obtener inscripciones por rol
+export const getInscripcionesByRol = async (rol) => {
+  const query = `
+    SELECT id, nombres, apellidos, correo_electronico, cargo, pais, organizacion
+    FROM taller_cpci.inscripciones
+    WHERE rol = $1
+  `;
+
+  const result = await dblocal.query(query, [rol]);
+  return result.rows;
+};
+
+// NUEVA: Obtener todas las inscripciones
+export const getAllInscripciones = async () => {
+  const query = `
+    SELECT id, nombres, apellidos, correo_electronico, cargo, pais, organizacion, rol
+    FROM taller_cpci.inscripciones
+    ORDER BY id DESC
+  `;
+
+  const result = await dblocal.query(query);
+  return result.rows;
 };

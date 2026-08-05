@@ -24,7 +24,8 @@ import ModalInscripcion from '@/components/ui/ModalInscripcion';
 
 export default function About() {
   const [modalOpen, setModalOpen] = useState(false);
-  
+  const [rolModal, setRolModal] = useState('participante'); // 👈 AGREGAR ESTA LÍNEA
+
   const objectives = [
     {
       title: 'Taller 1: Plataforma Geográfica del Distrito de Medellín',
@@ -67,9 +68,15 @@ export default function About() {
     }
   ];
 
+  // Función para abrir el modal con el rol seleccionado
+  const abrirModalConRol = (rol) => {
+    setRolModal(rol);
+    setModalOpen(true);
+  };
+
   return (
     <>
-      <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} rolInicial={rolModal} />
       <section className="py-2 bg-slate-50/50">
         {/* Encabezado superior */}
         <div className="relative w-full py-8 sm:py-10 bg-slate-50 border-b border-slate-200">
@@ -96,13 +103,19 @@ export default function About() {
               Dirigido a instituciones catastrales iberoamericanas, equipos GIS y analistas de datos territoriales.
             </p>
 
-            {/* Botón */}
-            <div className="flex justify-center gap-4">
+            {/* Botones - DOS OPCIONES DE INSCRIPCIÓN */}
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <button 
-                onClick={() => setModalOpen(true)}
+                onClick={() => abrirModalConRol('participante')}
                 className="px-6 py-3 sm:px-8 sm:py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95"
               >
-                Inscríbete ahora
+                Inscribirse como Participante
+              </button>
+              <button 
+                onClick={() => abrirModalConRol('formador')}
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-rose-500/30 hover:scale-105 active:scale-95"
+              >
+                Inscribirse como Formador
               </button>
             </div>
 
@@ -211,13 +224,13 @@ export default function About() {
             {/* Imagen */}
             <div className="flex-shrink-0 relative size-36 sm:size-48 md:size-60 rounded-full overflow-hidden border-4 border-blue-50 outline outline-2 -outline-offset-2 outline-blue-400">
               <Image
-                    alt="Jordi Guerrero"
-                    src="/Img/jordi_guerrero.jpg"
-                    fill
-                    sizes="(max-width: 768px) 96px, 128px"
-                    priority
-                    className="object-cover"
-                  />
+                alt="Jordi Guerrero"
+                src="/Img/jordi_guerrero.jpg"
+                fill
+                sizes="(max-width: 768px) 96px, 128px"
+                priority
+                className="object-cover"
+              />
             </div>
 
             {/* Información */}

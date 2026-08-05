@@ -14,15 +14,50 @@ export default function Header() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [recoveryOpen, setRecoveryOpen] = useState(false);
   const [menuUsuario, setMenuUsuario] = useState(false);
+  const [showInscripcionesMenu, setShowInscripcionesMenu] = useState(false);
+  const [rolModal, setRolModal] = useState('participante');
 
   const { usuario, logout } = useAuth();
   const router = useRouter();
 
+  // Cerrar el menú de inscripciones al hacer clic fuera
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showInscripcionesMenu && !event.target.closest('.inscripciones-dropdown')) {
+        setShowInscripcionesMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showInscripcionesMenu]);
+
   return (
     <>
-      <ModalInscripcion isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-      <ModalLogin isOpen={loginOpen} onClose={() => setLoginOpen(false)} onOpenRecovery={() => { setLoginOpen(false); setRecoveryOpen(true); }} />
-      <ModalRecuperarPassword isOpen={recoveryOpen} onClose={() => setRecoveryOpen(false)} onBackToLogin={() => { setRecoveryOpen(false); setLoginOpen(true); }} />
+      <ModalInscripcion 
+        isOpen={modalOpen} 
+        onClose={() => {
+          setModalOpen(false);
+          setShowInscripcionesMenu(false);
+        }} 
+        rolInicial={rolModal}
+      />
+      <ModalLogin 
+        isOpen={loginOpen} 
+        onClose={() => setLoginOpen(false)} 
+        onOpenRecovery={() => { 
+          setLoginOpen(false); 
+          setRecoveryOpen(true); 
+        }} 
+      />
+      <ModalRecuperarPassword 
+        isOpen={recoveryOpen} 
+        onClose={() => setRecoveryOpen(false)} 
+        onBackToLogin={() => { 
+          setRecoveryOpen(false); 
+          setLoginOpen(true); 
+        }} 
+      />
+      
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
 
@@ -69,12 +104,50 @@ export default function Header() {
           {/* Botones de escritorio (Inscripciones / Login / Usuario) */}
           <div className="hidden md:flex items-center gap-3 relative">
             {!usuario && (
-              <button
-                onClick={() => setModalOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-              >
-                Inscripciones
-              </button>
+              <div className="relative inscripciones-dropdown">
+                <button
+                  onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm flex items-center gap-1"
+                >
+                  Inscripciones
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${showInscripcionesMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {showInscripcionesMenu && (
+                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-slate-200 z-50 overflow-hidden">
+                    <button
+                      onClick={() => {
+                        setRolModal('participante');
+                        setModalOpen(true);
+                        setShowInscripcionesMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-blue-50 border-b border-slate-100 flex items-center gap-3 transition-colors"
+                    >
+                      <span className="text-xl">👤</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Inscribirse como Participante</p>
+                        <p className="text-xs text-slate-500">Accede a los talleres y sube tus ejercicios</p>
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setRolModal('formador');
+                        setModalOpen(true);
+                        setShowInscripcionesMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-rose-50 flex items-center gap-3 transition-colors"
+                    >
+                      <span className="text-xl">📋</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Inscribirse como Formador</p>
+                        <p className="text-xs text-slate-500">Moderador y calificador de los ejercicios</p>
+                      </div>
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
 
             {!usuario ? (
@@ -92,7 +165,7 @@ export default function Header() {
                 >
                   Hola, {usuario.nombres}
                   <svg
-                    className="w-4 h-4"
+                    className={`w-4 h-4 transition-transform duration-200 ${menuUsuario ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -107,11 +180,11 @@ export default function Header() {
                 </button>
 
                 {menuUsuario && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border">
-                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 z-50 overflow-hidden">
+                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100">
                       👤 Mi perfil
                     </button>
-                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50">
+                    <button className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100">
                       📚 Mis talleres
                     </button>
                     <hr />
@@ -153,16 +226,31 @@ export default function Header() {
           <div className="md:hidden border-t border-slate-100 bg-white px-6 py-5 flex flex-col gap-4 shadow-lg animate-fadeIn">
             <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Home</Link>
             <Link href="/countries" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Countries</Link>
-            <Link href="/#objectives" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Objectives</Link>
             <Link href="/taller" onClick={() => setIsOpen(false)} className="text-base font-medium text-slate-600 py-2 border-b border-slate-50">Talleres</Link>
 
             {!usuario && (
-              <button
-                onClick={() => { setModalOpen(true); setIsOpen(false); }}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
-              >
-                Inscripciones
-              </button>
+              <>
+                <button
+                  onClick={() => {
+                    setRolModal('participante');
+                    setModalOpen(true);
+                    setIsOpen(false);
+                  }}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                >
+                  👤 Inscribirse como Participante
+                </button>
+                <button
+                  onClick={() => {
+                    setRolModal('formador');
+                    setModalOpen(true);
+                    setIsOpen(false);
+                  }}
+                  className="w-full bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                >
+                  📋 Inscribirse como Formador
+                </button>
+              </>
             )}
 
             {!usuario ? (

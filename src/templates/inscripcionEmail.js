@@ -9,6 +9,9 @@ export const inscripcionTemplate = ({
     month: "long",
     day: "numeric",
   }),
+  rolTexto = "Participante", // 👈 NUEVO: texto del rol
+  nivelTexto = "Básico", // 👈 NUEVO: texto del nivel de experiencia
+  rol = "participante", // 👈 NUEVO: rol para lógica condicional
 }) => `
   <!DOCTYPE html>
   <html>
@@ -63,6 +66,39 @@ export const inscripcionTemplate = ({
                   plataforma de formación del CPCI.
                 </p>
 
+                <!-- 📋 NUEVA SECCIÓN: Resumen de inscripción con ROL y NIVEL -->
+                <div style="background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%); border: 2px solid #dbeafe; border-radius: 10px; padding: 20px 25px; margin: 20px 0;">
+                  <h3 style="margin-top: 0; color: #1a3a5c; font-size: 16px;">
+                    📋 Resumen de tu inscripción
+                  </h3>
+                  <table cellpadding="5" cellspacing="0" border="0" width="100%" style="font-size: 15px; color: #2d3748;">
+                    <tr>
+                      <td style="font-weight: 600; color: #1a3a5c; width: 40%;">Rol asignado:</td>
+                      <td>
+                        <span style="background: ${rol === 'formador' ? '#fce4ec' : '#e8f5e9'}; color: ${rol === 'formador' ? '#c62828' : '#2e7d32'}; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 14px;">
+                          ${rol === 'formador' ? '👨‍🏫 ' : '👤 '}${rolTexto}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: 600; color: #1a3a5c;">Nivel de experiencia geográfica:</td>
+                      <td>
+                        <span style="background: #e3f2fd; color: #1565c0; padding: 4px 12px; border-radius: 20px; font-weight: 500; font-size: 14px;">
+                          🗺️ ${nivelTexto}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: 600; color: #1a3a5c;">Fecha de registro:</td>
+                      <td>${fechaRegistro}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: 600; color: #1a3a5c;">Estado:</td>
+                      <td><span style="color: #38a169;">✅ Confirmado</span></td>
+                    </tr>
+                  </table>
+                </div>
+
                 <div style="background-color: #f8faff; border-left: 4px solid #2a5f8a; padding: 20px 25px; margin: 25px 0; border-radius: 4px;">
                   <p style="margin: 0; color: #2d3748; font-size: 15px; line-height: 1.5;">
                     <strong style="color: #1a3a5c;">📅 Fecha de registro:</strong> ${fechaRegistro}<br>
@@ -70,37 +106,14 @@ export const inscripcionTemplate = ({
                   </p>
                 </div>
 
-                <div
-                  style="
-                    background:#f8faff;
-                    border:2px solid #dbeafe;
-                    border-radius:10px;
-                    padding:24px;
-                    margin:30px 0;
-                  "
-                >
-
-                  <h3
-                    style="
-                      margin-top:0;
-                      color:#1a3a5c;
-                      font-size:18px;
-                    "
-                  >
+                <div style="background:#f8faff; border:2px solid #dbeafe; border-radius:10px; padding:24px; margin:30px 0;">
+                  <h3 style="margin-top:0; color:#1a3a5c; font-size:18px;">
                     Datos de acceso a la plataforma
                   </h3>
 
                   <p style="margin:10px 0;font-size:15px;color:#2d3748;">
                     <strong>Usuario:</strong>
-                    <span
-                      style="
-                        background:#eaf2ff;
-                        padding:6px 10px;
-                        border-radius:6px;
-                        font-family:monospace;
-                        font-size:16px;
-                      "
-                    >
+                    <span style="background:#eaf2ff; padding:6px 10px; border-radius:6px; font-family:monospace; font-size:16px;">
                       ${username}
                     </span>
                   </p>
@@ -109,22 +122,12 @@ export const inscripcionTemplate = ({
                     <strong>Contraseña:</strong>
                     Es la misma contraseña que registró durante su inscripción.
                   </p>
-
                 </div>
 
                 <div style="text-align:center;margin:35px 0;">
                   <a
                     href="https://taller-cpci.vercel.app/api/auth/auto-login?token=${tokenAutoLogin}"
-                    style="
-                      display:inline-block;
-                      background:#2563eb;
-                      color:white;
-                      text-decoration:none;
-                      padding:16px 34px;
-                      border-radius:8px;
-                      font-size:16px;
-                      font-weight:bold;
-                    "
+                    style="display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:16px 34px; border-radius:8px; font-size:16px; font-weight:bold;"
                   >
                     Ingresar a la plataforma
                   </a>
@@ -132,52 +135,57 @@ export const inscripcionTemplate = ({
 
                 <p style="color:#4a5568;font-size:16px;line-height:1.7;">
                   Al ingresar a la plataforma podrá:
-                  </p>
+                </p>
 
-                  <ul
-                    style="
-                      color:#4a5568;
-                      line-height:1.8;
-                      font-size:15px;
-                    "
-                  >
-                    <li>Acceder a los talleres disponibles.</li>
-                    <li>Consultar el material de estudio.</li>
-                    <li>Descargar recursos complementarios.</li>
-                    <li>Visualizar los videos y ejercicios prácticos.</li>
-                    <li>Realizar las actividades propuestas durante el taller.</li>
-                  </ul>
+                <ul style="color:#4a5568; line-height:1.8; font-size:15px;">
+                  <li>Acceder a los talleres disponibles.</li>
+                  <li>Consultar el material de estudio.</li>
+                  <li>Descargar recursos complementarios.</li>
+                  <li>Visualizar los videos y ejercicios prácticos.</li>
+                  <li>Realizar las actividades propuestas durante el taller.</li>
+                </ul>
+
+                ${rol === 'formador' ? `
+                <div style="background: #fce4ec; border-left: 4px solid #c62828; padding: 15px 20px; margin: 20px 0; border-radius: 4px;">
+                  <p style="margin: 0; color: #b71c1c; font-size: 14px; line-height: 1.6;">
+                    <strong>🔑 Nota importante para Formadores:</strong><br>
+                    Como formador, tendrás acceso a un panel especial donde podrás visualizar y calificar 
+                    los ejercicios de todos los participantes inscritos en los talleres.
+                  </p>
+                </div>
+                ` : `
+                <div style="background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 15px 20px; margin: 20px 0; border-radius: 4px;">
+                  <p style="margin: 0; color: #1b5e20; font-size: 14px; line-height: 1.6;">
+                    <strong>📝 Nota para Participantes:</strong><br>
+                    Podrás inscribirte a los talleres, descargar el material de estudio y cargar tus 
+                    ejercicios resueltos para ser evaluados por los formadores.
+                  </p>
+                </div>
+                `}
 
                 <div style="background-color: #f0f7ff; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
                   <p style="margin: 0; color: #1a3a5c; font-size: 14px;">
                     ⚡ <strong>¿Tienes preguntas?</strong> Contáctanos en 
                     <a href="mailto:equipocatastroapp@gmail.com" style="color: #2a5f8a; text-decoration: underline;">
-                      https://taller-cpci.vercel.app/
+                      equipocatastroapp@gmail.com
                     </a>
                   </p>
                 </div>
               </td>
             </tr>
 
-            <div
-              style="
-                background:#fff8e1;
-                border-left:5px solid #f59e0b;
-                padding:18px;
-                border-radius:6px;
-                margin-top:30px;
-              "
-            >
-
-            <p style="margin:0;color:#7c5700;font-size:14px;line-height:1.7;">
-            <strong>Recomendación de seguridad:</strong><br><br>
-
-            Conserve este correo, ya que contiene su nombre de usuario de acceso.
-            Por motivos de seguridad, la contraseña no se envía por correo electrónico.
-            Utilice la misma contraseña que registró durante el proceso de inscripción.
-            </p>
-
-            </div>
+            <tr>
+              <td style="padding: 0 40px 20px;">
+                <div style="background:#fff8e1; border-left:5px solid #f59e0b; padding:18px; border-radius:6px;">
+                  <p style="margin:0;color:#7c5700;font-size:14px;line-height:1.7;">
+                    <strong>Recomendación de seguridad:</strong><br><br>
+                    Conserve este correo, ya que contiene su nombre de usuario de acceso.
+                    Por motivos de seguridad, la contraseña no se envía por correo electrónico.
+                    Utilice la misma contraseña que registró durante el proceso de inscripción.
+                  </p>
+                </div>
+              </td>
+            </tr>
 
             <!-- FOOTER -->
             <tr>
@@ -186,7 +194,7 @@ export const inscripcionTemplate = ({
                   <tr>
                     <td align="center">
                       <p style="margin: 0 0 5px; color: #4a5568; font-size: 14px; font-weight: 600;">
-                        CPCI - Centro de Capacitación en Productividad e Innovación
+                        CPCI - Comité Permanente sobre el Catastro en Iberoamérica
                       </p>
                       <p style="margin: 0 0 10px; color: #718096; font-size: 13px;">
                         ✉ equipocatastroapp@gmail.com | 🌐 https://taller-cpci.vercel.app/

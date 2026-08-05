@@ -5,12 +5,13 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from 'next/link';
 
-export default function ModalInscripcion({ isOpen, onClose }) {
+export default function ModalInscripcion({ isOpen, onClose, rolInicial = 'participante' }) {
   const [tableau, setTableau] = useState('');
   const [enviado, setEnviado] = useState(false);
   const [loading, setLoading] = useState(false);
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [showConfirmClose, setShowConfirmClose] = useState(false);
+  const [rol, setRol] = useState(rolInicial || 'participante');
 
   const [formData, setFormData] = useState({
     password: '',
@@ -25,7 +26,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
     tiene_power_bi: '',
     usa_otro_bi: '',
     otro_bi_nombre: '',
-    tiene_arcgis_online: ''
+    tiene_arcgis_online: '',
+    experiencia_bi: '',
+    nivel_geografico: 'basico'
   });
 
   const hasFormData = () => {
@@ -56,11 +59,14 @@ export default function ModalInscripcion({ isOpen, onClose }) {
       tiene_power_bi: '',
       usa_otro_bi: '',
       otro_bi_nombre: '',
-      tiene_arcgis_online: ''
+      tiene_arcgis_online: '',
+      experiencia_bi: '',
+      nivel_geografico: 'basico'
     });
     setTableau('');
     setAceptaTerminos(false);
     setEnviado(false);
+    setRol(rolInicial);
   };
 
   const handleChange = (e) => {
@@ -109,6 +115,8 @@ export default function ModalInscripcion({ isOpen, onClose }) {
       tiene_power_bi: formData.tiene_power_bi === "Sí",
       usa_otro_bi: formData.usa_otro_bi === "Sí",
       tiene_arcgis_online: formData.tiene_arcgis_online === "Sí",
+      experiencia_bi: formData.experiencia_bi === "Sí",
+      rol: rol,
       acepta_terminos: aceptaTerminos,
     };
 
@@ -127,7 +135,6 @@ export default function ModalInscripcion({ isOpen, onClose }) {
 
       setEnviado(true);
       setShowConfirmClose(false);
-      // No resetear el formulario aquí, se resetea al cerrar
     } catch (error) {
       console.error(error);
       alert(error.message || "No fue posible completar la inscripción");
@@ -145,15 +152,26 @@ export default function ModalInscripcion({ isOpen, onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           
-          {/* Header - FIJO */}
+          {/* Header - FIJO con ambos logos */}
           <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-800 to-blue-400 flex-shrink-0">
-            <Image
-              src="/Img/logocpci.png"
-              alt="Logo CPCI"
-              width={32}
-              height={32}
-              className="rounded-lg object-contain bg-white/10 p-0.5 w-7 h-7 sm:w-8 sm:h-8"
-            />
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Logo CPCI */}
+              <Image
+                src="/Img/logocpci.png"
+                alt="Logo CPCI"
+                width={32}
+                height={32}
+                className="rounded-lg object-contain bg-white/10 p-0.5 w-7 h-7 sm:w-8 sm:h-8"
+              />
+              {/* Logo 2022 - MOVIDO AQUÍ */}
+              <Image
+                src="/Img/logo_2022.png"
+                alt="Logo 2022"
+                width={32}
+                height={32}
+                className="rounded-lg object-contain bg-white/10 p-0.5 w-7 h-7 sm:w-8 sm:h-8"
+              />
+            </div>
             <div className="flex-1 min-w-0">
               <h2 className="text-[11px] sm:text-xs font-bold text-white leading-tight truncate">Inscripción al taller</h2>
               <p className="text-[9px] sm:text-[10px] font-bold text-blue-100 leading-tight truncate">Taller CPCI · Visualización Avanzada</p>
@@ -172,13 +190,9 @@ export default function ModalInscripcion({ isOpen, onClose }) {
 
           {/* CONTENIDO: Si está enviado muestra el mensaje de éxito, si no el formulario */}
           {enviado ? (
-            /* SECCIÓN DE ÉXITO - RESTAURADA Y MEJORADA */
             <div className="flex-1 flex flex-col items-center justify-center py-12 px-6 text-center bg-gradient-to-b from-white via-green-50/30 to-emerald-50/20">
               <div className="relative">
-                {/* Círculo decorativo */}
                 <div className="absolute inset-0 bg-green-400/10 rounded-full blur-2xl scale-150"></div>
-                
-                {/* Icono de éxito */}
                 <div className="relative w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 mb-6 animate-in zoom-in duration-500">
                   <svg className="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -192,7 +206,7 @@ export default function ModalInscripcion({ isOpen, onClose }) {
               
               <div className="max-w-sm space-y-3 animate-in slide-in-from-bottom-4 duration-500">
                 <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Gracias por registrarte al <span className="font-semibold text-blue-600">Taller CPCI</span>.
+                  Gracias por registrarte al <span className="font-semibold text-blue-600">Taller CPCI</span> como <span className="font-semibold text-blue-600">{rol === 'participante' ? 'Participante' : 'Formador'}</span>.
                 </p>
                 <div className="bg-blue-50/80 border border-blue-200/60 rounded-xl p-4 text-left">
                   <p className="text-xs sm:text-sm text-slate-700">
@@ -220,9 +234,7 @@ export default function ModalInscripcion({ isOpen, onClose }) {
               </button>
             </div>
           ) : (
-            /* FORMULARIO - El código existente del formulario */
             <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-              {/* Contenido con Scroll Independiente */}
               <div className="flex-1 overflow-y-auto p-2.5 sm:p-3.5 space-y-2.5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
                   
@@ -393,6 +405,52 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                         />
                       </div>
                     </div>
+
+                    {/* NUEVA SECCIÓN: Selección de Rol */}
+                    <div className="space-y-1.5 pt-1 border-t border-slate-200/60">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-1 h-2 bg-rose-500 rounded-full"></div>
+                        <h3 className="text-[9px] sm:text-[10px] font-semibold text-slate-600 uppercase tracking-wider">Tipo de Inscripción</h3>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <label className={`flex-1 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border cursor-pointer transition-all text-[10px] sm:text-[11px] ${
+                          rol === 'participante' 
+                            ? 'border-blue-500 bg-blue-50 text-blue-700' 
+                            : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                        }`}>
+                          <input
+                            type="radio"
+                            name="rol"
+                            value="participante"
+                            checked={rol === 'participante'}
+                            onChange={(e) => setRol(e.target.value)}
+                            className="accent-blue-600 w-3 h-3"
+                          />
+                          Participante
+                        </label>
+                        <label className={`flex-1 flex items-center gap-1.5 px-3 py-1.5 rounded-lg border cursor-pointer transition-all text-[10px] sm:text-[11px] ${
+                          rol === 'formador' 
+                            ? 'border-rose-500 bg-rose-50 text-rose-700' 
+                            : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                        }`}>
+                          <input
+                            type="radio"
+                            name="rol"
+                            value="formador"
+                            checked={rol === 'formador'}
+                            onChange={(e) => setRol(e.target.value)}
+                            className="accent-rose-600 w-3 h-3"
+                          />
+                          Formador / Calificador
+                        </label>
+                      </div>
+                      <p className="text-[8px] sm:text-[9px] text-slate-400">
+                        {rol === 'participante' 
+                          ? 'Podrás inscribirte a los talleres y cargar tus ejercicios resueltos.' 
+                          : 'Podrás ver y calificar los ejercicios de todos los participantes.'}
+                      </p>
+                    </div>
                   </div>
 
                   {/* Columna Derecha: Herramientas Técnicas */}
@@ -401,6 +459,50 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       <div className="flex items-center gap-1.5">
                         <div className="w-1 h-2 bg-purple-500 rounded-full"></div>
                         <h3 className="text-[9px] sm:text-[10px] font-semibold text-slate-600 uppercase tracking-wider">Herramientas</h3>
+                      </div>
+
+                      {/* NUEVO: Experiencia con herramientas BI */}
+                      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-1.5 border border-purple-100/50">
+                        <p className="text-[10px] font-medium text-slate-700 mb-1">¿Tiene experiencia con herramientas BI?</p>
+                        <div className="flex gap-1.5">
+                          {["Sí", "No"].map((op) => (
+                            <label key={op} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[10px] text-slate-600 cursor-pointer hover:border-purple-300 flex-1 justify-center">
+                              <input
+                                type="radio"
+                                name="experiencia_bi"
+                                value={op}
+                                checked={formData.experiencia_bi === op}
+                                onChange={handleChange}
+                                className="accent-purple-600 w-3 h-3"
+                              />
+                              {op}
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* NUEVO: Nivel de experiencia geográfica */}
+                      <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg p-1.5 border border-cyan-100/50">
+                        <p className="text-[10px] font-medium text-slate-700 mb-1">Nivel de experiencia con herramientas de información geográfica</p>
+                        <div className="flex gap-1">
+                          {["basico", "medio", "avanzado"].map((nivel) => (
+                            <label key={nivel} className={`flex-1 flex items-center gap-1 px-1.5 py-0.5 rounded-md border text-[9px] sm:text-[10px] cursor-pointer transition-all justify-center ${
+                              formData.nivel_geografico === nivel
+                                ? 'border-blue-500 bg-blue-50 text-blue-700'
+                                : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                            }`}>
+                              <input
+                                type="radio"
+                                name="nivel_geografico"
+                                value={nivel}
+                                checked={formData.nivel_geografico === nivel}
+                                onChange={handleChange}
+                                className="accent-blue-600 w-2.5 h-2.5"
+                              />
+                              {nivel.charAt(0).toUpperCase() + nivel.slice(1)}
+                            </label>
+                          ))}
+                        </div>
                       </div>
 
                       {/* Power BI */}
@@ -485,18 +587,7 @@ export default function ModalInscripcion({ isOpen, onClose }) {
                       </div>
                     </div>
 
-                    {/* LOGO 2022 */}
-                    <div className="flex justify-center py-4">
-                        <div className="w-full flex justify-center items-center bg-gradient-to-br from-blue-50/80 to-indigo-50/80 rounded-xl p-4 border border-blue-100/60 shadow-sm">
-                            <Image
-                                src="/Img/logo_2022.png"
-                                alt="Logo 2022"
-                                width={700}
-                                height={350}
-                                className="w-[90%] h-auto object-contain"
-                            />
-                        </div>
-                    </div>
+                    {/* ELIMINADO: LOGO 2022 de la parte inferior - ya no está aquí */}
                   </div>
                 </div>
 
