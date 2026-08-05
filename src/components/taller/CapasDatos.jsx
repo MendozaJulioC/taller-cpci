@@ -6,9 +6,12 @@ import { Database, FileSpreadsheet, Map, FileJson, HardDrive, Download, X, Check
 
 export default function CapasDatos() {
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [formatoSeleccionado, setFormatoSeleccionado] = useState(null);
   const [capasSeleccionadas, setCapasSeleccionadas] = useState([]);
 
+  // Definir todas las capas con sus formatos disponibles
   const capasData = [
+    // CAPAS EJERCICIOS
     { 
       nombre: 'TallerComunas', 
       shp: true, 
@@ -16,7 +19,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '423 KB',
       archivos: {
-        geojson: '/data/ComunasMED.geojson'
+        shp: '/data/ComunasMED.shp',
+        geojson: '/data/ComunasMED.geojson',
+        csv: '/data/ComunasMED.csv'
       }
     },
     { 
@@ -26,7 +31,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '199 KB',
       archivos: {
-        geojson: '/data/BarriosMED.geojson'
+        shp: '/data/BarriosMED.shp',
+        geojson: '/data/BarriosMED.geojson',
+        csv: '/data/BarriosMED.csv'
       }
     },
     { 
@@ -36,7 +43,9 @@ export default function CapasDatos() {
       csv: true, 
       peso: '12.01 MB',
       archivos: {
-        geojson: '/data/LotesPredioMDE.geojson'
+        shp: '/data/LotesPredioMDE.shp',
+        geojson: '/data/LotesPredioMDE.geojson',
+        csv: '/data/LotesPredioMDE.csv'
       }
     },
     { 
@@ -46,58 +55,80 @@ export default function CapasDatos() {
       csv: true, 
       peso: '35 MB',
       archivos: {
-        geojson: '/data/ConstruccionMDE.geojson'
+        shp: '/data/ConstruccionMDE.shp',
+        geojson: '/data/ConstruccionMDE.geojson',
+        csv: '/data/ConstruccionMDE.csv'
+      }
+    },
+    // CAPAS COMPLEMENTARIAS
+    { 
+      nombre: 'LimiteCatastralComunaCorregimiento', 
+      shp: true, 
+      geojson: true, 
+      csv: true, 
+      peso: '843.9 MB',
+      archivos: {
+        shp: '/data/LimiteCatastralComunaCorregimiento.shp',
+        geojson: '/data/LimiteCatastralComunaCorregimiento.geojson',
+        csv: '/data/LimiteCatastralComunaCorregimiento.csv'
       }
     },
     { 
-      nombre: 'LímiteCatastralComunaCorregimiento', 
-      shp: false, 
-      geojson: false, 
-      csv: false, 
-      peso: '-'
-    },
-    { 
-      nombre: 'LímiteCatastralBarrioVereda', 
-      shp: false, 
-      geojson: false, 
-      csv: false, 
-      peso: '-'
+      nombre: 'LimiteCatastralBarrioVereda', 
+      shp: true, 
+      geojson: true, 
+      csv: true, 
+      peso: '512.3 MB',
+      archivos: {
+        shp: '/data/LimiteCatastralBarrioVereda.shp',
+        geojson: '/data/LimiteCatastralBarrioVereda.geojson',
+        csv: '/data/LimiteCatastralBarrioVereda.csv'
+      }
     },
     { 
       nombre: 'InventarioEquipamientos', 
-      shp: false, 
-      geojson: false, 
-      csv: false, 
-      peso: '-'
+      shp: true, 
+      geojson: true, 
+      csv: true, 
+      peso: '156.7 MB',
+      archivos: {
+        shp: '/data/InventarioEquipamientos.shp',
+        geojson: '/data/InventarioEquipamientos.geojson',
+        csv: '/data/InventarioEquipamientos.csv'
+      }
     },
     { 
       nombre: 'InventarioEspacioPublico', 
-      shp: false, 
-      geojson: false, 
-      csv: false, 
-      peso: '-'
+      shp: true, 
+      geojson: true, 
+      csv: true, 
+      peso: '89.2 MB',
+      archivos: {
+        shp: '/data/InventarioEspacioPublico.shp',
+        geojson: '/data/InventarioEspacioPublico.geojson',
+        csv: '/data/InventarioEspacioPublico.csv'
+      }
     },
     { 
-      nombre: 'RioMedellín', 
-      shp: false, 
-      geojson: false, 
-      csv: false, 
-      peso: '-'
+      nombre: 'RioMedellin', 
+      shp: true, 
+      geojson: true, 
+      csv: true, 
+      peso: '45.1 MB',
+      archivos: {
+        shp: '/data/RioMedellin.shp',
+        geojson: '/data/RioMedellin.geojson',
+        csv: '/data/RioMedellin.csv'
+      }
     },
   ];
 
-  // Obtener solo las capas disponibles para descarga
-  const capasDisponibles = capasData.filter(capa => capa.archivos?.geojson);
-
-  // Desglose de pesos para LímiteCatastralComunaCorregimiento
-  const desglosePesos = [
-    { formato: 'SHP', peso: '687.9 MB', icono: <Map className="w-3 h-3" /> },
-    { formato: 'GeoJSON', peso: '94.3 MB', icono: <FileJson className="w-3 h-3" /> },
-    { formato: 'CSV', peso: '61.7 MB', icono: <FileSpreadsheet className="w-3 h-3" /> },
-  ];
+  // Separar capas por categoría
+  const capasEjercicios = capasData.slice(0, 4);
+  const capasComplementarias = capasData.slice(4);
 
   // Calcular peso total de todas las capas disponibles
-  const pesoTotal = capasDisponibles.reduce((total, capa) => {
+  const pesoTotal = capasData.reduce((total, capa) => {
     const pesoNumerico = parseFloat(capa.peso);
     if (!isNaN(pesoNumerico)) {
       return total + pesoNumerico;
@@ -120,15 +151,22 @@ export default function CapasDatos() {
     return url.split('/').pop();
   };
 
-  // Abrir modal de descarga
-  const abrirModalDescarga = () => {
-    setCapasSeleccionadas(capasDisponibles.map(capa => capa.nombre));
+  // Abrir modal de descarga por formato
+  const abrirModalDescarga = (formato) => {
+    setFormatoSeleccionado(formato);
+    // Seleccionar todas las capas que tienen ese formato disponible
+    setCapasSeleccionadas(
+      capasData
+        .filter(capa => capa.archivos?.[formato])
+        .map(capa => capa.nombre)
+    );
     setModalAbierto(true);
   };
 
   // Cerrar modal
   const cerrarModal = () => {
     setModalAbierto(false);
+    setFormatoSeleccionado(null);
   };
 
   // Toggle selección de capa
@@ -142,6 +180,7 @@ export default function CapasDatos() {
 
   // Seleccionar/Deseleccionar todas
   const toggleTodas = () => {
+    const capasDisponibles = capasData.filter(capa => capa.archivos?.[formatoSeleccionado]);
     if (capasSeleccionadas.length === capasDisponibles.length) {
       setCapasSeleccionadas([]);
     } else {
@@ -149,17 +188,40 @@ export default function CapasDatos() {
     }
   };
 
-  // Descargar capas seleccionadas
+  // Descargar capas seleccionadas en el formato elegido
   const descargarSeleccionadas = () => {
-    const capasADescargar = capasDisponibles.filter(capa => 
-      capasSeleccionadas.includes(capa.nombre)
+    const capasADescargar = capasData.filter(capa => 
+      capasSeleccionadas.includes(capa.nombre) && capa.archivos?.[formatoSeleccionado]
     );
     
     capasADescargar.forEach(capa => {
-      handleDownload(capa.archivos.geojson, getFileName(capa.archivos.geojson));
+      const url = capa.archivos[formatoSeleccionado];
+      if (url) {
+        handleDownload(url, getFileName(url));
+      }
     });
     
     cerrarModal();
+  };
+
+  // Obtener el nombre del formato para mostrar
+  const getFormatoNombre = (formato) => {
+    const nombres = {
+      shp: 'SHP',
+      geojson: 'GeoJSON',
+      csv: 'CSV'
+    };
+    return nombres[formato] || formato;
+  };
+
+  // Obtener el icono del formato
+  const getFormatoIcono = (formato) => {
+    const iconos = {
+      shp: <Map className="w-3.5 h-3.5" />,
+      geojson: <FileJson className="w-3.5 h-3.5" />,
+      csv: <FileSpreadsheet className="w-3.5 h-3.5" />
+    };
+    return iconos[formato] || null;
   };
 
   return (
@@ -182,9 +244,9 @@ export default function CapasDatos() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50/80 border-b border-slate-200">
+              <tr className="bg-blue-50/80 border-b border-slate-200">
                 <th className="text-left px-4 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                  Capa de Datos
+                  CAPAS EJERCICIOS
                 </th>
                 <th className="text-center px-4 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                   <div className="flex items-center justify-center gap-1.5">
@@ -213,76 +275,137 @@ export default function CapasDatos() {
               </tr>
             </thead>
             <tbody>
-              {capasData.map((capa, index) => {
-                const esLímiteCatastral = capa.nombre === 'LímiteCatastralComunaCorregimiento';
-                const tieneDescarga = capa.archivos?.geojson;
-                
-                return (
-                  <tr 
-                    key={index}
-                    className={`border-b border-slate-100 transition-colors ${
-                      esLímiteCatastral 
-                        ? 'bg-gradient-to-r from-blue-50/50 to-indigo-50/50 hover:from-blue-100/50 hover:to-indigo-100/50' 
-                        : 'hover:bg-slate-50/50'
-                    }`}
-                  >
-                    {/* Nombre de la capa */}
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`text-xs font-medium ${
-                          esLímiteCatastral ? 'text-blue-700' : 'text-slate-700'
-                        }`}>
-                          {capa.nombre}
-                        </span>
-                      </div>
-                    </td>
+              {/* CAPAS EJERCICIOS */}
+              {capasEjercicios.map((capa, index) => (
+                <tr 
+                  key={index}
+                  className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors"
+                >
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-slate-700">
+                        {capa.nombre}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.shp ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.geojson ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.csv ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <span className="text-xs text-slate-400">{capa.peso}</span>
+                  </td>
+                </tr>
+              ))}
 
-                    {/* SHP */}
-                    <td className="text-center px-4 py-3">
-                      {capa.shp ? (
-                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
-                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      ) : (
-                        <span className="text-slate-300 text-xs">—</span>
-                      )}
-                    </td>
+              {/* SEPARADOR - CAPAS COMPLEMENTARIAS */}
+              <tr>
+                <td colSpan="5" className="px-4 py-2 bg-blue-50/80 border-t border-slate-200/60">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                    CAPAS COMPLEMENTARIAS
+                  </span>
+                </td>
+              </tr>
 
-                    {/* GeoJSON */}
-                    <td className="text-center px-4 py-3">
-                      {capa.geojson ? (
-                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
-                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      ) : (
-                        <span className="text-slate-300 text-xs">—</span>
-                      )}
-                    </td>
+              {/* CAPAS COMPLEMENTARIAS */}
+              {capasComplementarias.map((capa, index) => (
+                <tr 
+                  key={index}
+                  className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors"
+                >
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-slate-700">
+                        {capa.nombre}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.shp ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.geojson ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="text-center px-4 py-3">
+                    {capa.csv ? (
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
+                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 text-xs">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <span className="text-xs text-slate-400">{capa.peso}</span>
+                  </td>
+                </tr>
+              ))}
 
-                    {/* CSV */}
-                    <td className="text-center px-4 py-3">
-                      {capa.csv ? (
-                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-600">
-                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                      ) : (
-                        <span className="text-slate-300 text-xs">—</span>
-                      )}
-                    </td>
-
-                    {/* Peso Total */}
-                    <td className="px-4 py-3 text-right">
-                      <span className="text-xs text-slate-400">{capa.peso}</span>
-                    </td>
-                  </tr>
-                );
-              })}
+              {/* FILA DE BOTONES DE DESCARGA POR FORMATO */}
+              <tr>
+                <td className="px-4 py-3 bg-slate-50/80 border-t border-slate-200/60">
+                  <span className="text-[10px] font-medium text-slate-500">Descargar todas las capas en:</span>
+                </td>
+                {['shp', 'geojson', 'csv'].map((formato) => (
+                  <td key={formato} className="px-4 py-3 text-center bg-slate-50/80 border-t border-slate-200/60">
+                    <button
+                      onClick={() => abrirModalDescarga(formato)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all text-[10px] font-medium shadow-sm shadow-blue-500/20"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      {getFormatoNombre(formato)}
+                    </button>
+                  </td>
+                ))}
+                <td className="px-4 py-3 bg-slate-50/80 border-t border-slate-200/60"></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -306,7 +429,11 @@ export default function CapasDatos() {
             </div>
             <div className="flex items-center gap-3 text-[9px] text-slate-500">
               <span className="font-medium text-slate-600">Desglose de pesos:</span>
-              {desglosePesos.map((item, idx) => (
+              {[
+                { formato: 'SHP', peso: '687.9 MB', icono: <Map className="w-3 h-3" /> },
+                { formato: 'GeoJSON', peso: '94.3 MB', icono: <FileJson className="w-3 h-3" /> },
+                { formato: 'CSV', peso: '61.7 MB', icono: <FileSpreadsheet className="w-3 h-3" /> },
+              ].map((item, idx) => (
                 <span key={idx} className="inline-flex items-center gap-0.5 bg-white px-1.5 py-0.5 rounded border border-slate-200/60">
                   {item.icono}
                   {item.peso}
@@ -319,31 +446,34 @@ export default function CapasDatos() {
               <span className="font-medium">Peso total de capas disponibles:</span>
               <span className="font-bold text-blue-700">{pesoTotal.toFixed(2)} MB</span>
             </div>
-            <button
-              onClick={abrirModalDescarga}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-700 text-white hover:from-emerald-700 hover:to-emerald-800 transition-all text-[10px] font-medium shadow-sm shadow-emerald-500/20"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Descargar capas
-            </button>
+            <div className="flex items-center gap-2 text-[10px] text-slate-500">
+              <span className="font-medium">Personas incluyen:</span>
+              <span className="font-bold text-emerald-600">2</span>
+              <span className="text-slate-300">|</span>
+              <span className="font-medium">En vivo:</span>
+              <span className="inline-flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="font-bold text-emerald-600">3</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Modal de descarga */}
-      {modalAbierto && (
+      {/* Modal de descarga por formato */}
+      {modalAbierto && formatoSeleccionado && (
         <div 
           className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           onClick={(e) => e.target === e.currentTarget && cerrarModal()}
         >
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[80vh] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
             {/* Header del modal */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-6 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3 text-white">
                 <FileArchive className="w-5 h-5" />
                 <div>
-                  <h3 className="font-bold text-sm">Descargar Capas</h3>
-                  <p className="text-emerald-100 text-[10px]">Selecciona las capas que deseas descargar</p>
+                  <h3 className="font-bold text-sm">Descargar en {getFormatoNombre(formatoSeleccionado)}</h3>
+                  <p className="text-blue-100 text-[10px]">Selecciona las capas que deseas descargar</p>
                 </div>
               </div>
               <button
@@ -361,37 +491,44 @@ export default function CapasDatos() {
                   onClick={toggleTodas}
                   className="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
                 >
-                  {capasSeleccionadas.length === capasDisponibles.length ? 'Deseleccionar todas' : 'Seleccionar todas'}
+                  {capasSeleccionadas.length === capasData.filter(c => c.archivos?.[formatoSeleccionado]).length 
+                    ? 'Deseleccionar todas' 
+                    : 'Seleccionar todas'}
                 </button>
                 <span className="text-[10px] text-slate-500">
-                  {capasSeleccionadas.length} de {capasDisponibles.length} seleccionadas
+                  {capasSeleccionadas.length} de {capasData.filter(c => c.archivos?.[formatoSeleccionado]).length} seleccionadas
                 </span>
               </div>
 
-              {capasDisponibles.map((capa) => (
-                <label
-                  key={capa.nombre}
-                  className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
-                    capasSeleccionadas.includes(capa.nombre)
-                      ? 'bg-emerald-50 border border-emerald-200'
-                      : 'hover:bg-slate-50 border border-transparent'
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={capasSeleccionadas.includes(capa.nombre)}
-                    onChange={() => toggleCapa(capa.nombre)}
-                    className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"
-                  />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-slate-700">{capa.nombre}</p>
-                    <p className="text-[10px] text-slate-400">{capa.peso} · GeoJSON</p>
-                  </div>
-                  {capasSeleccionadas.includes(capa.nombre) && (
-                    <Check className="w-4 h-4 text-emerald-600" />
-                  )}
-                </label>
-              ))}
+              {capasData.map((capa) => {
+                const tieneFormato = capa.archivos?.[formatoSeleccionado];
+                if (!tieneFormato) return null;
+                
+                return (
+                  <label
+                    key={capa.nombre}
+                    className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                      capasSeleccionadas.includes(capa.nombre)
+                        ? 'bg-blue-50 border border-blue-200'
+                        : 'hover:bg-slate-50 border border-transparent'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={capasSeleccionadas.includes(capa.nombre)}
+                      onChange={() => toggleCapa(capa.nombre)}
+                      className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"
+                    />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-slate-700">{capa.nombre}</p>
+                      <p className="text-[10px] text-slate-400">{capa.peso} · {getFormatoNombre(formatoSeleccionado)}</p>
+                    </div>
+                    {capasSeleccionadas.includes(capa.nombre) && (
+                      <Check className="w-4 h-4 text-blue-600" />
+                    )}
+                  </label>
+                );
+              })}
             </div>
 
             {/* Footer del modal */}
@@ -405,7 +542,7 @@ export default function CapasDatos() {
               <button
                 onClick={descargarSeleccionadas}
                 disabled={capasSeleccionadas.length === 0}
-                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-lg hover:from-emerald-700 hover:to-emerald-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <Download className="w-4 h-4" />
                 Descargar ({capasSeleccionadas.length})

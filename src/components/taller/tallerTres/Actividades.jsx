@@ -26,11 +26,18 @@ import {
   Book,
   Share2,
   FileCode,
-  Storybook
+  Storybook,
+  Download,
+  Upload,
+  File,
+  X
 } from 'lucide-react';
 
 export default function ActividadesTallerTres() {
   const [actividadActiva, setActividadActiva] = useState(1);
+  const [cargandoArchivo, setCargandoArchivo] = useState(false);
+  const [archivoSubido, setArchivoSubido] = useState(null);
+  const [mensajeSubida, setMensajeSubida] = useState('');
 
   const actividades = [
     {
@@ -138,7 +145,7 @@ export default function ActividadesTallerTres() {
 
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
-    fecha: '5 de septiembre (tentativo)',
+    fecha: '28 de agosto - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual con presentación en equipos'
   };
@@ -148,6 +155,66 @@ export default function ActividadesTallerTres() {
     geomedellin: 'https://www.medellin.gov.co/geomedellin',
     catastrobogota: 'https://www.catastrobogota.gov.co/',
     geojsonio: 'https://geojson.io/'
+  };
+
+  // Función para descargar el PDF de la propuesta del Taller 3
+  const handleDescargarPropuesta = () => {
+    const url = '/data/Propuesta técnica y económica - Taller 3.pdf';
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Propuesta técnica y económica - Taller 3.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Función para manejar la subida del archivo del Taller 3
+  const handleSubirArchivo = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      setMensajeSubida('⚠️ Solo se permiten archivos PDF');
+      setTimeout(() => setMensajeSubida(''), 3000);
+      return;
+    }
+
+    if (file.size > 20 * 1024 * 1024) {
+      setMensajeSubida('⚠️ El archivo no debe superar los 20MB');
+      setTimeout(() => setMensajeSubida(''), 3000);
+      return;
+    }
+
+    setCargandoArchivo(true);
+    setMensajeSubida('');
+
+    try {
+      const formData = new FormData();
+      formData.append('archivo', file);
+      formData.append('taller', 'taller3');
+
+      const response = await fetch('/api/upload-taller', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al subir el archivo');
+      }
+
+      setArchivoSubido(file.name);
+      setMensajeSubida('✅ Archivo subido correctamente');
+      setTimeout(() => setMensajeSubida(''), 3000);
+    } catch (error) {
+      console.error('Error al subir archivo:', error);
+      setMensajeSubida('❌ Error al subir el archivo. Intenta nuevamente.');
+      setTimeout(() => setMensajeSubida(''), 3000);
+    } finally {
+      setCargandoArchivo(false);
+      event.target.value = '';
+    }
   };
 
   return (
@@ -419,7 +486,7 @@ export default function ActividadesTallerTres() {
         })}
       </div>
 
-      {/* Progreso del taller */}
+      {/* Progreso del taller con botones de descarga y carga */}
       <div className="bg-white border border-slate-200/60 rounded-xl p-4 md:p-6">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -454,6 +521,78 @@ export default function ActividadesTallerTres() {
               Act {act.id}
             </span>
           ))}
+        </div>
+
+        {/* Botones de descarga y carga */}
+        <div className="mt-4 pt-4 border-t border-slate-200/60">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Botón Descargar Propuesta */}
+              <button
+                onClick={handleDescargarPropuesta}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/30"
+              >
+                <Download className="w-4 h-4" />
+                Descargar Taller
+                <span className="text-[10px] text-indigo-200 font-normal ml-1">(PDF)</span>
+              </button>
+
+              {/* Botón Cargar Taller Resuelto */}
+              <div className="relative">
+                <button
+                  onClick={() => document.getElementById('upload-taller-3').click()}
+                  disabled={cargandoArchivo}
+                  className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                    archivoSubido 
+                      ? 'bg-emerald-100 text-emerald-700 border border-emerald-200 hover:bg-emerald-200' 
+                      : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200'
+                  }`}
+                >
+                  <Upload className="w-4 h-4" />
+                  {cargandoArchivo ? 'Subiendo...' : archivoSubido ? 'Taller cargado ✓' : 'Cargar Taller Resuelto'}
+                  <span className="text-[10px] text-slate-400 font-normal ml-1">(PDF)</span>
+                </button>
+                <input
+                  id="upload-taller-3"
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  onChange={handleSubirArchivo}
+                  className="hidden"
+                  disabled={cargandoArchivo}
+                />
+              </div>
+
+              {/* Mensaje de estado */}
+              {mensajeSubida && (
+                <span className={`text-xs font-medium ${
+                  mensajeSubida.includes('✅') 
+                    ? 'text-emerald-600' 
+                    : mensajeSubida.includes('❌') || mensajeSubida.includes('⚠️')
+                    ? 'text-red-600'
+                    : 'text-slate-500'
+                }`}>
+                  {mensajeSubida}
+                </span>
+              )}
+            </div>
+
+            {/* Indicador de archivo subido */}
+            {archivoSubido && (
+              <div className="flex items-center gap-2 text-xs text-slate-500">
+                <File className="w-3.5 h-3.5" />
+                <span className="truncate max-w-[150px]">{archivoSubido}</span>
+                <button
+                  onClick={() => setArchivoSubido(null)}
+                  className="text-red-400 hover:text-red-600 transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+          <p className="text-[10px] text-slate-400 mt-2">
+            Sube tu taller resuelto en formato PDF (máximo 20MB)
+          </p>
         </div>
       </div>
     </div>
