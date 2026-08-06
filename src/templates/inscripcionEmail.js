@@ -118,6 +118,10 @@ export const inscripcionTemplate = ({
                     </span>
                   </p>
 
+                  <p style="margin:10px 0;font-size:15px;color:#2d3748;">
+                    <strong>También puedes ingresar con el Email que te registraste.</strong>
+                  </p>
+
                   <p style="margin:15px 0;color:#2d3748;">
                     <strong>Contraseña:</strong>
                     Es la misma contraseña que registró durante su inscripción.
