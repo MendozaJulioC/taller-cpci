@@ -466,8 +466,8 @@ SMTP_USER=correo@gmail.com
 SMTP_PASSWORD=contraseña_app
 
 # URLs
-NEXTAUTH_URL=http://localhost:3001
-NEXT_PUBLIC_APP_URL=http://localhost:3001
+NEXTAUTH_URL=http://localhost:puerto
+NEXT_PUBLIC_APP_URL=http://localhost:puerto
 ```
 
 ---
