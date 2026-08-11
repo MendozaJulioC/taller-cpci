@@ -75,8 +75,9 @@ export default function TallerPage() {
     },
   };
 
+  // 👇 ELIMINADO el primer objetivo (Conectar Power BI...)
+  // Ahora solo quedan 2 objetivos
   const objetivos = [
-    { icon: '🔌', text: 'Conectar Power BI a bases de datos espaciales (PostGIS) y ejecutar procesos ETL territoriales.' },
     { icon: '🗺️', text: 'Diseñar visualizaciones espaciales con ArcGIS y mapas coropléticos de indicadores clave.' },
     { icon: '📊', text: 'Presentar tableros a tomadores de decisión y sustentar recomendaciones estratégicas.' },
   ];
@@ -164,7 +165,7 @@ export default function TallerPage() {
             </div>
           </div>
 
-          {/* Objetivos del Taller - Mejorado */}
+          {/* Objetivos del Taller - Modificado para 2 objetivos centrados */}
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center gap-3 mb-6 sm:mb-8">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
@@ -175,7 +176,8 @@ export default function TallerPage() {
               <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
             </div>
             
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            {/* Grid modificado para 2 columnas centradas */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
               {objetivos.map((o, i) => (
                 <div 
                   key={i} 

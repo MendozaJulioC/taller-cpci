@@ -8,6 +8,7 @@ export default function CapasDatos() {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [formatoSeleccionado, setFormatoSeleccionado] = useState(null);
   const [capasSeleccionadas, setCapasSeleccionadas] = useState([]);
+  const [descargaHabilitada, setDescargaHabilitada] = useState(false); // false = deshabilitado
 
   // Definir todas las capas con sus formatos disponibles
   const capasData = [
@@ -397,7 +398,12 @@ export default function CapasDatos() {
                   <td key={formato} className="px-4 py-3 text-center bg-slate-50/80 border-t border-slate-200/60">
                     <button
                       onClick={() => abrirModalDescarga(formato)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all text-[10px] font-medium shadow-sm shadow-blue-500/20"
+                      disabled={!descargaHabilitada}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${
+                        descargaHabilitada
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-sm shadow-blue-500/20'
+                          : 'bg-gradient-to-r from-gray-400 to-gray-500 text-white cursor-not-allowed opacity-50 shadow-none'
+                      }`}
                     >
                       <Download className="w-3.5 h-3.5" />
                       {getFormatoNombre(formato)}

@@ -36,7 +36,7 @@ export default function About() {
         'Actividad 1: Aspectos Generales (40-50 min)',
         'Actividad 2: Funcionalidades GeoMedellín (45 min)',
         'Actividad 3: Funcionalidades Mapas Medellín (60 min)',
-        'Actividad 4: Ejercicio con Plataforma Catastro (Pendiente)'
+        // 'Actividad 4: Ejercicio con Plataforma Catastro (Pendiente)'
       ],
       reto: 'Familiarizar a los asistentes con las herramientas geográficas que dispone el Distrito de Medellín y realizar ejercicios básicos con información catastral.',
     },

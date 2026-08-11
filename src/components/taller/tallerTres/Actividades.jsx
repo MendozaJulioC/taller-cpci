@@ -38,6 +38,7 @@ export default function ActividadesTallerTres({ usuario }) {
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
   const [mensajeSubida, setMensajeSubida] = useState('');
+  const [descargaHabilitada, setDescargaHabilitada] = useState(false); // false = deshabilitado
 
   const actividades = [
     {
@@ -159,10 +160,10 @@ export default function ActividadesTallerTres({ usuario }) {
 
   // Función para descargar el PDF de la propuesta del Taller 3
   const handleDescargarPropuesta = () => {
-    const url = '/data/Propuesta técnica y económica - Taller 3.pdf';
+    const url = '/data/EnunciadoTaller03.pdf';
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Propuesta técnica y económica - Taller 3.pdf';
+    link.download = 'Taller 3 - Historias de Datos Espaciales';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -533,11 +534,18 @@ export default function ActividadesTallerTres({ usuario }) {
               {/* Botón Descargar Propuesta */}
               <button
                 onClick={handleDescargarPropuesta}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/30"
+                disabled={!descargaHabilitada}
+                className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                  descargaHabilitada
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/30'
+                    : 'bg-gradient-to-r from-gray-400 to-gray-500 text-white cursor-not-allowed opacity-50 shadow-none'
+                }`}
               >
                 <Download className="w-4 h-4" />
                 Descargar Taller
-                <span className="text-[10px] text-indigo-200 font-normal ml-1">(PDF)</span>
+                <span className={`text-[10px] font-normal ml-1 ${descargaHabilitada ? 'text-blue-200' : 'text-gray-300'}`}>
+                  (PDF)
+                </span>
               </button>
 
               {/* Botón Cargar Taller Resuelto */}
