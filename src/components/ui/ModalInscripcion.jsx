@@ -463,7 +463,7 @@ export default function ModalInscripcion({ isOpen, onClose, rolInicial = 'partic
 
                       {/* NUEVO: Experiencia con herramientas BI */}
                       <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-1.5 border border-purple-100/50">
-                        <p className="text-[10px] font-medium text-slate-700 mb-1">¿Tiene experiencia con herramientas BI?</p>
+                        <p className="text-[10px] font-medium text-slate-700 mb-1">¿Tiene experiencia con herramientas de Inteligencia Empresarial?</p>
                         <div className="flex gap-1.5">
                           {["Sí", "No"].map((op) => (
                             <label key={op} className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white border border-slate-200 text-[10px] text-slate-600 cursor-pointer hover:border-purple-300 flex-1 justify-center">
