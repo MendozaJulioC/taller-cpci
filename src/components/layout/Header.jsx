@@ -92,8 +92,8 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
 
           {/* Logo / Identificación institucional */}
-          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               {/* Logo CPCI */}
               <Image
                 src="/Img/logocpci.png"
@@ -119,6 +119,9 @@ export default function Header() {
                 className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px]"
               />
             </div>
+
+            {/* Separador visual */}
+            <div className="hidden sm:block w-px h-10 bg-slate-300/50"></div>
 
             <div className="flex flex-col justify-center min-w-0">
               <h1 className="text-base sm:text-xl md:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2 truncate">
