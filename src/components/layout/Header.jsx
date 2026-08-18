@@ -93,7 +93,8 @@ export default function Header() {
 
           {/* Logo / Identificación institucional */}
           <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-            <div className="shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              {/* Logo CPCI */}
               <Image
                 src="/Img/logocpci.png"
                 alt="Logo CPCI"
@@ -103,7 +104,19 @@ export default function Header() {
                   width: 'auto',
                   height: 'auto'
                 }}
-                className="object-contain w-10 h-10 sm:w-16 sm:h-16 md:w-[90px] md:h-[90px]"
+                className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px]"
+              />
+              {/* Logo 2022 - AGREGADO */}
+              <Image
+                src="/Img/logo_2022.png"
+                alt="Logo 2022"
+                width={90}
+                height={90}
+                style={{
+                  width: 'auto',
+                  height: 'auto'
+                }}
+                className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px]"
               />
             </div>
 
@@ -315,15 +328,15 @@ export default function Header() {
               <div className="border-t border-slate-100 pt-3 flex flex-col gap-1">
                 <p className="text-sm font-semibold text-slate-700 px-1 pb-1">Hola, {usuario.nombres}</p>
                 <button 
-                    onClick={() => {
-                      setIsOpen(false);
-                      router.push("/perfil");
-                    }}
-                    className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded flex items-center gap-2"
-                  >
-                    <span className="text-lg">👤</span>
-                    Mi perfil
-                  </button>
+                  onClick={() => {
+                    setIsOpen(false);
+                    router.push("/perfil");
+                  }}
+                  className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded flex items-center gap-2"
+                >
+                  <span className="text-lg">👤</span>
+                  Mi perfil
+                </button>
                 <button 
                   onClick={() => {
                     setIsOpen(false);
