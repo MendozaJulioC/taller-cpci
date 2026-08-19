@@ -211,15 +211,15 @@ export default function TallerPage() {
           )}
 
           {/* Actividades - PASAR EL USUARIO */}
-          <div className="mb-10 sm:mb-16">
+          <div id="taller-1" className="mb-10 sm:mb-16">
             <ActividadesTallerUno usuario={usuario} />
           </div>
 
-          <div className="mb-10 sm:mb-16">
+          <div id="taller-2" className="mb-10 sm:mb-16">
             <ActividadesTallerDos usuario={usuario} />
           </div>
 
-          <div className="mb-10 sm:mb-16">
+          <div id="taller-3" className="mb-10 sm:mb-16">
             <ActividadesTallerTres usuario={usuario} />
           </div>
 

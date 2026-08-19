@@ -24,7 +24,7 @@ import ModalInscripcion from '@/components/ui/ModalInscripcion';
 
 export default function About() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [rolModal, setRolModal] = useState('participante'); // 👈 AGREGAR ESTA LÍNEA
+  const [rolModal, setRolModal] = useState('participante');
 
   const objectives = [
     {
@@ -36,7 +36,6 @@ export default function About() {
         'Actividad 1: Aspectos Generales (40-50 min)',
         'Actividad 2: Funcionalidades GeoMedellín (45 min)',
         'Actividad 3: Funcionalidades Mapas Medellín (60 min)',
-        // 'Actividad 4: Ejercicio con Plataforma Catastro (Pendiente)'
       ],
       reto: 'Familiarizar a los asistentes con las herramientas geográficas que dispone el Distrito de Medellín y realizar ejercicios básicos con información catastral.',
     },
@@ -145,63 +144,66 @@ export default function About() {
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-            {objectives.map((objective) => (
-              <Link href="/taller" key={objective.title} className="h-full block group">
-                <div className="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm h-full flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-slate-300 hover:shadow-slate-200/50">
-                  <div>
-                    {/* Icono */}
-                    <div className="mb-5 p-3 bg-slate-50 w-fit rounded-xl border border-slate-100">
-                      {objective.icon}
-                    </div>
-                    
-                    {/* Títulos */}
-                    <h4 className="text-lg font-bold text-slate-900 leading-snug">
-                      {objective.title}
-                    </h4>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
-                      {objective.subtitle}
-                    </p>
-
-                    {/* Dinámica */}
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                      <span className="font-bold text-slate-700">Dinámica: </span>
-                      {objective.description}
-                    </p>
-
-                    {/* Lista de Actividades */}
-                    <div className="mb-4">
-                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                        Actividades:
+            {objectives.map((objective, index) => {
+              const tallerId = index + 1; // 1, 2, 3
+              return (
+                <Link href={`/taller#taller-${tallerId}`} key={objective.title} className="h-full block group">
+                  <div className="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200/80 shadow-sm h-full flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-slate-300 hover:shadow-slate-200/50">
+                    <div>
+                      {/* Icono */}
+                      <div className="mb-5 p-3 bg-slate-50 w-fit rounded-xl border border-slate-100">
+                        {objective.icon}
+                      </div>
+                      
+                      {/* Títulos */}
+                      <h4 className="text-lg font-bold text-slate-900 leading-snug">
+                        {objective.title}
+                      </h4>
+                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+                        {objective.subtitle}
                       </p>
-                      <ul className="space-y-1.5">
-                        {objective.actividades.map((actividad, idx) => (
-                          <li key={idx} className="text-xs text-slate-600 flex items-start gap-2">
-                            <span className="text-blue-500 font-bold mt-0.5">•</span>
-                            <span>{actividad}</span>
-                          </li>
-                        ))}
-                      </ul>
+
+                      {/* Dinámica */}
+                      <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                        <span className="font-bold text-slate-700">Dinámica: </span>
+                        {objective.description}
+                      </p>
+
+                      {/* Lista de Actividades */}
+                      <div className="mb-4">
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                          Actividades:
+                        </p>
+                        <ul className="space-y-1.5">
+                          {objective.actividades.map((actividad, idx) => (
+                            <li key={idx} className="text-xs text-slate-600 flex items-start gap-2">
+                              <span className="text-blue-500 font-bold mt-0.5">•</span>
+                              <span>{actividad}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Reto */}
+                      <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
+                        <p className="text-xs text-slate-700 leading-relaxed">
+                          <span className="font-bold text-blue-700">🎯 Reto: </span>
+                          {objective.reto}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Reto */}
-                    <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-                      <p className="text-xs text-slate-700 leading-relaxed">
-                        <span className="font-bold text-blue-700">🎯 Reto: </span>
-                        {objective.reto}
-                      </p>
+                    {/* Pie de tarjeta */}
+                    <div className="text-xs font-semibold text-blue-600 flex items-center gap-2 group-hover:translate-x-1 transition-transform border-t border-slate-50 pt-4 mt-auto">
+                      Ver detalles del taller 
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
                     </div>
                   </div>
-
-                  {/* Pie de tarjeta */}
-                  <div className="text-xs font-semibold text-blue-600 flex items-center gap-2 group-hover:translate-x-1 transition-transform border-t border-slate-50 pt-4 mt-auto">
-                    Ver detalles del taller 
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
