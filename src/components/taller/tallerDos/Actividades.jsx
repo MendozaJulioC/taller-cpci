@@ -83,7 +83,7 @@ export default function ActividadesTallerDos({ usuario }) {
         'Mostrar las diferencias entre ArcGIS for Power BI para usuarios públicos vs cuentas organizacionales.',
         'Creación de visualizaciones con la información disponible o mediante nuevas medidas.'
       ],
-      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediante uso de nuevas medidas y generar la medida "Relación IBI" (valor comercial vs avalúo catastral).',
+      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediante uso de nuevas medidas y generar la medida "Relación Valor Suelo" (valor lote / avalúo catastral del lote).',
       resultados: 'Objetos visuales geográficos que permitan analizar la distribución territorial de los indicadores clave.'
     },
     {
