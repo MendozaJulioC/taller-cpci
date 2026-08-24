@@ -29,7 +29,7 @@ export default function About() {
   const objectives = [
     {
       title: 'Taller 1: Plataforma Geográfica del Distrito de Medellín',
-      subtitle: 'Día 1 - Lunes 24 de agosto',
+      subtitle: 'Día 1 - Lunes 07 de septiembre',
       icon: <FaGlobe className="text-3xl text-blue-600" />,
       description: 'Familiarización con las herramientas geográficas del Distrito de Medellín y realización de ejercicios básicos con información catastral.',
       actividades: [
@@ -41,7 +41,7 @@ export default function About() {
     },
     {
       title: 'Taller 2: Visualización de Datos',
-      subtitle: 'Día 2 - Miércoles 26 de agosto',
+      subtitle: 'Día 2 - Miércoles 09 de septiembre',
       icon: <FaDatabase className="text-3xl text-green-600" />,
       description: 'Transformar datos crudos de bases espaciales en herramientas de decisión estratégica a partir de herramientas de inteligencia de negocio.',
       actividades: [
@@ -54,7 +54,7 @@ export default function About() {
     },
     {
       title: 'Taller 3: Historias de Datos Espaciales',
-      subtitle: 'Día 3 - Viernes 28 de agosto',
+      subtitle: 'Día 3 - Viernes 11 de septiembre',
       icon: <FaBook className="text-3xl text-orange-600" />,
       description: 'Realizar un análisis comparado de aspectos catastrales entre países y explicar sus características mediante el uso de historias de datos espaciales (Spatial Storytelling).',
       actividades: [
