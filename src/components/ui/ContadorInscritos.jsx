@@ -2,10 +2,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, TrendingUp, Award, Sparkles } from "lucide-react";
+import { Users, TrendingUp, Sparkles } from "lucide-react";
 import ModalParticipantes from "./ModalParticipantes";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function ContadorInscritos() {
+  const { usuario } = useAuth(); // 👈 OBTENER EL USUARIO DEL CONTEXTO
   const [total, setTotal] = useState(0);
   const [animado, setAnimado] = useState(false);
   const [cambio, setCambio] = useState(0);
@@ -18,11 +20,13 @@ export default function ContadorInscritos() {
     "jucampuca@gmail.com"
   ];
 
-  // Estado para controlar si el usuario actual está autorizado
-  const [usuarioAutorizado, setUsuarioAutorizado] = useState(false);
+  // Determinar si el usuario actual está autorizado
+  const usuarioAutorizado = usuario && 
+    usuario.correo_electronico && 
+    correosAutorizados.includes(usuario.correo_electronico);
 
   useEffect(() => {
-    async function cargar() {
+    async function cargarContador() {
       try {
         const res = await fetch("/api/inscripciones/contador");
 
@@ -48,39 +52,13 @@ export default function ContadorInscritos() {
       }
     }
 
-    // Verificar si el usuario está autorizado
-    const checkAuth = async () => {
-      try {
-        // Obtener el usuario del localStorage
-        const usuarioStorage = localStorage.getItem('usuario');
-        if (usuarioStorage) {
-          const usuario = JSON.parse(usuarioStorage);
-          if (usuario && usuario.correo_electronico && correosAutorizados.includes(usuario.correo_electronico)) {
-            setUsuarioAutorizado(true);
-          }
-        }
-      } catch (error) {
-        console.error("Error verificando autorización:", error);
-      }
-    };
-
     // Primera carga
-    cargar();
-    checkAuth();
+    cargarContador();
 
     // Actualizar cada 10 segundos
-    const interval = setInterval(cargar, 10000);
+    const interval = setInterval(cargarContador, 10000);
 
-    // Escuchar cambios en localStorage para actualizar autorización
-    const handleStorageChange = () => {
-      checkAuth();
-    };
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('storage', handleStorageChange);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   // Formatear número con separadores de miles
@@ -163,7 +141,7 @@ export default function ContadorInscritos() {
                 </span>
               )}
               
-              {/* Badge de autorización */}
+              {/* Badge de autorización - AHORA SE ACTUALIZA CON EL CONTEXTO */}
               {usuarioAutorizado && (
                 <span className="inline-flex items-center gap-0.5 text-[8px] font-bold text-blue-600 bg-blue-100/80 px-1.5 py-0.5 rounded-full">
                   <Sparkles className="w-2.5 h-2.5" />
