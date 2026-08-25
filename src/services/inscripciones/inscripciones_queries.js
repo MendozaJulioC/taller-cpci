@@ -102,3 +102,23 @@ export const getAllInscripciones = async () => {
   const result = await dblocal.query(query);
   return result.rows;
 };
+
+export const getAllInscripcionesModal = async () => {
+  const query = `
+    SELECT 
+      id,
+      nombres,
+      apellidos,
+      correo_electronico,
+      pais,
+      organizacion,
+      cargo,
+      rol,
+      created_at
+    FROM taller_cpci.inscripciones
+    ORDER BY created_at DESC
+  `;
+
+  const result = await dblocal.query(query);
+  return result.rows;
+};
