@@ -389,7 +389,7 @@ export default function About() {
                 </div>
                 <div className="flex-1 text-center sm:text-left">
                   <span className="text-[10px] font-bold text-purple-600 uppercase tracking-[0.2em] block mb-0.5">
-                    Presidente del Consejo
+                    Presidente del Concejo
                   </span>
                   <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
                     Ricardo López Rivera
