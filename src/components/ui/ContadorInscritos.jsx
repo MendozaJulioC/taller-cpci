@@ -7,7 +7,7 @@ import ModalParticipantes from "./ModalParticipantes";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function ContadorInscritos() {
-  const { usuario } = useAuth(); // 👈 OBTENER EL USUARIO DEL CONTEXTO
+  const { usuario } = useAuth(); // OBTENER EL USUARIO DEL CONTEXTO
   const [total, setTotal] = useState(0);
   const [animado, setAnimado] = useState(false);
   const [cambio, setCambio] = useState(0);
