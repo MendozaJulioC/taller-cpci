@@ -139,7 +139,8 @@ export default function ActividadesTallerUno({ usuario }) {
 
   const infoGeneral = {
     duracionTotal: '3 horas',
-    fecha: '07 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
+    // fecha: '07 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
+    fecha: 'Por confirmar',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual'
   };
