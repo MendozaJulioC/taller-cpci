@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/contexts/Providers";
+import BannerCierre from "@/components/ui/BannerCierre";
 
 export const metadata = {
   title: "Taller CPCI",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Providers>
 
           <Header />
+          <BannerCierre />
 
           <main className="flex-grow">
             {children}
