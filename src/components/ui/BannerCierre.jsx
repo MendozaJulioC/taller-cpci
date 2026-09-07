@@ -60,7 +60,7 @@ export default function BannerCierre() {
               ⚠️ Cierre de inscripciones
             </p>
             <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
-              <span className="flex items-center gap-0.5 text-[10px] text-white/90">
+              <span className="flex items-center gap-0.5 text-[12px] text-white/90">
                 <Calendar className="w-3 h-3" />
                 <span className="font-medium">9 sep 2026 a las 23:59 p.m.</span>
               </span>
