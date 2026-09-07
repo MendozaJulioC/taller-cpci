@@ -147,7 +147,7 @@ export default function ActividadesTallerTres({ usuario }) {
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
     // fecha: '11 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
-    fecha: 'Por confirmar',
+    fecha: '25 de septiembre del 2026 - 08:00 a 11:00 hora Colombia / 15:00 a 18:00 hora España',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual con presentación en equipos'
   };

@@ -140,7 +140,7 @@ export default function ActividadesTallerUno({ usuario }) {
   const infoGeneral = {
     duracionTotal: '3 horas',
     // fecha: '07 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
-    fecha: 'Por confirmar',
+    fecha: '21 de septiebre del 2026 - 08:00 a 11:00 hora Colombia / 15:00 a 18:00 hora España',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual'
   };
