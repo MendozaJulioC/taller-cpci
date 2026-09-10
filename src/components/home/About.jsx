@@ -422,7 +422,7 @@ export default function About() {
                       <FaBuilding className="text-purple-600" />
                       Visión Institucional
                     </h4>
-                    <p className="text-xs text-gray-600 mt-0.5">Impulsor de la modernización y transformación digital de los sistemas catastrales.</p>
+                    <p className="text-xs text-gray-600 mt-0.5">Impulsamos la modernización y transformación digital de los sistemas catastrales.</p>
                   </div>
                   <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
                     <h4 className="font-bold text-slate-800 flex items-center gap-2 text-sm">
