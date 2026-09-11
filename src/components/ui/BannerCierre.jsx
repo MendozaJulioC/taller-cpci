@@ -62,7 +62,7 @@ export default function BannerCierre() {
             <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
               <span className="flex items-center gap-0.5 text-[12px] text-white/90">
                 <Calendar className="w-3 h-3" />
-                <span className="font-medium">11 sep 2026 a las 15:00 p.m.</span>
+                <span className="font-medium">14 sep 2026 a las 17:00 p.m.</span>
               </span>
               {diasRestantes > 0 && (
                 <span className="flex items-center gap-0.5 bg-white/20 px-1.5 py-0.5 rounded-full">
