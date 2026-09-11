@@ -56,7 +56,7 @@ export default function BannerCierre() {
           
           {/* Texto compacto */}
           <div className="flex-1 min-w-0">
-            <p className="text-white font-bold text-[11px] leading-tight uppercase tracking-wide">
+            <p className="text-white font-bold text-[12px] leading-tight uppercase tracking-wide">
               ⚠️ Cierre de inscripciones
             </p>
             <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
