@@ -89,7 +89,7 @@ export default function About() {
 
             {/* Título */}
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              Taller de Visualización Avanzada para Catastro
+              Taller de Visualización de datos para Catastro
             </h1>
 
             {/* Subtítulo */}
