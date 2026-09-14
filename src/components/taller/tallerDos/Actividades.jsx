@@ -37,26 +37,13 @@ export default function ActividadesTallerDos({ usuario }) {
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
   const [mensajeSubida, setMensajeSubida] = useState('');
-  const [descargaHabilitada, setDescargaHabilitada] = useState(false); // false = deshabilitado
+  const [descargaHabilitada, setDescargaHabilitada] = useState(false);
 
+  // 👇 SE ELIMINÓ LA ACTIVIDAD 1 (Aspectos Generales)
+  // Las actividades restantes se renumeraron: 2→1, 3→2, 4→3
   const actividades = [
     {
-      id: 1,
-      titulo: 'Aspectos Generales del Taller',
-      duracion: '30-40 minutos',
-      icono: <BookOpen className="w-5 h-5" />,
-      color: 'blue',
-      dinamica: [
-        'Presentación de los objetivos del taller y las actividades a realizar para la obtención del certificado.',
-        'Explicación de los datos del ejercicio y dónde acceder a ellos (repositorio). En este se encontrarán los datos (en varios formatos) y sus respectivos diccionarios de datos.',
-        'Explicación breve de la plataforma GeoMedellín y el visor Mapas Medellín enfocado a visualización y descarga de datos (tablero estadísticas). Esta presentación se dispondrá también en el repositorio.',
-        'En caso que para los ejercicios se requiera de información espacial de apoyo, los participantes podrán descargar la información desde GeoMedellín.'
-      ],
-      reto: 'Los participantes recibirán información de 3 comunas de Medellín (Comuna 1: Popular, Comuna 7: Robledo y Comuna 14: El Poblado). El objetivo es caracterizar elementos comunes y diferenciales, mostrando la información en formato resumen ejecutivo para tomadores de decisiones.',
-      resultados: 'Comprensión del alcance del taller y familiarización con las herramientas y datos a utilizar.'
-    },
-    {
-      id: 2,
+      id: 1, // Antes era 2
       titulo: 'Health Check de la Base Espacial (Conexión y limpieza)',
       duracion: '45 minutos',
       icono: <Database className="w-5 h-5" />,
@@ -73,7 +60,7 @@ export default function ActividadesTallerDos({ usuario }) {
       ]
     },
     {
-      id: 3,
+      id: 2, // Antes era 3
       titulo: 'Visualización de Información Geográfica',
       duracion: '45 minutos',
       icono: <Layers className="w-5 h-5" />,
@@ -83,11 +70,11 @@ export default function ActividadesTallerDos({ usuario }) {
         'Mostrar las diferencias entre ArcGIS for Power BI para usuarios públicos vs cuentas organizacionales.',
         'Creación de visualizaciones con la información disponible o mediante nuevas medidas.'
       ],
-      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediante uso de nuevas medidas y generar la medida "Relación Valor Suelo" (valor lote / avalúo catastral del lote).',
+      reto: 'Crear diferentes visualizaciones geográficas ya sea con la información disponible o generada mediante uso de nuevas medidas. Creación de medidas haciendo uso de DAX.',
       resultados: 'Objetos visuales geográficos que permitan analizar la distribución territorial de los indicadores clave.'
     },
     {
-      id: 4,
+      id: 3, // Antes era 4
       titulo: 'Simulación para Tomadores de Decisión (Roleplay)',
       duracion: '30 minutos',
       icono: <Presentation className="w-5 h-5" />,
@@ -147,20 +134,17 @@ export default function ActividadesTallerDos({ usuario }) {
 
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
-    // fecha: '09 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
     fecha: '23 de septiembre del 2026 - 08:00 a 11:00 hora Colombia / 15:00 a 18:00 hora España',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual con presentación en equipos'
   };
 
-  // Enlaces importantes
   const enlaces = {
     geomedellin: 'https://www.medellin.gov.co/geomedellin',
     catastrobogota: 'https://www.catastrobogota.gov.co/',
     geojsonio: 'https://geojson.io/'
   };
 
-  // Función para descargar el PDF de la propuesta del Taller 2
   const handleDescargarPropuesta = () => {
     const url = '/data/EnunciadoTaller02.pdf';
     const link = document.createElement('a');
@@ -170,9 +154,6 @@ export default function ActividadesTallerDos({ usuario }) {
     link.click();
     document.body.removeChild(link);
   };
-
-  // Función para manejar la subida del archivo del Taller 2
-  // Dentro de cada componente de taller, actualiza la función handleSubirArchivo:
 
   const handleSubirArchivo = async (event) => {
     const file = event.target.files[0];
@@ -196,8 +177,8 @@ export default function ActividadesTallerDos({ usuario }) {
     try {
       const formData = new FormData();
       formData.append('archivo', file);
-      formData.append('taller', 'taller1'); // Cambiar según el taller (taller1, taller2, taller3)
-      formData.append('email', usuario?.correo_electronico || ''); // 👈 AÑADIR EMAIL
+      formData.append('taller', 'taller2');
+      formData.append('email', usuario?.correo_electronico || '');
 
       const response = await fetch('/api/upload-taller', {
         method: 'POST',
@@ -463,8 +444,8 @@ export default function ActividadesTallerDos({ usuario }) {
                   )}
                 </div>
 
-                {/* Evaluación */}
-                {act.id === 4 && (
+                {/* 👇 Evaluación - Ahora es act.id === 3 (antes era 4) */}
+                {act.id === 3 && (
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/50 rounded-xl p-4">
                     <div className="flex items-start gap-3">
                       <Award className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -477,7 +458,7 @@ export default function ActividadesTallerDos({ usuario }) {
                         <div className="mt-2 bg-white/60 rounded-lg p-2 border border-blue-100/50">
                           <p className="text-xs text-slate-600 flex items-center gap-2">
                             <FileText className="w-3 h-3 text-blue-500" />
-                            <span>Entregable: *.pbix / *.pbip con resultados de actividades 2, 3 y 4</span>
+                            <span>Entregable: *.pbix / *.pbip con resultados de actividades 1, 2 y 3</span>
                           </p>
                         </div>
                       </div>
@@ -498,7 +479,7 @@ export default function ActividadesTallerDos({ usuario }) {
             <h4 className="text-sm font-bold text-slate-700">Progreso del Taller</h4>
           </div>
           <span className="text-xs font-medium text-slate-500">
-            4 actividades · {infoGeneral.duracionTotal}
+            3 actividades · {infoGeneral.duracionTotal}
           </span>
         </div>
         <div className="flex items-center gap-2">

@@ -38,27 +38,13 @@ export default function ActividadesTallerTres({ usuario }) {
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
   const [mensajeSubida, setMensajeSubida] = useState('');
-  const [descargaHabilitada, setDescargaHabilitada] = useState(false); // false = deshabilitado
+  const [descargaHabilitada, setDescargaHabilitada] = useState(false);
 
+  // 👇 SE ELIMINÓ LA ACTIVIDAD 1 (Aspectos Generales)
+  // Las actividades restantes se renumeraron: 2→1, 3→2, 4→3
   const actividades = [
     {
-      id: 1,
-      titulo: 'Aspectos Generales del Taller',
-      duracion: '30 minutos',
-      icono: <BookOpen className="w-5 h-5" />,
-      color: 'blue',
-      dinamica: [
-        'Presentación de los objetivos del taller y las actividades a realizar.',
-        'Repaso de las herramientas de ArcGIS Online para la creación de historias de datos: Story Maps, Instant Apps y Dashboards.',
-        'Explicación del documento de pautas para la generación de datos espaciales (disponible en el repositorio).',
-        'Los participantes podrán descargar información espacial de apoyo desde GeoMedellín.',
-        'Ejercicio comparado: los participantes deben disponer de las mismas capas catastrales de sus países (plan B: descargar información de Catastro Bogotá).'
-      ],
-      reto: 'Realizar una historia de datos espaciales con análisis comparativo entre los datos de Medellín (trabajados en el Taller 1) y los países de cada asistente.',
-      resultados: 'Comprensión del alcance del taller y familiarización con las herramientas de storytelling espacial.'
-    },
-    {
-      id: 2,
+      id: 1, // Antes era 2
       titulo: 'Del Dato al Guión (Storyboarding)',
       duracion: '45 minutos',
       icono: <PenTool className="w-5 h-5" />,
@@ -72,7 +58,7 @@ export default function ActividadesTallerTres({ usuario }) {
       resultados: 'Un boceto (storyboard) con el flujo de la historia que se desarrollará en la Actividad 3.'
     },
     {
-      id: 3,
+      id: 2, // Antes era 3
       titulo: 'Curaduría de Mapas Narrativos',
       duracion: '45 minutos',
       icono: <Map className="w-5 h-5" />,
@@ -86,7 +72,7 @@ export default function ActividadesTallerTres({ usuario }) {
       resultados: 'Índice y estructura del proyecto a implementar.'
     },
     {
-      id: 4,
+      id: 3, // Antes era 4
       titulo: 'El Test de la "Abuela" (Simplificación Técnica)',
       duracion: '45 minutos',
       icono: <Share2 className="w-5 h-5" />,
@@ -146,20 +132,17 @@ export default function ActividadesTallerTres({ usuario }) {
 
   const infoGeneral = {
     duracionTotal: '2.5 - 3 horas',
-    // fecha: '11 de septiembre - 08:00 a 11:00 hora colombia / 15:00 a 18:00 hora España',
     fecha: '25 de septiembre del 2026 - 08:00 a 11:00 hora Colombia / 15:00 a 18:00 hora España',
     modalidad: 'Presencial / Virtual',
     participantes: 'Individual con presentación en equipos'
   };
 
-  // Enlaces importantes
   const enlaces = {
     geomedellin: 'https://www.medellin.gov.co/geomedellin',
     catastrobogota: 'https://www.catastrobogota.gov.co/',
     geojsonio: 'https://geojson.io/'
   };
 
-  // Función para descargar el PDF de la propuesta del Taller 3
   const handleDescargarPropuesta = () => {
     const url = '/data/EnunciadoTaller03.pdf';
     const link = document.createElement('a');
@@ -169,9 +152,6 @@ export default function ActividadesTallerTres({ usuario }) {
     link.click();
     document.body.removeChild(link);
   };
-
-  // Función para manejar la subida del archivo del Taller 3
-  // Dentro de cada componente de taller, actualiza la función handleSubirArchivo:
 
   const handleSubirArchivo = async (event) => {
     const file = event.target.files[0];
@@ -195,8 +175,8 @@ export default function ActividadesTallerTres({ usuario }) {
     try {
       const formData = new FormData();
       formData.append('archivo', file);
-      formData.append('taller', 'taller1'); // Cambiar según el taller (taller1, taller2, taller3)
-      formData.append('email', usuario?.correo_electronico || ''); // 👈 AÑADIR EMAIL
+      formData.append('taller', 'taller3');
+      formData.append('email', usuario?.correo_electronico || '');
 
       const response = await fetch('/api/upload-taller', {
         method: 'POST',
@@ -417,7 +397,6 @@ export default function ActividadesTallerTres({ usuario }) {
                   </h5>
                   <ul className="space-y-2">
                     {act.dinamica.map((item, index) => {
-                      // Detectar enlaces en el texto
                       const textoConEnlaces = item
                         .replace(/GeoMedellín/g, (match) => 
                           `<a href="${enlaces.geomedellin}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">${match}</a>`
@@ -464,8 +443,8 @@ export default function ActividadesTallerTres({ usuario }) {
                   )}
                 </div>
 
-                {/* Evaluación */}
-                {act.id === 4 && (
+                {/* 👇 Evaluación - Ahora es act.id === 3 (antes era 4) */}
+                {act.id === 3 && (
                   <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200/50 rounded-xl p-4">
                     <div className="flex items-start gap-3">
                       <Award className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
@@ -478,7 +457,7 @@ export default function ActividadesTallerTres({ usuario }) {
                         <div className="mt-2 bg-white/60 rounded-lg p-2 border border-indigo-100/50">
                           <p className="text-xs text-slate-600 flex items-center gap-2">
                             <FileText className="w-3 h-3 text-indigo-500" />
-                            <span>Entregable: *.url con resultados de actividades 2, 3 y 4</span>
+                            <span>Entregable: *.url con resultados de actividades 1, 2 y 3</span>
                           </p>
                         </div>
                       </div>
@@ -499,7 +478,7 @@ export default function ActividadesTallerTres({ usuario }) {
             <h4 className="text-sm font-bold text-slate-700">Progreso del Taller</h4>
           </div>
           <span className="text-xs font-medium text-slate-500">
-            4 actividades · {infoGeneral.duracionTotal}
+            3 actividades · {infoGeneral.duracionTotal}
           </span>
         </div>
         <div className="flex items-center gap-2">
