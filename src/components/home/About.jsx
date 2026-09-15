@@ -21,10 +21,12 @@ import {
   FaGraduationCap
 } from "react-icons/fa";
 import ModalInscripcion from '@/components/ui/ModalInscripcion';
+import ModalInscripcionesCerradas from '@/components/ui/ModalInscripcionesCerradas';
 
 export default function About() {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolModal, setRolModal] = useState('participante');
+  const [modalCerradasOpen, setModalCerradasOpen] = useState(false);
 
   const objectives = [
     {
@@ -73,8 +75,16 @@ export default function About() {
     setModalOpen(true);
   };
 
+  const handleInscripcionesClick = () => {
+    setModalCerradasOpen(true);
+  };
+
   return (
     <>
+      <ModalInscripcionesCerradas 
+        isOpen={modalCerradasOpen} 
+        onClose={() => setModalCerradasOpen(false)} 
+      />
       <ModalInscripcion key={rolModal} isOpen={modalOpen} onClose={() => setModalOpen(false)} rolInicial={rolModal} />
       <section className="py-2 bg-slate-50/50">
         {/* Encabezado superior */}
@@ -105,14 +115,16 @@ export default function About() {
             {/* Botones - DOS OPCIONES DE INSCRIPCIÓN */}
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <button 
-                onClick={() => abrirModalConRol('participante')}
-                className="px-6 py-3 sm:px-8 sm:py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-orange-500/30 hover:scale-105 active:scale-95"
+                onClick={handleInscripcionesClick}
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-slate-400 text-white font-bold rounded-xl cursor-not-allowed transition-all duration-200 shadow-lg shadow-slate-400/20 opacity-75 flex items-center justify-center gap-2"
+                title="Las inscripciones están cerradas"
               >
                 Inscribirse como Participante
               </button>
               <button 
-                onClick={() => abrirModalConRol('formador')}
-                className="px-6 py-3 sm:px-8 sm:py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl transition-all duration-200 shadow-lg shadow-rose-500/30 hover:scale-105 active:scale-95"
+                onClick={handleInscripcionesClick}
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-slate-400 text-white font-bold rounded-xl cursor-not-allowed transition-all duration-200 shadow-lg shadow-slate-400/20 opacity-75 flex items-center justify-center gap-2"
+                title="Las inscripciones están cerradas"
               >
                 Inscribirse como Formador
               </button>

@@ -8,6 +8,7 @@ import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
 import { useAuth } from "@/contexts/AuthContext";
 import ModalRecuperarPassword from "@/components/login/ModalRecuperarPassword";
+import ModalInscripcionesCerradas from '@/components/ui/ModalInscripcionesCerradas'; // 👈 IMPORTAR
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function Header() {
   const [menuUsuario, setMenuUsuario] = useState(false);
   const [showInscripcionesMenu, setShowInscripcionesMenu] = useState(false);
   const [rolModal, setRolModal] = useState('participante');
+  const [modalCerradasOpen, setModalCerradasOpen] = useState(false); // 👈 NUEVO ESTADO
 
   const { usuario, logout } = useAuth();
   const router = useRouter();
@@ -25,6 +27,11 @@ export default function Header() {
   const menuRef = useRef(null);
   // 👇 REFERENCIA PARA EL MENÚ DE INSCRIPCIONES
   const inscripcionesRef = useRef(null);
+
+  // 👇 FUNCIÓN PARA MANEJAR EL CLIC EN INSCRIPCIONES
+  const handleInscripcionesClick = () => {
+    setModalCerradasOpen(true);
+  };
 
   // 👇 EFECTO PARA CERRAR MENÚ AL HACER CLIC FUERA
   useEffect(() => {
@@ -55,11 +62,12 @@ export default function Header() {
       if (event.key === 'Escape') {
         if (menuUsuario) setMenuUsuario(false);
         if (showInscripcionesMenu) setShowInscripcionesMenu(false);
+        if (modalCerradasOpen) setModalCerradasOpen(false);
       }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [menuUsuario, showInscripcionesMenu]);
+  }, [menuUsuario, showInscripcionesMenu, modalCerradasOpen]);
 
   return (
     <>
@@ -87,6 +95,11 @@ export default function Header() {
           setLoginOpen(true); 
         }} 
       />
+      {/* 👇 MODAL DE INSCRIPCIONES CERRADAS */}
+      <ModalInscripcionesCerradas 
+        isOpen={modalCerradasOpen} 
+        onClose={() => setModalCerradasOpen(false)} 
+      />
       
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
@@ -94,33 +107,24 @@ export default function Header() {
           {/* Logo / Identificación institucional */}
           <div className="flex items-center gap-3 sm:gap-5 min-w-0">
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              {/* Logo CPCI */}
               <Image
                 src="/Img/logocpci.png"
                 alt="Logo CPCI"
                 width={90}
                 height={90}
-                style={{
-                  width: 'auto',
-                  height: 'auto'
-                }}
+                style={{ width: 'auto', height: 'auto' }}
                 className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px]"
               />
-              {/* Logo 2022 - AGREGADO */}
               <Image
                 src="/Img/logo_2022.png"
                 alt="Logo 2022"
                 width={90}
                 height={90}
-                style={{
-                  width: 'auto',
-                  height: 'auto'
-                }}
+                style={{ width: 'auto', height: 'auto' }}
                 className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[60px] md:h-[60px]"
               />
             </div>
 
-            {/* Separador visual */}
             <div className="hidden sm:block w-px h-10 bg-slate-300/50"></div>
 
             <div className="flex flex-col justify-center min-w-0">
@@ -151,48 +155,17 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-3 relative">
             {!usuario && (
               <div ref={inscripcionesRef} className="relative inscripciones-dropdown">
+                {/* 👇 BOTÓN DESHABILITADO - Ahora abre el modal de cerradas */}
                 <button
-                  onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm flex items-center gap-1"
+                  onClick={handleInscripcionesClick}
+                  className="bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed transition-all duration-200 shadow-sm flex items-center gap-1 opacity-75"
+                  title="Las inscripciones están cerradas"
                 >
                   Inscripciones
-                  <svg className={`w-4 h-4 transition-transform duration-200 ${showInscripcionesMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
-                {showInscripcionesMenu && (
-                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-slate-200 z-50 overflow-hidden">
-                    <button
-                      onClick={() => {
-                        setRolModal('participante');
-                        setModalOpen(true);
-                        setShowInscripcionesMenu(false);
-                      }}
-                      className="w-full text-left px-4 py-3 hover:bg-blue-50 border-b border-slate-100 flex items-center gap-3 transition-colors"
-                    >
-                      <span className="text-xl">👤</span>
-                      <div>
-                        <p className="text-sm font-medium text-slate-800">Inscribirse como Participante</p>
-                        <p className="text-xs text-slate-500">Accede a los talleres y sube tus ejercicios</p>
-                      </div>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setRolModal('formador');
-                        setModalOpen(true);
-                        setShowInscripcionesMenu(false);
-                      }}
-                      className="w-full text-left px-4 py-3 hover:bg-rose-50 flex items-center gap-3 transition-colors"
-                    >
-                      <span className="text-xl">📋</span>
-                      <div>
-                        <p className="text-sm font-medium text-slate-800">Inscribirse como Formador</p>
-                        <p className="text-xs text-slate-500">Moderador y calificador de los ejercicios</p>
-                      </div>
-                    </button>
-                  </div>
-                )}
               </div>
             )}
 
@@ -297,23 +270,24 @@ export default function Header() {
 
             {!usuario && (
               <>
+                {/* 👇 BOTONES MÓVILES DESHABILITADOS */}
                 <button
                   onClick={() => {
-                    setRolModal('participante');
-                    setModalOpen(true);
+                    setModalCerradasOpen(true);
                     setIsOpen(false);
                   }}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                  className="w-full bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed opacity-75 flex items-center justify-center gap-2"
+                  title="Las inscripciones están cerradas"
                 >
                   👤 Inscribirse como Participante
                 </button>
                 <button
                   onClick={() => {
-                    setRolModal('formador');
-                    setModalOpen(true);
+                    setModalCerradasOpen(true);
                     setIsOpen(false);
                   }}
-                  className="w-full bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
+                  className="w-full bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed opacity-75 flex items-center justify-center gap-2"
+                  title="Las inscripciones están cerradas"
                 >
                   📋 Inscribirse como Formador
                 </button>
