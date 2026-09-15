@@ -159,7 +159,7 @@ export async function enviarPendientesDiarios(limiteDiario = 25) {
       console.log(`✅ Enviado (${resultados.exitosos}/${pendientes.length}): ${inscripcion.correo_electronico}`);
 
       // Pausa de 2 segundos entre correos para no saturar Gmail
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
     } catch (error) {
       // Marcar como fallido (NO como enviado, para que se reintente mañana)
       await marcarComoEnviado(inscripcion.id, false, error.message);

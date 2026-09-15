@@ -24,7 +24,7 @@ export default function BotonEnviarBienvenida() {
   });
 
   // 👇 Tamaño del lote diario (configurable)
-  const TAMAÑO_ENVIO_DIARIO = 25;
+  const TAMAÑO_ENVIO_DIARIO = 18;
 
   const correosAutorizados = [
     "juliomendoza.medellin@gmail.com",
