@@ -103,9 +103,6 @@ export const bienvenidaTallerTemplate = ({
                       <h3 style="margin-top:0; color:#7c5700; font-size:14px; margin-bottom: 10px;">
                         💻 Requisitos previos
                       </h3>
-                      <p style="margin:0 0 8px;color:#7c5700;font-size:12.5px;line-height:1.5;">
-                        Descarga con anticipación (no requiere cuenta Office 365):
-                      </p>
                       <p style="margin:0;color:#7c5700;font-size:12.5px;line-height:1.6;">
                         • <a href="https://www.microsoft.com/es-es/download/details.aspx?id=58494" style="color:#7c5700; text-decoration: underline;">Descargar Power BI</a><br>
                         • <a href="https://www.esri.com/es-es/arcgis/products/arcgis-online/trial" style="color:#7c5700; text-decoration: underline;">Descargar ArcGIS Online</a>
