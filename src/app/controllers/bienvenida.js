@@ -110,7 +110,7 @@ export async function enviarBienvenidaPorLote(inicio, limite, totalGeneral) {
 
       console.log(`✅ Enviado: ${inscripcion.correo_electronico}`);
 
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     } catch (error) {
       console.error(`❌ Error enviando a ${inscripcion.correo_electronico}:`, error.message);
       resultados.fallidos++;

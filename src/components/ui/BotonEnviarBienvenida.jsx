@@ -27,7 +27,7 @@ export default function BotonEnviarBienvenida() {
     totalGeneral: 0,
   });
 
-  const TAMAÑO_LOTE = 7;
+  const TAMAÑO_LOTE = 4;
 
   const correosAutorizados = [
     "juliomendoza.medellin@gmail.com",
