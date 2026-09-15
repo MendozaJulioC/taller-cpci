@@ -56,34 +56,33 @@ export async function enviarBienvenidaIndividual(inscripcionId) {
 }
 
 /**
- * Enviar correo de bienvenida a TODOS los inscritos
+ * Enviar correos por lote (envío inicial)
  */
-export async function enviarBienvenidaMasiva() {
-  const inscripciones = await getAllInscripciones();
+export async function enviarBienvenidaPorLote(inicio, limite, totalGeneral) {
+  const todasLasInscripciones = await getAllInscripciones();
+  const lote = todasLasInscripciones.slice(inicio, inicio + limite);
 
-  if (inscripciones.length === 0) {
-    throw new Error("No hay usuarios inscritos para enviar el correo");
-  }
+  console.log(`📦 Procesando lote: inicio=${inicio}, límite=${limite}, correos en este lote=${lote.length}`);
 
   const resultados = {
-    total: inscripciones.length,
+    loteActual: Math.floor(inicio / limite) + 1,
+    totalLotes: Math.ceil(totalGeneral / limite),
+    procesadosEnEsteLote: lote.length,
     exitosos: 0,
     fallidos: 0,
     detalles: [],
+    siguienteInicio: inicio + limite,
+    hayMas: inicio + limite < totalGeneral,
   };
 
-  console.log(`📧 Iniciando envío masivo a ${inscripciones.length} inscritos...`);
-
-  for (const inscripcion of inscripciones) {
+  for (const inscripcion of lote) {
     try {
-      // Personalizar la plantilla con los datos del usuario
       const html = bienvenidaTallerTemplate({
         nombres: inscripcion.nombres,
         apellidos: inscripcion.apellidos,
         username: inscripcion.username,
       });
 
-      // Enviar el correo con los logos adjuntos
       await sendEmail({
         to: inscripcion.correo_electronico,
         subject: "¡Bienvenido al Taller CPCI - Visualización de Datos Catastrales!",
@@ -109,9 +108,165 @@ export async function enviarBienvenidaMasiva() {
         estado: "exitoso",
       });
 
-      console.log(`✅ Enviado a ${inscripcion.correo_electronico} (${resultados.exitosos}/${resultados.total})`);
+      console.log(`✅ Enviado: ${inscripcion.correo_electronico}`);
 
-      // Pausa de 1 segundo entre envíos para no saturar el SMTP
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    } catch (error) {
+      console.error(`❌ Error enviando a ${inscripcion.correo_electronico}:`, error.message);
+      resultados.fallidos++;
+      resultados.detalles.push({
+        email: inscripcion.correo_electronico,
+        nombre: `${inscripcion.nombres} ${inscripcion.apellidos}`,
+        estado: "fallido",
+        razon: error.message,
+        codigo: error.code || "UNKNOWN",
+      });
+    }
+  }
+
+  console.log(`📊 Lote completado: ${resultados.exitosos} exitosos, ${resultados.fallidos} fallidos`);
+
+  return {
+    success: true,
+    ...resultados,
+  };
+}
+
+/**
+ * 👇 NUEVA: Reintentar correos fallidos
+ * Recibe un array de emails y les reenvía el correo
+ */
+export async function reintentarCorreosFallidos(emailsFallidos) {
+  if (!Array.isArray(emailsFallidos) || emailsFallidos.length === 0) {
+    throw new Error("No se recibieron correos para reintentar");
+  }
+
+  console.log(`🔄 Reintentando envío a ${emailsFallidos.length} correos fallidos...`);
+
+  const todasLasInscripciones = await getAllInscripciones();
+  
+  // Filtrar solo los que están en la lista de fallidos
+  const inscripcionesAReintentar = todasLasInscripciones.filter((inscripcion) =>
+    emailsFallidos.includes(inscripcion.correo_electronico)
+  );
+
+  console.log(`📋 Encontrados ${inscripcionesAReintentar.length} de ${emailsFallidos.length} correos en la base de datos`);
+
+  const resultados = {
+    total: inscripcionesAReintentar.length,
+    exitosos: 0,
+    fallidos: 0,
+    detalles: [],
+  };
+
+  for (const inscripcion of inscripcionesAReintentar) {
+    try {
+      const html = bienvenidaTallerTemplate({
+        nombres: inscripcion.nombres,
+        apellidos: inscripcion.apellidos,
+        username: inscripcion.username,
+      });
+
+      await sendEmail({
+        to: inscripcion.correo_electronico,
+        subject: "¡Bienvenido al Taller CPCI - Visualización de Datos Catastrales!",
+        html,
+        attachments: [
+          {
+            filename: "logo_2022.png",
+            path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+            cid: "logo_principal",
+          },
+          {
+            filename: "logocpci.png",
+            path: path.join(process.cwd(), "public/Img/logocpci.png"),
+            cid: "logo_secundario",
+          },
+        ],
+      });
+
+      resultados.exitosos++;
+      resultados.detalles.push({
+        email: inscripcion.correo_electronico,
+        nombre: `${inscripcion.nombres} ${inscripcion.apellidos}`,
+        estado: "exitoso",
+      });
+
+      console.log(`✅ Reintento exitoso: ${inscripcion.correo_electronico}`);
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (error) {
+      console.error(`❌ Reintento fallido para ${inscripcion.correo_electronico}:`, error.message);
+      resultados.fallidos++;
+      resultados.detalles.push({
+        email: inscripcion.correo_electronico,
+        nombre: `${inscripcion.nombres} ${inscripcion.apellidos}`,
+        estado: "fallido",
+        razon: error.message,
+        codigo: error.code || "UNKNOWN",
+      });
+    }
+  }
+
+  console.log(`📊 Reintento completado: ${resultados.exitosos} exitosos, ${resultados.fallidos} fallidos`);
+
+  return {
+    success: true,
+    message: `Reintento completado: ${resultados.exitosos} exitosos, ${resultados.fallidos} fallidos`,
+    ...resultados,
+  };
+}
+
+/**
+ * Enviar correo de bienvenida a TODOS los inscritos (sin lotes)
+ */
+export async function enviarBienvenidaMasiva() {
+  const inscripciones = await getAllInscripciones();
+
+  if (inscripciones.length === 0) {
+    throw new Error("No hay usuarios inscritos para enviar el correo");
+  }
+
+  const resultados = {
+    total: inscripciones.length,
+    exitosos: 0,
+    fallidos: 0,
+    detalles: [],
+  };
+
+  for (const inscripcion of inscripciones) {
+    try {
+      const html = bienvenidaTallerTemplate({
+        nombres: inscripcion.nombres,
+        apellidos: inscripcion.apellidos,
+        username: inscripcion.username,
+      });
+
+      await sendEmail({
+        to: inscripcion.correo_electronico,
+        subject: "¡Bienvenido al Taller CPCI - Visualización de Datos Catastrales!",
+        html,
+        attachments: [
+          {
+            filename: "logo_2022.png",
+            path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+            cid: "logo_principal",
+          },
+          {
+            filename: "logocpci.png",
+            path: path.join(process.cwd(), "public/Img/logocpci.png"),
+            cid: "logo_secundario",
+          },
+        ],
+      });
+
+      resultados.exitosos++;
+      resultados.detalles.push({
+        email: inscripcion.correo_electronico,
+        nombre: `${inscripcion.nombres} ${inscripcion.apellidos}`,
+        estado: "exitoso",
+      });
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
       console.error(`❌ Error enviando a ${inscripcion.correo_electronico}:`, error.message);
@@ -124,8 +279,6 @@ export async function enviarBienvenidaMasiva() {
       });
     }
   }
-
-  console.log(`📊 Envío finalizado: ${resultados.exitosos} exitosos, ${resultados.fallidos} fallidos`);
 
   return {
     success: true,
