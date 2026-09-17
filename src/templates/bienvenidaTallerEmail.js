@@ -16,14 +16,38 @@ export const bienvenidaTallerTemplate = ({
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light only">
     <title>Bienvenido al Taller CPCI</title>
     <style>
+      /* 👇 Forzar modo claro (evita que el correo se vea mal en modo oscuro) */
+      :root {
+        color-scheme: light only;
+        supported-color-schemes: light only;
+      }
+      
+      body, table, td, p, h1, h2, h3, a, div {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      
+      /* Prevenir que iOS/Outlook cambien los colores automáticamente */
+      [data-ogsc] .force-light,
+      [data-ogsb] .force-light {
+        background-color: #ffffff !important;
+        color: #1a3a5c !important;
+      }
+      
       @media only screen and (max-width: 680px) {
         .email-container {
           width: 100% !important;
         }
         .email-padding {
           padding: 24px 20px !important;
+        }
+        .header-logos img {
+          width: 90px !important;
+          height: auto !important;
         }
       }
     </style>
@@ -35,19 +59,34 @@ export const bienvenidaTallerTemplate = ({
           <!-- Contenedor principal -->
           <table class="email-container" cellpadding="0" cellspacing="0" border="0" width="680" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; max-width: 680px;">
             
-            <!-- HEADER con logos -->
+            <!-- HEADER con logos (mejorado) -->
             <tr>
-              <td style="background: linear-gradient(135deg, #1a3a5c 0%, #2a5f8a 100%); padding: 30px 40px; text-align: center;">
+              <td style="background: #1a3a5c; background: linear-gradient(135deg, #1a3a5c 0%, #2a5f8a 100%); padding: 35px 40px 30px; text-align: center;">
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                   <tr>
-                    <td align="center" style="padding-bottom: 15px;">
-                      <img src="cid:logo_principal" alt="Logo CPCI" width="80" style="display: inline-block; margin: 0 10px;">
-                      <img src="cid:logo_secundario" alt="Logo Institución" width="80" style="display: inline-block; margin: 0 10px;">
+                    <td align="center" style="padding-bottom: 20px;">
+                      <!-- 👇 Logos directamente sobre el fondo azul -->
+                      <img 
+                        src="cid:logo_principal" 
+                        alt="CPCI" 
+                        width="140" 
+                        height="auto"
+                        class="header-logos"
+                        style="display: inline-block; vertical-align: middle; margin: 0 10px; border: 0;"
+                      />
+                      <img 
+                        src="cid:logo_secundario" 
+                        alt="Alcaldía de Medellín" 
+                        width="140" 
+                        height="auto"
+                        class="header-logos"
+                        style="display: inline-block; vertical-align: middle; margin: 0 10px; border: 0;"
+                      />
                     </td>
                   </tr>
                   <tr>
                     <td align="center">
-                      <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 300; letter-spacing: 1px;">
+                      <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 600; letter-spacing: 1px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
                         ¡BIENVENIDO AL TALLER!
                       </h1>
                     </td>
@@ -58,16 +97,16 @@ export const bienvenidaTallerTemplate = ({
 
             <!-- CUERPO del correo -->
             <tr>
-              <td class="email-padding" style="padding: 40px 50px 30px;">
+              <td class="email-padding" style="padding: 40px 50px 30px; background-color: #ffffff;">
                 <h2 style="color: #1a3a5c; font-size: 22px; margin-top: 0; margin-bottom: 20px;">
                   ¡Hola, ${nombres} ${apellidos || ''}! 👋
                 </h2>
 
                 <!-- 🏛️ Contexto institucional -->
                 <p style="color:#4a5568;font-size:16px;line-height:1.7;margin-bottom:20px;">
-                  Le damos la bienvenida al <strong>Taller de Visualización de Datos para Catastro</strong>, una iniciativa oficial del
-                  <strong>Comité Permanente sobre el Catastro en Iberoamérica (CPCI)</strong> en colaboración con la
-                  <strong>Secretaría de Gestión y Control Territorial del Distrito de Medellín</strong>.
+                  Le damos la bienvenida al <strong style="color: #1a3a5c;">Taller de Visualización de Datos para Catastro</strong>, una iniciativa oficial del
+                  <strong style="color: #1a3a5c;">Comité Permanente sobre el Catastro en Iberoamérica (CPCI)</strong> en colaboración con la
+                  <strong style="color: #1a3a5c;">Secretaría de Gestión y Control Territorial del Distrito de Medellín</strong>.
                 </p>
 
                 <p style="color:#4a5568;font-size:16px;line-height:1.7;margin-bottom:20px;">
@@ -90,9 +129,9 @@ export const bienvenidaTallerTemplate = ({
                         🧩 Estructura del programa
                       </h3>
                       <ul style="color:#4a5568; line-height:1.5; font-size:12.5px; margin: 0; padding-left: 16px;">
-                        <li style="margin-bottom:6px;"><strong>Taller 1:</strong> Herramientas geográficas del Distrito de Medellín para datos espaciales y catastrales.</li>
-                        <li style="margin-bottom:6px;"><strong>Taller 2:</strong> Inteligencia de negocios (BI) con enfoque espacial.</li>
-                        <li><strong>Taller 3:</strong> Narrativa espacial e historias de datos (Spatial Storytelling).</li>
+                        <li style="margin-bottom:6px;"><strong style="color:#1a3a5c;">Taller 1:</strong> Herramientas geográficas del Distrito de Medellín para datos espaciales y catastrales.</li>
+                        <li style="margin-bottom:6px;"><strong style="color:#1a3a5c;">Taller 2:</strong> Inteligencia de negocios (BI) con enfoque espacial.</li>
+                        <li><strong style="color:#1a3a5c;">Taller 3:</strong> Narrativa espacial e historias de datos (Spatial Storytelling).</li>
                       </ul>
                     </td>
 
@@ -104,8 +143,8 @@ export const bienvenidaTallerTemplate = ({
                         💻 Requisitos previos
                       </h3>
                       <p style="margin:0;color:#7c5700;font-size:12.5px;line-height:1.6;">
-                        • <a href="https://www.microsoft.com/es-es/download/details.aspx?id=58494" style="color:#7c5700; text-decoration: underline;">Descargar Power BI</a><br>
-                        • <a href="https://www.esri.com/es-es/arcgis/products/arcgis-online/trial" style="color:#7c5700; text-decoration: underline;">Descargar ArcGIS Online</a>
+                        • <a href="https://www.microsoft.com/es-es/download/details.aspx?id=58494" style="color:#b45309; text-decoration: underline; font-weight: 500;">Descargar Power BI</a><br>
+                        • <a href="https://www.esri.com/es-es/arcgis/products/arcgis-online/trial" style="color:#b45309; text-decoration: underline; font-weight: 500;">Descargar ArcGIS Online</a>
                       </p>
                     </td>
                   </tr>
@@ -114,12 +153,12 @@ export const bienvenidaTallerTemplate = ({
 
                   <tr>
                     <!-- Columna izquierda: Fechas y horarios -->
-                    <td width="49%" valign="top" style="background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%); border: 2px solid #dbeafe; border-radius: 10px; padding: 18px;">
+                    <td width="49%" valign="top" style="background: #f0f7ff; background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%); border: 2px solid #dbeafe; border-radius: 10px; padding: 18px;">
                       <h3 style="margin-top: 0; color: #1a3a5c; font-size: 14px; margin-bottom: 8px;">
                         🕒 Fechas y horarios
                       </h3>
                       <p style="margin:0 0 8px; color:#2d3748; font-size:12.5px;">
-                        <strong>Lunes 21, miércoles 23 y viernes 25 de septiembre.</strong>
+                        <strong style="color:#1a3a5c;">Lunes 21, miércoles 23 y viernes 25 de septiembre.</strong>
                       </p>
                       <table cellpadding="2" cellspacing="0" border="0" width="100%" style="font-size: 12px; color: #2d3748;">
                         <tr><td style="font-weight: 600; color: #1a3a5c;">🇲🇽 México:</td><td align="right">07:00-10:00</td></tr>
@@ -133,7 +172,7 @@ export const bienvenidaTallerTemplate = ({
                     <td width="2%">&nbsp;</td>
 
                     <!-- Columna derecha: Información del Taller -->
-                    <td width="49%" valign="top" style="background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%); border: 2px solid #dbeafe; border-radius: 10px; padding: 18px;">
+                    <td width="49%" valign="top" style="background: #f0f7ff; background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%); border: 2px solid #dbeafe; border-radius: 10px; padding: 18px;">
                       <h3 style="margin-top: 0; color: #1a3a5c; font-size: 14px; margin-bottom: 8px;">
                         📅 Información del Taller
                       </h3>
@@ -152,7 +191,7 @@ export const bienvenidaTallerTemplate = ({
                         </tr>
                         <tr>
                           <td style="font-weight: 600; color: #1a3a5c;">🌐 Plataforma:</td>
-                          <td><a href="${urlTaller}" style="color: #2563eb; text-decoration: underline;">taller-cpci.vercel.app</a></td>
+                          <td><a href="${urlTaller}" style="color: #2563eb; text-decoration: underline; font-weight: 500;">taller-cpci.vercel.app</a></td>
                         </tr>
                       </table>
                     </td>
@@ -176,17 +215,17 @@ export const bienvenidaTallerTemplate = ({
                 <!-- 🚀 Botón de acceso a la plataforma -->
                 <div style="text-align:center;margin:35px 0;">
                   <p style="color:#4a5568;font-size:15px;margin-bottom: 20px;">
-                    <strong>Accede a la plataforma del taller:</strong>
+                    <strong style="color:#1a3a5c;">Accede a la plataforma del taller:</strong>
                   </p>
-                  <a href="${urlTaller}" style="display:inline-block; background:#2563eb; color:white; text-decoration:none; padding:16px 34px; border-radius:8px; font-size:16px; font-weight:bold;">Ir al Taller Ahora</a>
+                  <a href="${urlTaller}" style="display:inline-block; background:#2563eb; color:#ffffff; text-decoration:none; padding:16px 34px; border-radius:8px; font-size:16px; font-weight:bold; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);">Ir al Taller Ahora</a>
                 </div>
 
                 <!-- 📹 Botón de acceso a Teams -->
                 <div style="text-align:center;margin:35px 0;">
                   <p style="color:#4a5568;font-size:15px;margin-bottom: 20px;">
-                    <strong>Únete a las sesiones en vivo por Microsoft Teams:</strong>
+                    <strong style="color:#1a3a5c;">Únete a las sesiones en vivo por Microsoft Teams:</strong>
                   </p>
-                  <a href="${urlTeams}" style="display:inline-block; background:#5059c9; color:white; text-decoration:none; padding:16px 34px; border-radius:8px; font-size:16px; font-weight:bold;">📹 Unirme a la reunión en Teams</a>
+                  <a href="${urlTeams}" style="display:inline-block; background:#5059c9; color:#ffffff; text-decoration:none; padding:16px 34px; border-radius:8px; font-size:16px; font-weight:bold; box-shadow: 0 4px 6px rgba(80, 89, 201, 0.2);">📹 Unirme a la reunión en Teams</a>
                 </div>
 
                 <!-- 📋 Recomendaciones previas -->
@@ -205,14 +244,14 @@ export const bienvenidaTallerTemplate = ({
                   <p style="margin: 0; color: #1a3a5c; font-size: 14px; line-height: 1.6;">
                     ⚡ <strong>¿Tienes preguntas?</strong><br>
                     Contáctanos en 
-                    <a href="mailto:${emailSoporte}" style="color: #2a5f8a; text-decoration: underline;">
+                    <a href="mailto:${emailSoporte}" style="color: #2a5f8a; text-decoration: underline; font-weight: 500;">
                       ${emailSoporte}
                     </a>
                   </p>
                 </div>
 
                 <!-- 🌟 Mensaje de cierre -->
-                <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 10px; padding: 20px 25px; margin: 25px 0; text-align: center;">
+                <div style="background: #e8f5e9; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 10px; padding: 20px 25px; margin: 25px 0; text-align: center;">
                   <p style="margin: 0; color: #1b5e20; font-size: 15px; line-height: 1.6; font-weight: 500;">
                     🚀 <strong>¡Estamos seguros de que será una experiencia increíble!</strong><br>
                     <span style="font-size: 14px;">Tu compromiso y dedicación harán la diferencia.</span>
@@ -232,7 +271,7 @@ export const bienvenidaTallerTemplate = ({
                         CPCI - Comité Permanente sobre el Catastro en Iberoamérica
                       </p>
                       <p style="margin: 0 0 10px; color: #718096; font-size: 13px;">
-                        ✉ ${emailSoporte} | 🌐 <a href="${urlTaller}" style="color: #718096; text-decoration: underline;">${urlTaller}</a>
+                        ✉ <a href="mailto:${emailSoporte}" style="color: #718096; text-decoration: underline;">${emailSoporte}</a> | 🌐 <a href="${urlTaller}" style="color: #718096; text-decoration: underline;">${urlTaller}</a>
                       </p>
                       <p style="margin: 0; color: #a0aec0; font-size: 12px;">
                         Este es un mensaje automático, por favor no responder a este correo.

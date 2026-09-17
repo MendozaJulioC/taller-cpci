@@ -55,8 +55,8 @@ export async function enviarBienvenidaIndividual(inscripcionId) {
     html,
     attachments: [
       {
-        filename: "logo_2022.png",
-        path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+        filename: "logo_alcaldia.png",
+        path: path.join(process.cwd(), "public/Img/logo_alcaldia.png"),
         cid: "logo_principal",
       },
       {
@@ -134,8 +134,8 @@ export async function enviarPendientesDiarios(limiteDiario = 25) {
         html,
         attachments: [
           {
-            filename: "logo_2022.png",
-            path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+            filename: "logo_alcaldia.png",
+            path: path.join(process.cwd(), "public/Img/logo_alcaldia.png"),
             cid: "logo_principal",
           },
           {
@@ -234,8 +234,8 @@ export async function reintentarCorreosFallidos(emailsFallidos) {
         html,
         attachments: [
           {
-            filename: "logo_2022.png",
-            path: path.join(process.cwd(), "public/Img/logo_2022.png"),
+            filename: "logo_alcaldia.png",
+            path: path.join(process.cwd(), "public/Img/logo_alcaldia.png"),
             cid: "logo_principal",
           },
           {
