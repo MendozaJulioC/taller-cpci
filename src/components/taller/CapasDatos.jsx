@@ -6,6 +6,7 @@ import { Database, Download, TrendingUp, Map, FileArchive } from 'lucide-react';
 
 export default function CapasDatos() {
   const [descargando, setDescargando] = useState(null);
+  const [descargaHabilitada, setDescargaHabilitada] = useState(false);
 
   // 👇 Configuración de los 2 talleres con sus ZIP
   const talleres = [
@@ -120,8 +121,12 @@ export default function CapasDatos() {
                 {/* Botón de descarga */}
                 <button
                   onClick={() => handleDescargar(taller)}
-                  disabled={estaDescargando}
-                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${color.gradient} ${color.gradientHover} text-white text-sm font-bold rounded-xl transition-all shadow-lg ${color.shadow} hover:shadow-xl disabled:opacity-70 disabled:cursor-wait`}
+                  disabled={estaDescargando || !descargaHabilitada}
+                  className={`w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-xl transition-all ${
+                    !descargaHabilitada
+                      ? 'bg-gradient-to-r from-gray-400 to-gray-500 text-white cursor-not-allowed opacity-60 shadow-none'
+                      : `bg-gradient-to-r ${color.gradient} ${color.gradientHover} text-white shadow-lg ${color.shadow} hover:shadow-xl disabled:opacity-70 disabled:cursor-wait`
+                  }`}
                 >
                   {estaDescargando ? (
                     <>
