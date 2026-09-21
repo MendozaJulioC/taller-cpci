@@ -224,7 +224,7 @@ export default function TallerPage() {
           </div>
 
           {/* Información de Interés */}
-          <div className="mb-10 sm:mb-16">
+          {/* <div className="mb-10 sm:mb-16">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
               <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
@@ -239,7 +239,7 @@ export default function TallerPage() {
             <p className="text-center text-xs text-slate-400 mt-3">
               Las capas marcadas como <span className="text-blue-600 font-medium">Disponible</span> están listas para su descarga en el repositorio del taller
             </p>
-          </div>
+          </div> */}
 
           {/* Footer */}
           <div className="mt-10 sm:mt-16 pt-8 border-t border-slate-200/60 text-center">
