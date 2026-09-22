@@ -531,7 +531,7 @@ export default function ActividadesTallerDos({ usuario }) {
                 title="Descargar el material del taller en formato ZIP"
               >
                 <Download className="w-4 h-4" />
-                Descargar Taller
+                Descargar Taller 2
                 <span className={`text-[10px] font-normal ml-1 ${descargaHabilitada ? 'text-blue-200' : 'text-gray-300'}`}>
                   (ZIP)
                 </span>
