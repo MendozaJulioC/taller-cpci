@@ -10,6 +10,9 @@ import EjercicioGeoMedellin from './ejerciciosGeoMedellin/EjercicioGeoMedellin';
 import MisArchivos from '@/components/taller/MisArchivos';
 import PanelCalificaciones from '@/components/taller/PanelCalificaciones';
 import { useAuth } from "@/contexts/AuthContext";
+import GrabacionesClases from '@/components/taller/grabaciones/GrabacionesClases';
+
+// ... resto de importaciones
 
 export default function TallerPage() {
   const { usuario } = useAuth();
@@ -221,6 +224,20 @@ export default function TallerPage() {
 
           <div id="taller-3" className="mb-10 sm:mb-16">
             <ActividadesTallerTres usuario={usuario} />
+          </div>
+
+          {/* 👇 NUEVA SECCIÓN: Grabaciones de Clases */}
+          <div className="mb-10 sm:mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200"></div>
+              <h2 className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] whitespace-nowrap flex items-center gap-2">
+                <span className="text-base">🎥</span>
+                Grabaciones de Clases
+              </h2>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-slate-200"></div>
+            </div>
+            
+            <GrabacionesClases />
           </div>
 
           {/* Información de Interés */}
