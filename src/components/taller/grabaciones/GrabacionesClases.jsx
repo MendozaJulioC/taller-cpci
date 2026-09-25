@@ -1,12 +1,13 @@
+// src/components/taller/grabaciones/GrabacionesClases.jsx
 'use client'
 
 import { useState } from 'react';
 import { Video, Play, ExternalLink, Calendar, Clock, X, AlertCircle } from 'lucide-react';
+import { FaYoutube } from 'react-icons/fa';
 
 export default function GrabacionesClases() {
   const [grabacionActiva, setGrabacionActiva] = useState(null);
 
-  // 👇 Configuración de las grabaciones
   const grabaciones = [
     {
       id: 1,
@@ -14,25 +15,22 @@ export default function GrabacionesClases() {
       fecha: '21 de septiembre del 2026',
       duracion: '3 horas aprox.',
       descripcion: 'Grabación de la primera sesión del taller, donde se presentó la plataforma geográfica del Distrito de Medellín y se realizaron ejercicios con información catastral.',
-      urlSharePoint: 'https://medellingovco-my.sharepoint.com/personal/414704_medellin_gov_co/_layouts/15/stream.aspx?id=%2Fpersonal%2F414704%5Fmedellin%5Fgov%5Fco%2FDocuments%2FGrabaciones%2FTaller%20visualizaci%C3%B3n%20de%20datos%20para%20Catastro%2E%20Taller%201%2D20260921%5F081246%2DGrabaci%C3%B3n%20de%20la%20reuni%C3%B3n%2Emp4&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E7fb39cfd%2Db623%2D496c%2D9d09%2D5a5cbda882f3',
-      urlEmbed: 'https://medellingovco-my.sharepoint.com/personal/414704_medellin_gov_co/_layouts/15/embed.aspx?UniqueId=f70442f7-117e-419c-9ba1-6e2896afc6dc&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create',
+      youtubeId: 'wTOu2h6Dd7Y', // 👈 Reemplazar con el ID real
       color: 'blue',
       icono: '🗺️',
       disponible: true,
     },
-    // Puedes agregar más grabaciones aquí cuando estén disponibles:
-    // {
-    //   id: 2,
-    //   titulo: 'Taller 2: Visualización de Datos',
-    //   fecha: '23 de septiembre del 2026',
-    //   duracion: '3 horas aprox.',
-    //   descripcion: '...',
-    //   urlSharePoint: '...',
-    //   urlEmbed: '...',
-    //   color: 'emerald',
-    //   icono: '📊',
-    //   disponible: true,
-    // },
+    {
+      id: 2,
+      titulo: 'Taller 2: Plataforma Geográfica del Distrito de Medellín',
+      fecha: '23 de septiembre del 2026',
+      duracion: '3 horas aprox.',
+      descripcion: 'Grabación de la segunda sesión del taller, donde se presentó la plataforma geográfica del Distrito de Medellín y se realizaron ejercicios con información catastral.',
+      youtubeId: 'iewazbI2T4E', // 👈 Reemplazar con el ID real
+      color: 'blue',
+      icono: '🗺️',
+      disponible: true,
+    },
   ];
 
   const colores = {
@@ -78,9 +76,9 @@ export default function GrabacionesClases() {
     <>
       <div className="bg-white rounded-2xl border border-slate-200/60 shadow-lg shadow-slate-200/30 overflow-hidden">
         {/* Encabezado */}
-        <div className="bg-gradient-to-r from-rose-600 to-pink-600 px-6 py-4">
+        <div className="bg-gradient-to-r from-red-600 to-rose-600 px-6 py-4">
           <div className="flex items-center gap-3">
-            <Video className="w-5 h-5 text-white/80" />
+            <FaYoutube className="w-5 h-5 text-white/80" />
             <div>
               <h3 className="text-white font-bold text-sm">Grabaciones de las Clases</h3>
               <p className="text-rose-100 text-[10px] font-medium">
@@ -95,15 +93,13 @@ export default function GrabacionesClases() {
           {grabaciones.length === 0 ? (
             <div className="text-center py-8">
               <Video className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-sm text-slate-500">
-                Aún no hay grabaciones disponibles.
-              </p>
+              <p className="text-sm text-slate-500">Aún no hay grabaciones disponibles.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {grabaciones.map((grabacion) => {
                 const color = colores[grabacion.color];
-                const estaDisponible = grabacion.disponible && grabacion.urlSharePoint;
+                const estaDisponible = grabacion.disponible && grabacion.youtubeId;
 
                 return (
                   <div
@@ -112,48 +108,67 @@ export default function GrabacionesClases() {
                       estaDisponible
                         ? `bg-gradient-to-br ${color.bg} border-2 ${color.border} hover:shadow-xl hover:-translate-y-1`
                         : 'bg-slate-50 border-2 border-slate-200 opacity-60'
-                    } rounded-2xl p-6 transition-all duration-300`}
+                    } rounded-2xl overflow-hidden transition-all duration-300`}
                   >
-                    {/* Icono y estado */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`p-3 bg-white rounded-xl shadow-sm ${estaDisponible ? color.icon : 'text-slate-400'} text-2xl`}>
-                        {grabacion.icono}
+                    {/* Miniatura del video */}
+                    {estaDisponible && (
+                      <div className="relative aspect-video bg-slate-900 overflow-hidden group">
+                        <img
+                          src={`https://img.youtube.com/vi/${grabacion.youtubeId}/maxresdefault.jpg`}
+                          alt={grabacion.titulo}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          onError={(e) => {
+                            e.target.src = `https://img.youtube.com/vi/${grabacion.youtubeId}/hqdefault.jpg`;
+                          }}
+                        />
+                        <button
+                          onClick={() => setGrabacionActiva(grabacion)}
+                          className="absolute inset-0 bg-black/30 hover:bg-black/40 transition-all duration-300 flex items-center justify-center group"
+                          aria-label="Reproducir video"
+                        >
+                          <div className="w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
+                            <Play className="w-7 h-7 text-white ml-1" fill="white" />
+                          </div>
+                        </button>
                       </div>
-                      <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full bg-white ${
-                        estaDisponible ? color.text : 'text-slate-500'
-                      } uppercase tracking-wider`}>
-                        {estaDisponible ? 'Disponible' : 'Próximamente'}
-                      </span>
-                    </div>
-
-                    {/* Título */}
-                    <h4 className={`text-base font-bold mb-3 ${estaDisponible ? color.text : 'text-slate-500'}`}>
-                      {grabacion.titulo}
-                    </h4>
-
-                    {/* Metadata */}
-                    <div className="flex flex-wrap gap-3 mb-4 text-xs text-slate-600">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {grabacion.fecha}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        {grabacion.duracion}
-                      </span>
-                    </div>
-
-                    {/* Descripción */}
-                    {grabacion.descripcion && (
-                      <p className="text-sm text-slate-600 leading-relaxed mb-5">
-                        {grabacion.descripcion}
-                      </p>
                     )}
 
-                    {/* Botones */}
-                    {estaDisponible ? (
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        {grabacion.urlEmbed ? (
+                    {/* Contenido de la tarjeta */}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className={`p-3 bg-white rounded-xl shadow-sm ${estaDisponible ? color.icon : 'text-slate-400'} text-2xl`}>
+                          {grabacion.icono}
+                        </div>
+                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full bg-white ${
+                          estaDisponible ? color.text : 'text-slate-500'
+                        } uppercase tracking-wider`}>
+                          {estaDisponible ? 'Disponible' : 'Próximamente'}
+                        </span>
+                      </div>
+
+                      <h4 className={`text-base font-bold mb-3 ${estaDisponible ? color.text : 'text-slate-500'}`}>
+                        {grabacion.titulo}
+                      </h4>
+
+                      <div className="flex flex-wrap gap-3 mb-4 text-xs text-slate-600">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5" />
+                          {grabacion.fecha}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          {grabacion.duracion}
+                        </span>
+                      </div>
+
+                      {grabacion.descripcion && (
+                        <p className="text-sm text-slate-600 leading-relaxed mb-5">
+                          {grabacion.descripcion}
+                        </p>
+                      )}
+
+                      {estaDisponible ? (
+                        <div className="flex flex-col sm:flex-row gap-2">
                           <button
                             onClick={() => setGrabacionActiva(grabacion)}
                             className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${color.gradient} ${color.gradientHover} text-white text-sm font-bold rounded-xl transition-all shadow-lg ${color.shadow} hover:shadow-xl`}
@@ -161,35 +176,23 @@ export default function GrabacionesClases() {
                             <Play className="w-4 h-4" />
                             Ver grabación
                           </button>
-                        ) : (
                           <a
-                            href={grabacion.urlSharePoint}
+                            href={`https://www.youtube.com/watch?v=${grabacion.youtubeId}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r ${color.gradient} ${color.gradientHover} text-white text-sm font-bold rounded-xl transition-all shadow-lg ${color.shadow} hover:shadow-xl`}
+                            className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 text-sm font-semibold rounded-xl transition-all"
+                            title="Ver en YouTube"
                           >
-                            <Play className="w-4 h-4" />
-                            Ver grabación
+                            <ExternalLink className="w-4 h-4" />
                           </a>
-                        )}
-
-                        <a
-                          href={grabacion.urlSharePoint}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 text-sm font-semibold rounded-xl transition-all"
-                          title="Abrir en SharePoint"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          <span className="sm:hidden">SharePoint</span>
-                        </a>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-xs text-slate-500 bg-white/60 border border-slate-200 rounded-xl p-3">
-                        <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                        <span>Esta grabación estará disponible próximamente.</span>
-                      </div>
-                    )}
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-xs text-slate-500 bg-white/60 border border-slate-200 rounded-xl p-3">
+                          <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                          <span>Esta grabación estará disponible próximamente.</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -197,29 +200,29 @@ export default function GrabacionesClases() {
           )}
 
           {/* Nota informativa */}
-          <div className="mt-6 bg-rose-50/50 border border-rose-100 rounded-xl p-4">
+          <div className="mt-6 bg-red-50/50 border border-red-100 rounded-xl p-4">
             <p className="text-xs text-slate-600 flex items-start gap-2">
-              <span className="text-rose-500 text-sm">💡</span>
+              <span className="text-red-500 text-sm">💡</span>
               <span>
-                Las grabaciones se publican después de cada sesión. 
-                Si no puedes ver el video embebido, usa el botón <strong>"Abrir en SharePoint"</strong>.
+                Las grabaciones se publican después de cada sesión. Los videos se alojan en YouTube 
+                para garantizar la mejor calidad y disponibilidad.
               </span>
             </p>
           </div>
         </div>
       </div>
 
-      {/* Modal de video embebido */}
-      {grabacionActiva && grabacionActiva.urlEmbed && (
+      {/* Modal de video */}
+      {grabacionActiva && (
         <div
           className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
           onClick={(e) => e.target === e.currentTarget && setGrabacionActiva(null)}
         >
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
-            {/* Header del modal */}
-            <div className="bg-gradient-to-r from-rose-600 to-pink-600 px-6 py-4 flex items-center justify-between">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-red-600 to-rose-600 px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3 text-white">
-                <Video className="w-5 h-5" />
+                <FaYoutube className="w-5 h-5" />
                 <div>
                   <h3 className="font-bold text-sm">{grabacionActiva.titulo}</h3>
                   <p className="text-rose-100 text-[10px]">
@@ -229,11 +232,11 @@ export default function GrabacionesClases() {
               </div>
               <div className="flex items-center gap-2">
                 <a
-                  href={grabacionActiva.urlSharePoint}
+                  href={`https://www.youtube.com/watch?v=${grabacionActiva.youtubeId}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg"
-                  title="Abrir en SharePoint"
+                  title="Ver en YouTube"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -247,31 +250,31 @@ export default function GrabacionesClases() {
               </div>
             </div>
 
-            {/* Video embebido */}
+            {/* Video de YouTube */}
             <div className="bg-black aspect-video max-h-[70vh]">
-                <iframe
-                    src={grabacionActiva.urlEmbed}
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allowFullScreen
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    title={grabacionActiva.titulo}
-                ></iframe>
+              <iframe
+                src={`https://www.youtube.com/embed/${grabacionActiva.youtubeId}?rel=0&modestbranding=1&autoplay=1`}
+                className="w-full h-full"
+                frameBorder="0"
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                title={grabacionActiva.titulo}
+              ></iframe>
             </div>
 
             {/* Footer */}
             <div className="bg-slate-50 px-6 py-4 flex items-center justify-between">
               <span className="text-xs text-slate-500">
-                Si el video no carga correctamente, ábrelo directamente en SharePoint
+                Si el video no carga, ábrelo directamente en YouTube
               </span>
               <a
-                href={grabacionActiva.urlSharePoint}
+                href={`https://www.youtube.com/watch?v=${grabacionActiva.youtubeId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg transition-all"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                Abrir en SharePoint
+                Ver en YouTube
               </a>
             </div>
           </div>
