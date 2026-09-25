@@ -31,6 +31,17 @@ export default function GrabacionesClases() {
       icono: '🗺️',
       disponible: true,
     },
+    {
+      id: 3,
+      titulo: 'Taller 3: Plataforma Geográfica del Distrito de Medellín',
+      fecha: '25 de septiembre del 2026',
+      duracion: '3 horas aprox.',
+      descripcion: 'Grabación de la segunda sesión del taller, donde se presentó la plataforma geográfica del Distrito de Medellín y se realizaron ejercicios con información catastral.',
+      youtubeId: 'ELknSVhdp70', // 👈 Reemplazar con el ID real
+      color: 'blue',
+      icono: '🗺️',
+      disponible: true,
+    },
   ];
 
   const colores = {
