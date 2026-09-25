@@ -38,7 +38,7 @@ export default function ActividadesTallerTres({ usuario }) {
   const [cargandoArchivo, setCargandoArchivo] = useState(false);
   const [archivoSubido, setArchivoSubido] = useState(null);
   const [mensajeSubida, setMensajeSubida] = useState('');
-  const [descargaHabilitada, setDescargaHabilitada] = useState(false);
+  const [descargaHabilitada, setDescargaHabilitada] = useState(true);
 
   // 👇 SE ELIMINÓ LA ACTIVIDAD 1 (Aspectos Generales)
   // Las actividades restantes se renumeraron: 2→1, 3→2, 4→3
@@ -144,13 +144,20 @@ export default function ActividadesTallerTres({ usuario }) {
   };
 
   const handleDescargarPropuesta = () => {
-    const url = '/data/EnunciadoTaller03.pdf';
+    // Ruta al archivo ZIP en la carpeta public
+    const url = '/data/Datos_Taller03.zip';
+    
+    // Crear un enlace temporal para descargar
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Taller 3 - Historias de Datos Espaciales';
+    link.download = 'Datos_Taller03.zip';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Mostrar mensaje temporal
+    setMensajeSubida('✅ Descargando archivo ZIP...');
+    setTimeout(() => setMensajeSubida(''), 3000);
   };
 
   const handleSubirArchivo = async (event) => {
@@ -520,11 +527,12 @@ export default function ActividadesTallerTres({ usuario }) {
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/30'
                     : 'bg-gradient-to-r from-gray-400 to-gray-500 text-white cursor-not-allowed opacity-50 shadow-none'
                 }`}
+                title="Descargar el material del taller en formato ZIP"
               >
                 <Download className="w-4 h-4" />
                 Descargar Taller
                 <span className={`text-[10px] font-normal ml-1 ${descargaHabilitada ? 'text-blue-200' : 'text-gray-300'}`}>
-                  (PDF)
+                  (ZIP)
                 </span>
               </button>
 
@@ -582,7 +590,7 @@ export default function ActividadesTallerTres({ usuario }) {
             )}
           </div>
           <p className="text-[10px] text-slate-400 mt-2">
-            Sube tu taller resuelto en formato PDF (máximo 20MB)
+            Descarga el material del taller en ZIP o sube tu taller resuelto en PDF (máximo 20MB)
           </p>
         </div>
       </div>
