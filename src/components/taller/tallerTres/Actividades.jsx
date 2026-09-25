@@ -145,12 +145,12 @@ export default function ActividadesTallerTres({ usuario }) {
 
   const handleDescargarPropuesta = () => {
     // Ruta al archivo ZIP en la carpeta public
-    const url = '/data/Datos_Taller03.zip';
+    const url = '/data/Archvios_Datos_Taller03.zip';
     
     // Crear un enlace temporal para descargar
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Datos_Taller03.zip';
+    link.download = 'Archvios_Datos_Taller03.zip';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
