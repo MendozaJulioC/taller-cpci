@@ -8,7 +8,6 @@ import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
 import { useAuth } from "@/contexts/AuthContext";
 import ModalRecuperarPassword from "@/components/login/ModalRecuperarPassword";
-import ModalInscripcionesCerradas from '@/components/ui/ModalInscripcionesCerradas'; // 👈 IMPORTAR
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +17,6 @@ export default function Header() {
   const [menuUsuario, setMenuUsuario] = useState(false);
   const [showInscripcionesMenu, setShowInscripcionesMenu] = useState(false);
   const [rolModal, setRolModal] = useState('participante');
-  const [modalCerradasOpen, setModalCerradasOpen] = useState(false); // 👈 NUEVO ESTADO
 
   const { usuario, logout } = useAuth();
   const router = useRouter();
@@ -28,46 +26,36 @@ export default function Header() {
   // 👇 REFERENCIA PARA EL MENÚ DE INSCRIPCIONES
   const inscripcionesRef = useRef(null);
 
-  // 👇 FUNCIÓN PARA MANEJAR EL CLIC EN INSCRIPCIONES
-  const handleInscripcionesClick = () => {
-    setModalCerradasOpen(true);
-  };
-
   // 👇 EFECTO PARA CERRAR MENÚ AL HACER CLIC FUERA
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Cerrar menú de usuario si está abierto y el clic fue fuera
       if (menuUsuario && menuRef.current && !menuRef.current.contains(event.target)) {
         setMenuUsuario(false);
       }
       
-      // Cerrar menú de inscripciones si está abierto y el clic fue fuera
       if (showInscripcionesMenu && inscripcionesRef.current && !inscripcionesRef.current.contains(event.target)) {
         setShowInscripcionesMenu(false);
       }
     };
 
-    // Agregar el evento
     document.addEventListener('mousedown', handleClickOutside);
     
-    // Limpiar el evento al desmontar
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [menuUsuario, showInscripcionesMenu]);
 
-  // También cerrar menú al presionar Escape
+  // Cerrar menú al presionar Escape
   useEffect(() => {
     const handleEsc = (event) => {
       if (event.key === 'Escape') {
         if (menuUsuario) setMenuUsuario(false);
         if (showInscripcionesMenu) setShowInscripcionesMenu(false);
-        if (modalCerradasOpen) setModalCerradasOpen(false);
       }
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
-  }, [menuUsuario, showInscripcionesMenu, modalCerradasOpen]);
+  }, [menuUsuario, showInscripcionesMenu]);
 
   return (
     <>
@@ -94,11 +82,6 @@ export default function Header() {
           setRecoveryOpen(false); 
           setLoginOpen(true); 
         }} 
-      />
-      {/* 👇 MODAL DE INSCRIPCIONES CERRADAS */}
-      <ModalInscripcionesCerradas 
-        isOpen={modalCerradasOpen} 
-        onClose={() => setModalCerradasOpen(false)} 
       />
       
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
@@ -155,17 +138,48 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-3 relative">
             {!usuario && (
               <div ref={inscripcionesRef} className="relative inscripciones-dropdown">
-                {/* 👇 BOTÓN DESHABILITADO - Ahora abre el modal de cerradas */}
                 <button
-                  onClick={handleInscripcionesClick}
-                  className="bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed transition-all duration-200 shadow-sm flex items-center gap-1 opacity-75"
-                  title="Las inscripciones están cerradas"
+                  onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm flex items-center gap-1"
                 >
                   Inscripciones
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${showInscripcionesMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
+                
+                {showInscripcionesMenu && (
+                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-slate-200 z-50 overflow-hidden">
+                    <button
+                      onClick={() => {
+                        setRolModal('participante');
+                        setModalOpen(true);
+                        setShowInscripcionesMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-blue-50 border-b border-slate-100 flex items-center gap-3 transition-colors"
+                    >
+                      <span className="text-xl">👤</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Inscribirse como Participante</p>
+                        <p className="text-xs text-slate-500">Accede a los talleres y sube tus ejercicios</p>
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setRolModal('formador');
+                        setModalOpen(true);
+                        setShowInscripcionesMenu(false);
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-rose-50 flex items-center gap-3 transition-colors"
+                    >
+                      <span className="text-xl">📋</span>
+                      <div>
+                        <p className="text-sm font-medium text-slate-800">Inscribirse como Formador</p>
+                        <p className="text-xs text-slate-500">Moderador y calificador de los ejercicios</p>
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -177,7 +191,6 @@ export default function Header() {
                 Iniciar sesión
               </button>
             ) : (
-              // 👇 MENÚ DE USUARIO CON REFERENCIA
               <div ref={menuRef} className="relative">
                 <button
                   onClick={() => setMenuUsuario(!menuUsuario)}
@@ -270,24 +283,23 @@ export default function Header() {
 
             {!usuario && (
               <>
-                {/* 👇 BOTONES MÓVILES DESHABILITADOS */}
                 <button
                   onClick={() => {
-                    setModalCerradasOpen(true);
+                    setRolModal('participante');
+                    setModalOpen(true);
                     setIsOpen(false);
                   }}
-                  className="w-full bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed opacity-75 flex items-center justify-center gap-2"
-                  title="Las inscripciones están cerradas"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
                 >
                   👤 Inscribirse como Participante
                 </button>
                 <button
                   onClick={() => {
-                    setModalCerradasOpen(true);
+                    setRolModal('formador');
+                    setModalOpen(true);
                     setIsOpen(false);
                   }}
-                  className="w-full bg-slate-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed opacity-75 flex items-center justify-center gap-2"
-                  title="Las inscripciones están cerradas"
+                  className="w-full bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
                 >
                   📋 Inscribirse como Formador
                 </button>
