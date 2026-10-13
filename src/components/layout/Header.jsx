@@ -342,7 +342,7 @@ export default function Header() {
                   }}
                   className="w-full text-left px-1 py-2 hover:bg-slate-50 rounded"
                 >
-                  📚 Mis talleres
+                  📚 Mis talleres publicados
                 </button>
                 <button
                   onClick={() => {
