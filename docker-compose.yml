@@ -1,0 +1,99 @@
+services:
+  # ============================================
+  # SERVICIO: Base de Datos PostgreSQL
+  # ============================================
+  db:
+    image: postgres:16-alpine
+    container_name: taller_cpci_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - taller_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # SERVICIO: Aplicación Next.js
+  # ============================================
+  app:
+    build: .
+    container_name: taller_cpci_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # --- Base de datos (composición) ---
+      DATABASE_URL: ${DATABASE_URL}
+      
+      # --- Base de datos (variables sueltas) ---
+      K_PGHOST: ${K_PGHOST}
+      K_PGPASSWORD: ${K_PGPASSWORD}
+      K_PGDATABASE: ${K_PGDATABASE}
+      K_PGPORT: ${K_PGPORT}
+      K_PGUSER: ${K_PGUSER}
+      K_PGSSL: ${K_PGSSL}
+      
+      # --- Autenticación JWT ---
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      
+      # --- NextAuth ---
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+      
+      # --- Google OAuth ---
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      
+      # --- SMTP (envío de correos) ---
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      
+      # --- Email alternativo ---
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
+      
+      # --- Vercel Blob (almacenamiento) ---
+      BLOB_STORE_ID: ${BLOB_STORE_ID}
+      BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN}
+      
+      # --- API Keys ---
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      CRON_SECRET: ${CRON_SECRET}
+      
+      # --- URLs de API ---
+      REACTAPPAPIBASEURL: ${REACTAPPAPIBASEURL}
+      
+      # --- Modo mantenimiento ---
+      MAINTENANCE_MODE: ${MAINTENANCE_MODE}
+      
+      # --- Entorno Node ---
+      NODE_ENV: production
+      
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - taller_network
+
+volumes:
+  postgres_data:
+
+networks:
+  taller_network:
+    driver: bridge

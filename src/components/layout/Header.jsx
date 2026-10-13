@@ -8,6 +8,7 @@ import ModalInscripcion from '@/components/ui/ModalInscripcion';
 import ModalLogin from "@/components/login/ModalLogin";
 import { useAuth } from "@/contexts/AuthContext";
 import ModalRecuperarPassword from "@/components/login/ModalRecuperarPassword";
+import ModalConvocatoriaFinalizada from '@/components/ui/ModalConvocatoriaFinalizada';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Header() {
   const [recoveryOpen, setRecoveryOpen] = useState(false);
   const [menuUsuario, setMenuUsuario] = useState(false);
   const [showInscripcionesMenu, setShowInscripcionesMenu] = useState(false);
+  const [finalizadaOpen, setFinalizadaOpen] = useState(false);
   const [rolModal, setRolModal] = useState('participante');
 
   const { usuario, logout } = useAuth();
@@ -83,6 +85,11 @@ export default function Header() {
           setLoginOpen(true); 
         }} 
       />
+
+      <ModalConvocatoriaFinalizada
+        isOpen={finalizadaOpen}
+        onClose={() => setFinalizadaOpen(false)}
+      />
       
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-slate-50/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
@@ -139,7 +146,8 @@ export default function Header() {
             {!usuario && (
               <div ref={inscripcionesRef} className="relative inscripciones-dropdown">
                 <button
-                  onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
+                  onClick={() => setFinalizadaOpen(true)}
+                  // onClick={() => setShowInscripcionesMenu(!showInscripcionesMenu)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm flex items-center gap-1"
                 >
                   Inscripciones
@@ -185,7 +193,8 @@ export default function Header() {
 
             {!usuario ? (
               <button
-                onClick={() => setLoginOpen(true)}
+                onClick={() => setFinalizadaOpen(true)} 
+                // onClick={() => setLoginOpen(true)}
                 className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold transition"
               >
                 Iniciar sesión
